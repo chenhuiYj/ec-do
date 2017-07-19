@@ -1,3 +1,4 @@
+/*1.0.1*/
 var ecDo = {
     //去除空格  type 1-所有空格  2-前后空格  3-前空格 4-后空格
     trim: function (str, type) {
@@ -24,6 +25,23 @@ var ecDo = {
     //changeCase('asdasd',1)
     //Asdasd
     changeCase: function (str, type) {
+        function ToggleCase(str) {
+            var itemText = ""
+            str.split("").forEach(
+                function (item) {
+                    if (/^([a-z]+)/.test(item)) {
+                        itemText += item.toUpperCase();
+                    }
+                    else if (/^([A-Z]+)/.test(item)) {
+                        itemText += item.toLowerCase();
+                    }
+                    else{
+                        itemText += item;
+                    }
+                });
+            return itemText;
+        }
+
         switch (type) {
             case 1:
                 return str.replace(/^(\w)(\w+)/, function (v, v1, v2) {
@@ -34,9 +52,7 @@ var ecDo = {
                     return v1.toLowerCase() + v2.toUpperCase();
                 });
             case 3:
-                return str.replace(/^([a-z]+)([A-Z]+)/, function (v, v1, v2) {
-                    return v1.toUpperCase() + v2.toLowerCase();
-                });
+                return ToggleCase(str);
             case 4:
                 return str.toUpperCase();
             case 5:
