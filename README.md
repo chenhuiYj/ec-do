@@ -20,7 +20,7 @@ ecDo.changeCase('asdXaaaXHwwHwwad',3)
 
 具体使用方式在ec-do.js里面有说明
 
-#### 1.0.2版本
+#### 1.1.0版本
 
 ##### 更新方法
 1.upDigit(现金额大写转换函数)存在的bug修复！
