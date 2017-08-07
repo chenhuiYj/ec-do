@@ -65,5 +65,39 @@ ecDo.changeCase('asdXaaaXHwwHwwad',3)
 
 14.arraySort(对象数组排序)
 
+#### 1.1.2版本更新
+##### removeClass（删除类名）
+之前是只能处理单个html元素，传入html集合或者html元素数组，运行会报错，现在即使传入的是一个html集合或者html元素数组，都可以处理
+
+##### addClass（增加类名）
+之前是只能处理单个html元素，传入html集合或者html元素数组，运行会报错，现在即使传入的是一个html集合或者html元素数组，都可以处理
+
+##### hasClass（检测对象是否有哪个类名）
+之前如果传进来的obj本身没有class属性，或者class为空的情况下，运行会报错，现在返回fasle
+
+##### siblings（获取兄弟节点）
+增加筛选条件，支持标签名，class，id
+//之前支持一种写法
+
+ecDo.siblings(obj)
+
+//现在写法
+
+//返回所有兄弟节点
+
+ecDo.siblings(obj)
+
+//返回兄弟节点且兄弟节点id为‘cur’
+
+ecDo.siblings(obj,'#cur')
+
+//返回兄弟节点且兄弟节点class为‘cur’
+
+ecDo.siblings(obj,'.cur')
+
+//返回兄弟节点且兄弟节点标签为a
+
+ecDo.siblings(obj,'a')
+
 ## LICENSE
 MIT

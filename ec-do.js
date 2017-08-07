@@ -1,4 +1,4 @@
-/*1.1.0*/
+/*1.1.2*/
 var ecDo = {
     //去除空格  type 1-所有空格  2-前后空格  3-前空格 4-后空格
     trim: function (str, type) {
@@ -176,7 +176,7 @@ var ecDo = {
     //randomWord(14)
     //"9b405070dd00122640c192caab84537"
 
-	//randomWord(36)
+    //randomWord(36)
     //"83vhdx10rmjkyb9"
 
     randomWord: function (count) {
@@ -291,7 +291,7 @@ var ecDo = {
     //getArrayNum([0,1,2,3,4,5,6,7,8,9],2) 不传第二个参数,默认返回从n1到数组结束的元素
     //[2, 3, 4, 5, 6, 7, 8, 9]
     getArrayNum: function (arr, n1, n2) {
-		var arr1=arr.slice(n1,n2);
+        var arr1=arr.slice(n1,n2);
         return arr1;
     },
 
@@ -483,20 +483,45 @@ var ecDo = {
     /*DOM*/
     //检测对象是否有哪个类名
     hasClass: function (obj, classStr) {
-        var arr = obj.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含
-        return (arr.indexOf(classStr) == -1) ? false : true;
+        if(obj.className&&this.trim(obj.className,1)!==""){
+            var arr = obj.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含
+            return (arr.indexOf(classStr) == -1) ? false : true;
+        }
+        else{
+            return false;
+        }
+
     },
     //添加类名
     addClass: function (obj, classStr) {
-        if (!this.hasClass(obj, classStr)) {
-            obj.className += " " + classStr;
+        if((this.istype(obj,'array')||this.istype(obj,'elements'))&&obj.length>=1){
+            for(var i=0,len=obj.length;i<len;i++){
+                if (!this.hasClass(obj[i], classStr)) {
+                    obj[i].className += " " + classStr;
+                }
+            }
+        }
+        else{
+            if (!this.hasClass(obj, classStr)) {
+                obj.className += " " + classStr;
+            }
         }
     },
     //删除类名
     removeClass: function (obj, classStr) {
-        if (this.hasClass(obj, classStr)) {
-            var reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
-            obj.className = obj.className.replace(reg, '');
+        if((this.istype(obj,'array')||this.istype(obj,'elements'))&&obj.length>1){
+            for(var i=0,len=obj.length;i<len;i++){
+                if (this.hasClass(obj[i], classStr)) {
+                    var reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
+                    obj[i].className = obj[i].className.replace(reg, '');
+                }
+            }
+        }
+        else{
+            if (this.hasClass(obj, classStr)) {
+                var reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
+                obj.className = obj.className.replace(reg, '');
+            }
         }
     },
     //替换类名("被替换的类名","替换的类名")
@@ -505,7 +530,7 @@ var ecDo = {
         this.addClass(obj, newName);
     },
     //获取兄弟节点
-    siblings: function (obj) {
+    siblings: function (obj,opt) {
         var a = []; //定义一个数组，用来存o的兄弟元素
         var p = obj.previousSibling;
         while (p) { //先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling
@@ -521,6 +546,19 @@ var ecDo = {
                 a.push(n);
             }
             n = n.nextSibling;
+        }
+        if(opt){
+            var b=[];//定义一个数组，用于储存过滤a的数组
+            if(opt[0]==='.'){
+                b=a.filter(function(item){return item.className===opt});
+            }
+            else if(opt[0]==='#'){
+                b=a.filter(function(item){return item.id===opt});
+            }
+            else{
+                b=a.filter(function(item){return item.tagName.toLowerCase()===opt});
+            }
+            return b;
         }
         return a;
     },
@@ -553,17 +591,17 @@ var ecDo = {
      * @param {function}obj.success ajax发送并接收成功调用的回调函数
      * @param {function}obj.error ajax发送失败或者接收失败调用的回调函数
      */
-	//  ecAjax({
-	//  	type:'get',
-	//  	url:'xxx',
-	//  	data:{
-	//  		id:'111'
-	//  	},
-	//  	success:function(res){
-	//  		console.log(res)
-	//  	}
-	//  })
-    ecAjax: function (obj) {
+    //  ajax({
+    //  	type:'get',
+    //  	url:'xxx',
+    //  	data:{
+    //  		id:'111'
+    //  	},
+    //  	success:function(res){
+    //  		console.log(res)
+    //  	}
+    //  })
+    ajax: function (obj) {
         obj = obj || {};
         obj.type = obj.type.toUpperCase() || 'POST';
         obj.url = obj.url || '';
@@ -667,11 +705,11 @@ var ecDo = {
     //比如，一张图片距离文档顶部3000，num参数设置200，那么在页面滚动到2800的时候，图片加载。不传num参数就滚动，num默认是0，页面滚动到3000就加载
     //html代码
     //<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>
-	//<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>
-	//<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>....
+    //<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>
+    //<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>....
     //data-src储存src的数据，到需要加载的时候把data-src的值赋值给src属性，图片就会加载。
     //详细可以查看testLoadImg.html
-    
+
     //window.onload = function() {
     //	loadImg('load-img',100);
     //	window.onscroll = function() {
@@ -787,7 +825,7 @@ var ecDo = {
     },
     //关键字加标签（多个关键词用空格隔开）
     //ecDo.findKey('守侯我oaks接到了来自下次你离开快乐吉祥留在开城侯','守侯 开','i')
-	//"<i>守侯</i>我oaks接到了来自下次你离<i>开</i>快乐吉祥留在<i>开</i>城侯"
+    //"<i>守侯</i>我oaks接到了来自下次你离<i>开</i>快乐吉祥留在<i>开</i>城侯"
     findKey: function (str, key, el) {
         var arr = null,
             regStr = null,
@@ -811,7 +849,9 @@ var ecDo = {
     //ecDo.istype([])
     //'[object Array]'
     istype: function (o, type) {
-        var _type = type.toLowerCase();
+        if(_type){
+            var _type = type.toLowerCase();
+        }
         switch (_type) {
             case 'string':
                 return Object.prototype.toString.call(o) === '[object String]';
@@ -831,6 +871,8 @@ var ecDo = {
                 return Object.prototype.toString.call(o) === '[object Object]';
             case 'nan':
                 return isNaN(o);
+            case 'elements':
+                return Object.prototype.toString.call(o).indexOf('HTML')!==-1
             default:
                 return Object.prototype.toString.call(o)
         }
@@ -854,7 +896,7 @@ var ecDo = {
     //句中单词首字母大写 (Title Case a Sentence)
     //这个我也一直在纠结，英文标题，即使是首字母大写，也未必每一个单词的首字母都是大写的，但是又不知道哪些应该大写，哪些不应该大写
     //ecDo.titleCaseUp('this is a title')
-  	//"This Is A Title"
+    //"This Is A Title"
     titleCaseUp: function (str, splitType) {
         var _splitType = splitType || /\s+/g;
         var strArr = str.split(_splitType),
@@ -881,46 +923,46 @@ var ecDo = {
     },
     //过滤字符串(html标签，表情，特殊字符)
     //字符串，替换内容（special-特殊字符,html-html标签,emjoy-emjoy表情,word-小写字母，WORD-大写字母，number-数字,chinese-中文），要替换成什么，默认'',保留哪些特殊字符
-    //如果需要过滤多种字符，type参数使用','分割，
-    //如下栗子,意就是过滤字符串的html标签，大写字母，中文，特殊字符，全部替换成*,但是特殊字符'%'，'?'，除了这两个，其他特殊字符全部清除
+    //如果需要过滤多种字符，type参数使用,分割，如下栗子
+    //过滤字符串的html标签，大写字母，中文，特殊字符，全部替换成*,但是特殊字符'%'，'?'，除了这两个，其他特殊字符全部清除
     //var str='asd    654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src=""/>啊实打实大蠢猪自行车这些课程';
-   // ecDo.filterStr(str,'html,WORD,chinese,special','*','%?')
-	//"asd    654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
+    // ecDo.filterStr(str,'html,WORD,chinese,special','*','%?')
+    //"asd    654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
     filterStr:function(str,type,restr,spstr){
-    	var typeArr=type.split(','),_str=str;
-    	for(var i=0,len=typeArr.length;i<len;i++){
-    		if(typeArr[i]==='special'){
-    		var pattern,regText='$()[]{}?\|^*+./\"\'+';
-    		if(spstr){
-    			var _spstr=spstr.split(""),_regText="[^0-9A-Za-z\\s";
-    			for(var i=0,len=_spstr.length;i<len;i++){
-    				if(regText.indexOf(_spstr[i])===-1){
-    					_regText+=_spstr[i];
-    				}
-    				else{
-    					_regText+='\\'+_spstr[i];
-    				}
-    			}
-    			_regText+=']'
-    			pattern = new RegExp(_regText,'g');
-    		}
-    		else{
-    			pattern = new RegExp("[^0-9A-Za-z\\s]",'g')
-    		}
-    		
-    	}
-    	var _restr=restr||'';
-    	switch(typeArr[i]){
-    		case 'special': _str=_str.replace(pattern,_restr);break;
-    		case 'html': _str=_str.replace(/<\/?[^>]*>/g, _restr);break;
-    		case 'emjoy': _str=_str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g,_restr);break;
-    		case 'word': _str=_str.replace(/[a-z]/g,_restr);break;
-    		case 'WORD': _str=_str.replace(/[A-Z]/g,_restr);break;
-    		case 'number':_str= _str.replace(/[0-9]/g,_restr);break;
-    		case 'chinese': _str=_str.replace(/[\u4E00-\u9FA5]/g,_restr);break;
-    	}
-    	}
-    	return _str;
+        var typeArr=type.split(','),_str=str;
+        for(var i=0,len=typeArr.length;i<len;i++){
+            if(typeArr[i]==='special'){
+                var pattern,regText='$()[]{}?\|^*+./\"\'+';
+                if(spstr){
+                    var _spstr=spstr.split(""),_regText="[^0-9A-Za-z\\s";
+                    for(var i=0,len=_spstr.length;i<len;i++){
+                        if(regText.indexOf(_spstr[i])===-1){
+                            _regText+=_spstr[i];
+                        }
+                        else{
+                            _regText+='\\'+_spstr[i];
+                        }
+                    }
+                    _regText+=']'
+                    pattern = new RegExp(_regText,'g');
+                }
+                else{
+                    pattern = new RegExp("[^0-9A-Za-z\\s]",'g')
+                }
+
+            }
+            var _restr=restr||'';
+            switch(typeArr[i]){
+                case 'special': _str=_str.replace(pattern,_restr);break;
+                case 'html': _str=_str.replace(/<\/?[^>]*>/g, _restr);break;
+                case 'emjoy': _str=_str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g,_restr);break;
+                case 'word': _str=_str.replace(/[a-z]/g,_restr);break;
+                case 'WORD': _str=_str.replace(/[A-Z]/g,_restr);break;
+                case 'number':_str= _str.replace(/[0-9]/g,_restr);break;
+                case 'chinese': _str=_str.replace(/[\u4E00-\u9FA5]/g,_restr);break;
+            }
+        }
+        return _str;
     }
 }
 
