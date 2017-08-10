@@ -609,7 +609,7 @@ var ecDo = {
         obj.data = obj.data || null;
         obj.success = obj.success || function () {
             };
-        obj.success = obj.error || function () {
+        obj.error = obj.error || function () {
             };
         var xmlHttp = null;
         if (XMLHttpRequest) {
