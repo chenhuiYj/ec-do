@@ -916,7 +916,7 @@ var ecDo = {
             case 'ipad':
                 return navigator.userAgent.toLowerCase().indexOf('ipad') !== -1
             case 'weixin':
-                return navigator.userAgent.toLowerCase().indexOf('MicroMessenger') !== -1
+                return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1
             default:
                 return navigator.userAgent.toLowerCase()
         }
