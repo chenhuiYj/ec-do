@@ -99,5 +99,15 @@ ecDo.siblings(obj,'.cur')
 
 ecDo.siblings(obj,'a')
 
+#### 1.1.3版本增加
+
+//格式化输入
+
+ecDo.formatText(str,4,'-')
+
+//函数节流
+
+ecDo.delayFn(fn1,100,200)
+
 ## LICENSE
 MIT
