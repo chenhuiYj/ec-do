@@ -102,7 +102,7 @@ var ecDo = {
         }
         //replaceStr('1asd88465asdwqe3',[5],0)
         //*****8465asdwqe3
-        else if (regArr.length === 1 && type == 0) {
+        else if (regArr.length === 1 && type === 0) {
             regtext = '(^\\w{' + regArr[0] + '})'
             Reg = new RegExp(regtext);
             var replaceCount = this.repeatStr(replaceText, regArr[0]);
@@ -110,7 +110,7 @@ var ecDo = {
         }
         //replaceStr('1asd88465asdwqe3',[5],1,'+')
         //"1asd88465as+++++"
-        else if (regArr.length === 1 && type == 1) {
+        else if (regArr.length === 1 && type === 1) {
             regtext = '(\\w{' + regArr[0] + '}$)'
             Reg = new RegExp(regtext);
             var replaceCount = this.repeatStr(replaceText, regArr[0]);
@@ -195,7 +195,7 @@ var ecDo = {
     //数组去重
     removeRepeatArray: function (arr) {
         return arr.filter(function (item, index, self) {
-            return self.indexOf(item) == index;
+            return self.indexOf(item) === index;
         });
         //es6
         //return Array.from(new Set(arr))
@@ -240,7 +240,7 @@ var ecDo = {
     getEleCount: function (obj, ele) {
         var num = 0;
         for (var i = 0, len = obj.length; i < len; i++) {
-            if (ele == obj[i]) {
+            if (ele === obj[i]) {
                 num++;
             }
         }
@@ -302,8 +302,8 @@ var ecDo = {
     //removeArrayForValue(['test','test1','test2','test','aaa'],'test')
     //["test1", "test2", "aaa"]  //数组元素的值全等于'test'才被删除
     removeArrayForValue: function (arr, val, type) {
-        arr.filter(function (item) {
-            return type === '%' ? item.indexOf(val) !== -1 : item !== val
+        return arr.filter(function (item) {
+            return type? item.indexOf(val) === -1 : item !== val
         })
     },
     /*对象及其他*/
@@ -570,9 +570,9 @@ var ecDo = {
     },
     //设置文本内容
     html: function (obj) {
-        if (arguments.length == 0) {
+        if (arguments.length === 0) {
             return this.innerHTML;
-        } else if (arguments.length == 1) {
+        } else if (arguments.length === 1) {
             this.innerHTML = arguments[0];
         }
     },
