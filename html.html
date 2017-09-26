@@ -5,6 +5,20 @@
 		<title></title>
 	</head>
 	<body>
+		<div class="div1"></div>
+		<div class="div1"></div>
+		<div id="div2"></div>
+		<div id="div1"></div>
+		<div class="div1"></div>
+		<div class="div1"></div>
 	</body>
 	<script src="ec-do.js"></script>
+<script type="text/javascript">
+	window.onload=function () {
+		var oDiv=document.getElementById("div1");
+        var odiv2=ecDo.siblings(oDiv,'#div2')
+        ecDo.css(odiv2,{'height':'300px','width':'300px','background':'#ccc'})
+
+    }
+</script>
 </html>

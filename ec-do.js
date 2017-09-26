@@ -548,12 +548,13 @@ var ecDo = {
             n = n.nextSibling;
         }
         if(opt){
+            var _opt=opt.substr(1);
             var b=[];//定义一个数组，用于储存过滤a的数组
             if(opt[0]==='.'){
-                b=a.filter(function(item){return item.className===opt});
+                b=a.filter(function(item){return item.className===_opt});
             }
             else if(opt[0]==='#'){
-                b=a.filter(function(item){return item.id===opt});
+                b=a.filter(function(item){return item.id===_opt});
             }
             else{
                 b=a.filter(function(item){return item.tagName.toLowerCase()===opt});
