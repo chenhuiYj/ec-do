@@ -3,6 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style>
+			#div1{
+				color: #f00;
+				display: none;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="div1"></div>
@@ -16,8 +22,10 @@
 <script type="text/javascript">
 	window.onload=function () {
 		var oDiv=document.getElementById("div1");
+		ecDo.show(oDiv);
+        ecDo.text(oDiv,'<div id="div1">45132134656</div>');
         var odiv2=ecDo.siblings(oDiv,'#div2')
-        ecDo.css(odiv2,{'height':'300px','width':'300px','background':'#ccc'})
+        ecDo.css(odiv2[0],{'height':'300px','width':'300px','background':'#ccc'})
 
     }
 </script>

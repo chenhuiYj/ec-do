@@ -109,5 +109,32 @@ ecDo.formatText(str,4,'-')
 
 ecDo.delayFn(fn1,100,200)
 
+#### 1.1.4版本修改
+ecDo.loadImg方法，增加图片请求失败时，可以添加自定义图片
+
+    //图片请求失败，显示自定义图片
+
+    window.onload = function () {
+        ecDo.loadImg('load-img', 100, 'error.jpg');
+        window.onscroll = function () {
+            ecDo.loadImg('load-img', 100, 'error.jpg');
+        }
+    }
+    //图片请求失败，显示空白图片
+    window.onload = function () {
+        ecDo.loadImg('load-img', 100);
+        window.onscroll = function () {
+            ecDo.loadImg('load-img', 100);
+        }
+    }
+
+
+增加text方法
+
+    var oDiv=document.getElementById("div1");
+
+    ecDo.text(oDiv,'<div id="div2">45132134656</div>');
+    //结果
+    <div id="div1">45132134656</div>
 ## LICENSE
 MIT

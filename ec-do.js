@@ -168,7 +168,7 @@ var ecDo = {
         return nowLv;
     },
     //随机码
-    //count取值范围0-36
+    //count取值范围2-36
 
     //randomWord(10)
     //"2584316588472575"
@@ -220,7 +220,9 @@ var ecDo = {
     //这一块的封装，主要是针对数字类型的数组
     //求和
     sumArr: function (arr) {
-        return arr.reduce(function(pre,cur){return pre+cur})
+        return arr.reduce(function (pre, cur) {
+            return pre + cur
+        })
     },
 
     //平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活了！
@@ -291,7 +293,7 @@ var ecDo = {
     //getArrayNum([0,1,2,3,4,5,6,7,8,9],2) 不传第二个参数,默认返回从n1到数组结束的元素
     //[2, 3, 4, 5, 6, 7, 8, 9]
     getArrayNum: function (arr, n1, n2) {
-        var arr1=arr.slice(n1,n2);
+        var arr1 = arr.slice(n1, n2);
         return arr1;
     },
 
@@ -303,7 +305,7 @@ var ecDo = {
     //["test1", "test2", "aaa"]  //数组元素的值全等于'test'才被删除
     removeArrayForValue: function (arr, val, type) {
         return arr.filter(function (item) {
-            return type? item.indexOf(val) === -1 : item !== val
+            return type ? item.indexOf(val) === -1 : item !== val
         })
     },
     /*对象及其他*/
@@ -483,25 +485,25 @@ var ecDo = {
     /*DOM*/
     //检测对象是否有哪个类名
     hasClass: function (obj, classStr) {
-        if(obj.className&&this.trim(obj.className,1)!==""){
+        if (obj.className && this.trim(obj.className, 1) !== "") {
             var arr = obj.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含
             return (arr.indexOf(classStr) == -1) ? false : true;
         }
-        else{
+        else {
             return false;
         }
 
     },
     //添加类名
     addClass: function (obj, classStr) {
-        if((this.istype(obj,'array')||this.istype(obj,'elements'))&&obj.length>=1){
-            for(var i=0,len=obj.length;i<len;i++){
+        if ((this.istype(obj, 'array') || this.istype(obj, 'elements')) && obj.length >= 1) {
+            for (var i = 0, len = obj.length; i < len; i++) {
                 if (!this.hasClass(obj[i], classStr)) {
                     obj[i].className += " " + classStr;
                 }
             }
         }
-        else{
+        else {
             if (!this.hasClass(obj, classStr)) {
                 obj.className += " " + classStr;
             }
@@ -509,15 +511,15 @@ var ecDo = {
     },
     //删除类名
     removeClass: function (obj, classStr) {
-        if((this.istype(obj,'array')||this.istype(obj,'elements'))&&obj.length>1){
-            for(var i=0,len=obj.length;i<len;i++){
+        if ((this.istype(obj, 'array') || this.istype(obj, 'elements')) && obj.length > 1) {
+            for (var i = 0, len = obj.length; i < len; i++) {
                 if (this.hasClass(obj[i], classStr)) {
                     var reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
                     obj[i].className = obj[i].className.replace(reg, '');
                 }
             }
         }
-        else{
+        else {
             if (this.hasClass(obj, classStr)) {
                 var reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
                 obj.className = obj.className.replace(reg, '');
@@ -530,7 +532,7 @@ var ecDo = {
         this.addClass(obj, newName);
     },
     //获取兄弟节点
-    siblings: function (obj,opt) {
+    siblings: function (obj, opt) {
         var a = []; //定义一个数组，用来存o的兄弟元素
         var p = obj.previousSibling;
         while (p) { //先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling
@@ -547,17 +549,23 @@ var ecDo = {
             }
             n = n.nextSibling;
         }
-        if(opt){
-            var _opt=opt.substr(1);
-            var b=[];//定义一个数组，用于储存过滤a的数组
-            if(opt[0]==='.'){
-                b=a.filter(function(item){return item.className===_opt});
+        if (opt) {
+            var _opt = opt.substr(1);
+            var b = [];//定义一个数组，用于储存过滤a的数组
+            if (opt[0] === '.') {
+                b = a.filter(function (item) {
+                    return item.className === _opt
+                });
             }
-            else if(opt[0]==='#'){
-                b=a.filter(function(item){return item.id===_opt});
+            else if (opt[0] === '#') {
+                b = a.filter(function (item) {
+                    return item.id === _opt
+                });
             }
-            else{
-                b=a.filter(function(item){return item.tagName.toLowerCase()===opt});
+            else {
+                b = a.filter(function (item) {
+                    return item.tagName.toLowerCase() === opt
+                });
             }
             return b;
         }
@@ -569,17 +577,31 @@ var ecDo = {
             obj.style[attr] = json[attr];
         }
     },
-    //设置文本内容
+    //设置HTML内容
     html: function (obj) {
-        if (arguments.length === 0) {
-            return this.innerHTML;
-        } else if (arguments.length === 1) {
-            this.innerHTML = arguments[0];
+        if (arguments.length === 1) {
+            return obj.innerHTML;
+        } else if (arguments.length === 2) {
+            obj.innerHTML = arguments[1];
+        }
+    },
+    //设置HTML内容
+    text: function (obj) {
+        if (arguments.length === 1) {
+            return obj.innerHTML;
+        } else if (arguments.length === 2) {
+            obj.innerHTML = this.filterStr(arguments[1],'html');
         }
     },
     //显示隐藏
     show: function (obj) {
-        obj.style.display = "";
+        var blockArr=['div','li','ul','ol','dl','table','article','h1','h2','h3','h4','h5','h6','p','hr','header','footer','details','summary','section','aside','']
+        if(blockArr.indexOf(obj.tagName.toLocaleLowerCase())===-1){
+            obj.style.display ='inline';
+        }
+        else{
+            obj.style.display ='block';
+        }
     },
     hide: function (obj) {
         obj.style.display = "none";
@@ -690,11 +712,17 @@ var ecDo = {
         return newArr
     },
     //图片没加载出来时用一张图片代替
-    aftLoadImg: function (obj, url, cb) {
-        var oImg = new Image(),_this=this;
+    aftLoadImg: function (obj, url, errorUrl,cb) {
+        var oImg = new Image(), _this = this;
         oImg.src = url;
         oImg.onload = function () {
             obj.src = oImg.src;
+            if (cb && _this.istype(cb, 'function')) {
+                cb(obj);
+            }
+        }
+        oImg.onerror=function () {
+            obj.src=errorUrl;
             if (cb && _this.istype(cb, 'function')) {
                 cb(obj);
             }
@@ -717,17 +745,17 @@ var ecDo = {
     //		loadImg('load-img',100);
     //		}
     //}
-    loadImg: function (className, num) {
-        var _className = className || 'ec-load-img', _num = num || 0,_this=this;
+    loadImg: function (className, num, errorUrl) {
+        var _className = className || 'ec-load-img', _num = num || 0, _this = this,_errorUrl=errorUrl||null;
         var oImgLoad = document.getElementsByClassName(_className);
         for (var i = 0, len = oImgLoad.length; i < len; i++) {
-            if (document.documentElement.clientHeight + document.body.scrollTop > oImgLoad[i].offsetTop - _num && !oImgLoad[i].isLoad) {
+            if (document.documentElement.clientHeight + document.documentElement.scrollTop > oImgLoad[i].offsetTop - _num && !oImgLoad[i].isLoad) {
                 //记录图片是否已经加载
                 oImgLoad[i].isLoad = true;
                 //设置过渡，当图片下来的时候有一个图片透明度变化
                 oImgLoad[i].style.cssText = "transition: ''; opacity: 0;"
                 if (oImgLoad[i].dataset) {
-                    this.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, function (o) {
+                    this.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, _errorUrl, function (o) {
                         setTimeout(function () {
                             if (o.isLoad) {
                                 _this.removeClass(o, _className);
@@ -736,7 +764,7 @@ var ecDo = {
                         }, 1000)
                     });
                 } else {
-                    this.aftLoadImg(oImgLoad[i], oImgLoad[i].getAttribute("data-src"), function (o) {
+                    this.aftLoadImg(oImgLoad[i], oImgLoad[i].getAttribute("data-src"), _errorUrl, function (o) {
                         setTimeout(function () {
                             if (o.isLoad) {
                                 _this.removeClass(o, _className);
@@ -770,12 +798,12 @@ var ecDo = {
     },
     //8.数组扁平化
     steamroller: function (arr) {
-        var newArr = [];
+        var newArr = [],_this=this;
         for (var i = 0; i < arr.length; i++) {
             if (Array.isArray(arr[i])) {
                 // 如果是数组，调用(递归)steamroller 将其扁平化
                 // 然后再 push 到 newArr 中
-                newArr.push.apply(newArr, steamroller(arr[i]));
+                newArr.push.apply(newArr, _this.steamroller(arr[i]));
             } else {
                 // 不是数组直接 push 到 newArr 中
                 newArr.push(arr[i]);
@@ -839,9 +867,8 @@ var ecDo = {
         content = str;
         //alert(Reg);//        /如：(前端|过来)/g
         Reg = new RegExp(regStr, "g");
-        content = content;
         //过滤html标签 替换标签，往关键字前后加上标签
-        content=content.replace(/<\/?[^>]*>/g, '')
+        content = content.replace(/<\/?[^>]*>/g, '')
         return content.replace(Reg, "<" + _el + ">$1</" + _el + ">");
     },
     //数据类型判断
@@ -850,7 +877,7 @@ var ecDo = {
     //ecDo.istype([])
     //'[object Array]'
     istype: function (o, type) {
-        if(_type){
+        if (type) {
             var _type = type.toLowerCase();
         }
         switch (_type) {
@@ -873,7 +900,7 @@ var ecDo = {
             case 'nan':
                 return isNaN(o);
             case 'elements':
-                return Object.prototype.toString.call(o).indexOf('HTML')!==-1
+                return Object.prototype.toString.call(o).indexOf('HTML') !== -1
             default:
                 return Object.prototype.toString.call(o)
         }
@@ -901,7 +928,7 @@ var ecDo = {
     titleCaseUp: function (str, splitType) {
         var _splitType = splitType || /\s+/g;
         var strArr = str.split(_splitType),
-            result = "",_this=this
+            result = "", _this = this
         strArr.forEach(function (item) {
             result += _this.changeCase(item, 1) + ' ';
         })
@@ -929,38 +956,54 @@ var ecDo = {
     //var str='asd    654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src=""/>啊实打实大蠢猪自行车这些课程';
     // ecDo.filterStr(str,'html,WORD,chinese,special','*','%?')
     //"asd    654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
-    filterStr:function(str,type,restr,spstr){
-        var typeArr=type.split(','),_str=str;
-        for(var i=0,len=typeArr.length;i<len;i++){
-            if(typeArr[i]==='special'){
-                var pattern,regText='$()[]{}?\|^*+./\"\'+';
-                if(spstr){
-                    var _spstr=spstr.split(""),_regText="[^0-9A-Za-z\\s";
-                    for(var i=0,len=_spstr.length;i<len;i++){
-                        if(regText.indexOf(_spstr[i])===-1){
-                            _regText+=_spstr[i];
+    filterStr: function (str, type, restr, spstr) {
+        var typeArr = type.split(','), _str = str;
+        for (var i = 0, len = typeArr.length; i < len; i++) {
+            //是否是过滤特殊符号
+            if (typeArr[i] === 'special') {
+                var pattern, regText = '$()[]{}?\|^*+./\"\'+';
+                //是否有哪些特殊符号需要保留
+                if (spstr) {
+                    var _spstr = spstr.split(""), _regText = "[^0-9A-Za-z\\s";
+                    for (var j = 0, len1 = _spstr.length; j < len1; j++) {
+                        if (regText.indexOf(_spstr[j]) === -1) {
+                            _regText += _spstr[j];
                         }
-                        else{
-                            _regText+='\\'+_spstr[i];
+                        else {
+                            _regText += '\\' + _spstr[j];
                         }
                     }
-                    _regText+=']'
-                    pattern = new RegExp(_regText,'g');
+                    _regText += ']'
+                    pattern = new RegExp(_regText, 'g');
                 }
-                else{
-                    pattern = new RegExp("[^0-9A-Za-z\\s]",'g')
+                else {
+                    pattern = new RegExp("[^0-9A-Za-z\\s]", 'g')
                 }
 
             }
-            var _restr=restr||'';
-            switch(typeArr[i]){
-                case 'special': _str=_str.replace(pattern,_restr);break;
-                case 'html': _str=_str.replace(/<\/?[^>]*>/g, _restr);break;
-                case 'emjoy': _str=_str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g,_restr);break;
-                case 'word': _str=_str.replace(/[a-z]/g,_restr);break;
-                case 'WORD': _str=_str.replace(/[A-Z]/g,_restr);break;
-                case 'number':_str= _str.replace(/[0-9]/g,_restr);break;
-                case 'chinese': _str=_str.replace(/[\u4E00-\u9FA5]/g,_restr);break;
+            var _restr = restr || '';
+            switch (typeArr[i]) {
+                case 'special':
+                    _str = _str.replace(pattern, _restr);
+                    break;
+                case 'html':
+                    _str = _str.replace(/<\/?[^>]*>/g, _restr);
+                    break;
+                case 'emjoy':
+                    _str = _str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, _restr);
+                    break;
+                case 'word':
+                    _str = _str.replace(/[a-z]/g, _restr);
+                    break;
+                case 'WORD':
+                    _str = _str.replace(/[A-Z]/g, _restr);
+                    break;
+                case 'number':
+                    _str = _str.replace(/[0-9]/g, _restr);
+                    break;
+                case 'chinese':
+                    _str = _str.replace(/[\u4E00-\u9FA5]/g, _restr);
+                    break;
             }
         }
         return _str;
@@ -972,11 +1015,11 @@ var ecDo = {
     //"1 234a sda5 67as d890"
     //ecDo.formatText('1234asda567asd890',4,'-')
     //"1-234a-sda5-67as-d890"
-    formatText:function(str,size,delimiter){
-        var _size=size||3,_delimiter=delimiter||',';
-        var regText='\\B(?=(\\w{'+_size+'})+(?!\\w))';
-        var reg=new RegExp(regText,'g');
-        return str.replace(reg,_delimiter);
+    formatText: function (str, size, delimiter) {
+        var _size = size || 3, _delimiter = delimiter || ',';
+        var regText = '\\B(?=(\\w{' + _size + '})+(?!\\w))';
+        var reg = new RegExp(regText, 'g');
+        return str.replace(reg, _delimiter);
     },
     //函数节流
     // var count=0;
@@ -986,25 +1029,25 @@ var ecDo = {
     // }
     // //100ms内连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
     // document.onmousemove=delayFn(fn1,100,200)
-    delayFn:function (fn, delay, mustDelay) {
+    delayFn: function (fn, delay, mustDelay) {
         var timer = null;
         var t_start;
-        return function(){
+        return function () {
             var context = this, args = arguments, t_cur = +new Date();
             //先清理上一次的调用触发（上一次调用触发事件不执行）
             clearTimeout(timer);
             //如果不存触发时间，那么当前的时间就是触发时间
-            if(!t_start){
+            if (!t_start) {
                 t_start = t_cur;
             }
             //如果当前时间-触发时间大于最大的间隔时间（mustDelay），触发一次函数运行函数
-            if(t_cur - t_start >= mustDelay){
+            if (t_cur - t_start >= mustDelay) {
                 fn.apply(context, args);
                 t_start = t_cur;
             }
             //否则延迟执行
             else {
-                timer = setTimeout(function(){
+                timer = setTimeout(function () {
                     fn.apply(context, args);
                 }, delay);
             }
