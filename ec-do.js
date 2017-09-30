@@ -1,6 +1,9 @@
-/*1.1.3*/
+/*1.1.4*/
 var ecDo = {
+/*字符串*/
     //去除空格  type 1-所有空格  2-前后空格  3-前空格 4-后空格
+    //trim('  1235asd',1)
+    //result：1235asd
     trim: function (str, type) {
         switch (type) {
             case 1:
@@ -23,7 +26,7 @@ var ecDo = {
      5：全部小写
      * */
     //changeCase('asdasd',1)
-    //Asdasd
+    //result：Asdasd
     changeCase: function (str, type) {
         function ToggleCase(str) {
             var itemText = ""
@@ -39,7 +42,6 @@ var ecDo = {
                 });
             return itemText;
         }
-
         switch (type) {
             case 1:
                 return str.replace(/\b\w+\b/g, function (word) {
@@ -63,7 +65,7 @@ var ecDo = {
     //字符串循环复制
     //repeatStr(str->字符串, count->次数)
     //repeatStr('123',3)
-    //"123123123"
+    //"result：123123123"
     repeatStr: function (str, count) {
         var text = '';
         for (var i = 0; i < count; i++) {
@@ -72,6 +74,8 @@ var ecDo = {
         return text;
     },
     //字符串替换(字符串,要替换的字符或者正则表达式（不要写g）,替换成什么)
+    //ecDo.replaceAll('这里是上海，中国第三大城市，广东省省会，简称穗，','上海','广州')
+    //result："这里是广州，中国第三大城市，广东省省会，简称穗，"
     replaceAll: function (str, AFindText, ARepText) {
         raRegExp = new RegExp(AFindText, "g");
         return str.replace(raRegExp, ARepText);
@@ -83,7 +87,7 @@ var ecDo = {
             Reg = null,
             replaceText = ARepText || '*';
         //replaceStr('18819322663',[3,5,3],0)
-        //188*****663
+        //result：188*****663
         //repeatStr是在上面定义过的（字符串循环复制），大家注意哦
         if (regArr.length === 3 && type === 0) {
             regtext = '(\\w{' + regArr[0] + '})\\w{' + regArr[1] + '}(\\w{' + regArr[2] + '})'
@@ -92,7 +96,7 @@ var ecDo = {
             return str.replace(Reg, '$1' + replaceCount + '$2')
         }
         //replaceStr('asdasdasdaa',[3,5,3],1)
-        //***asdas***
+        //result：***asdas***
         else if (regArr.length === 3 && type === 1) {
             regtext = '\\w{' + regArr[0] + '}(\\w{' + regArr[1] + '})\\w{' + regArr[2] + '}'
             Reg = new RegExp(regtext);
@@ -101,7 +105,7 @@ var ecDo = {
             return str.replace(Reg, replaceCount1 + '$1' + replaceCount2)
         }
         //replaceStr('1asd88465asdwqe3',[5],0)
-        //*****8465asdwqe3
+        //result：*****8465asdwqe3
         else if (regArr.length === 1 && type === 0) {
             regtext = '(^\\w{' + regArr[0] + '})'
             Reg = new RegExp(regtext);
@@ -109,7 +113,7 @@ var ecDo = {
             return str.replace(Reg, replaceCount)
         }
         //replaceStr('1asd88465asdwqe3',[5],1,'+')
-        //"1asd88465as+++++"
+        //result："1asd88465as+++++"
         else if (regArr.length === 1 && type === 1) {
             regtext = '(\\w{' + regArr[0] + '}$)'
             Reg = new RegExp(regtext);
@@ -119,7 +123,7 @@ var ecDo = {
     },
     //检测字符串
     //checkType('165226226326','phone')
-    //false
+    //result：false
     //大家可以根据需要扩展
     checkType: function (str, type) {
         switch (type) {
@@ -147,7 +151,7 @@ var ecDo = {
     },
     //检测密码强度
     //checkPwd('12asdASAD')
-    //3(强度等级为3)
+    //result：3(强度等级为3)
     checkPwd: function (str) {
         var nowLv = 0;
         if (str.length < 6) {
@@ -171,27 +175,129 @@ var ecDo = {
     //count取值范围2-36
 
     //randomWord(10)
-    //"2584316588472575"
+    //result："2584316588472575"
 
     //randomWord(14)
-    //"9b405070dd00122640c192caab84537"
+    //result："9b405070dd00122640c192caab84537"
 
     //randomWord(36)
-    //"83vhdx10rmjkyb9"
+    //result："83vhdx10rmjkyb9"
 
     randomWord: function (count) {
         return Math.random().toString(count).substring(2);
     },
 
     //查找字符串
+    //var strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuadbhjcibloguyeajzxkcabloguyiwezxc967'
+    //countStr(strTest,'blog')
+    //result：6
     countStr: function (str, strSplit) {
         return str.split(strSplit).length - 1
     },
-    //var strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuadbhjcibloguyeajzxkcabloguyiwezxc967'
-    //countStr(strTest,'blog')
-    //6
+    //过滤字符串(html标签，表情，特殊字符)
+    //字符串，替换内容（special-特殊字符,html-html标签,emjoy-emjoy表情,word-小写字母，WORD-大写字母，number-数字,chinese-中文），要替换成什么，默认'',保留哪些特殊字符
+    //如果需要过滤多种字符，type参数使用,分割，如下栗子
+    //过滤字符串的html标签，大写字母，中文，特殊字符，全部替换成*,但是特殊字符'%'，'?'，除了这两个，其他特殊字符全部清除
+    //var str='asd    654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src=""/>啊实打实大蠢猪自行车这些课程';
+    // ecDo.filterStr(str,'html,WORD,chinese,special','*','%?')
+    //result："asd    654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
+    filterStr: function (str, type, restr, spstr) {
+        var typeArr = type.split(','), _str = str;
+        for (var i = 0, len = typeArr.length; i < len; i++) {
+            //是否是过滤特殊符号
+            if (typeArr[i] === 'special') {
+                var pattern, regText = '$()[]{}?\|^*+./\"\'+';
+                //是否有哪些特殊符号需要保留
+                if (spstr) {
+                    var _spstr = spstr.split(""), _regText = "[^0-9A-Za-z\\s";
+                    for (var j = 0, len1 = _spstr.length; j < len1; j++) {
+                        if (regText.indexOf(_spstr[j]) === -1) {
+                            _regText += _spstr[j];
+                        }
+                        else {
+                            _regText += '\\' + _spstr[j];
+                        }
+                    }
+                    _regText += ']'
+                    pattern = new RegExp(_regText, 'g');
+                }
+                else {
+                    pattern = new RegExp("[^0-9A-Za-z\\s]", 'g')
+                }
 
-    /*数组*/
+            }
+            var _restr = restr || '';
+            switch (typeArr[i]) {
+                case 'special':
+                    _str = _str.replace(pattern, _restr);
+                    break;
+                case 'html':
+                    _str = _str.replace(/<\/?[^>]*>/g, _restr);
+                    break;
+                case 'emjoy':
+                    _str = _str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, _restr);
+                    break;
+                case 'word':
+                    _str = _str.replace(/[a-z]/g, _restr);
+                    break;
+                case 'WORD':
+                    _str = _str.replace(/[A-Z]/g, _restr);
+                    break;
+                case 'number':
+                    _str = _str.replace(/[0-9]/g, _restr);
+                    break;
+                case 'chinese':
+                    _str = _str.replace(/[\u4E00-\u9FA5]/g, _restr);
+                    break;
+            }
+        }
+        return _str;
+    },
+    //格式化处理字符串
+    //ecDo.formatText('1234asda567asd890')
+    //result："12,34a,sda,567,asd,890"
+    //ecDo.formatText('1234asda567asd890',4,' ')
+    //result："1 234a sda5 67as d890"
+    //ecDo.formatText('1234asda567asd890',4,'-')
+    //result："1-234a-sda5-67as-d890"
+    formatText: function (str, size, delimiter) {
+        var _size = size || 3, _delimiter = delimiter || ',';
+        var regText = '\\B(?=(\\w{' + _size + '})+(?!\\w))';
+        var reg = new RegExp(regText, 'g');
+        return str.replace(reg, _delimiter);
+    },
+    //找出最长单词 (Find the Longest word in a String)
+    //longestWord('Find the Longest word in a String')
+    //result：7
+    //longestWord('Find|the|Longest|word|in|a|String','|')
+    //result：7
+    longestWord: function (str, splitType) {
+        var _splitType = splitType || /\s+/g,
+            _max = 0;
+        var strArr = str.split(_splitType);
+        strArr.forEach(function (item) {
+            if (_max < item.length) {
+                _max = item.length
+            }
+        })
+        return _max;
+    },
+    //句中单词首字母大写 (Title Case a Sentence)
+    //这个我也一直在纠结，英文标题，即使是首字母大写，也未必每一个单词的首字母都是大写的，但是又不知道哪些应该大写，哪些不应该大写
+    //ecDo.titleCaseUp('this is a title')
+    //"This Is A Title"
+    titleCaseUp: function (str, splitType) {
+        var _splitType = splitType || /\s+/g;
+        var strArr = str.split(_splitType),
+            result = "", _this = this
+        strArr.forEach(function (item) {
+            result += _this.changeCase(item, 1) + ' ';
+        })
+        return this.trim(result, 4)
+    },
+
+/*数组*/
+
     //数组去重
     removeRepeatArray: function (arr) {
         return arr.filter(function (item, index, self) {
@@ -218,14 +324,14 @@ var ecDo = {
     },
 
     //这一块的封装，主要是针对数字类型的数组
-    //求和
+    //数组求和
     sumArr: function (arr) {
         return arr.reduce(function (pre, cur) {
             return pre + cur
         })
     },
 
-    //平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活了！
+    //数组平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活了！
     covArr: function (arr) {
         return this.sumArr(arr) / arr.length;
     },
@@ -236,9 +342,9 @@ var ecDo = {
 
     //回数组（字符串）一个元素出现的次数
     //getEleCount('asd56+asdasdwqe','a')
-    //3
+    //result：3
     //getEleCount([1,2,3,4,5,66,77,22,55,22],22)
-    //2
+    //result：2
     getEleCount: function (obj, ele) {
         var num = 0;
         for (var i = 0, len = obj.length; i < len; i++) {
@@ -251,14 +357,19 @@ var ecDo = {
 
     //返回数组（字符串）出现最多的几次元素和出现次数
     //arr, rank->长度，默认为数组长度，ranktype，排序方式，默认降序
+    //返回值：el->元素，count->次数
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2])
+    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
     //默认情况，返回所有元素出现的次数
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3)
     //传参（rank=3），只返回出现次数排序前三的
+    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2}]
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],null,1)
     //传参（ranktype=1,rank=null），升序返回所有元素出现次数
+    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1},{"el":"3","count":2},{"el":"1","count":4},{"el":"2","count":6}]
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3,1)
     //传参（rank=3，ranktype=1），只返回出现次数排序（升序）前三的
+    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1}]
     getCount: function (arr, rank, ranktype) {
         var obj = {},
             k, arr1 = []
@@ -289,9 +400,9 @@ var ecDo = {
 
     //得到n1-n2下标的数组
     //getArrayNum([0,1,2,3,4,5,6,7,8,9],5,9)
-    //[5, 6, 7, 8, 9]
+    //result：[5, 6, 7, 8, 9]
     //getArrayNum([0,1,2,3,4,5,6,7,8,9],2) 不传第二个参数,默认返回从n1到数组结束的元素
-    //[2, 3, 4, 5, 6, 7, 8, 9]
+    //result：[2, 3, 4, 5, 6, 7, 8, 9]
     getArrayNum: function (arr, n1, n2) {
         var arr1 = arr.slice(n1, n2);
         return arr1;
@@ -300,15 +411,126 @@ var ecDo = {
     //筛选数组
     //删除值为'val'的数组元素
     //removeArrayForValue(['test','test1','test2','test','aaa'],'test','%')
-    //["aaa"]   带有'test'的都删除
+    //result：["aaa"]   带有'test'的都删除
     //removeArrayForValue(['test','test1','test2','test','aaa'],'test')
-    //["test1", "test2", "aaa"]  //数组元素的值全等于'test'才被删除
+    //result：["test1", "test2", "aaa"]  //数组元素的值全等于'test'才被删除
     removeArrayForValue: function (arr, val, type) {
         return arr.filter(function (item) {
             return type ? item.indexOf(val) === -1 : item !== val
         })
     },
-    /*对象及其他*/
+    //获取对象数组某些项
+    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+    //getOptionArray(arr,'a,c')
+    //result：[{a:1,c:9},{a:2,c:5},{a:5,c:underfind},{a:4,c:5},{a:4,c:7}]
+    //getOptionArray(arr,'b',1)
+    //result：[2, 3, 9, 2, 5]
+    getOptionArray: function (arr, keys, type) {
+        var newArr = []
+        if (!keys) {
+            return arr
+        }
+        //是否只是需要获取某一项的值
+        if (type === 1) {
+            for (var i = 0, len = arr.length; i < len; i++) {
+                newArr.push(arr[i][keys])
+            }
+            return newArr;
+        }
+        var _keys = keys.split(','), newArrOne = {};
+        for (var i = 0, len = arr.length; i < len; i++) {
+            newArrOne = {};
+            for (var j = 0, len1 = _keys.length; j < len1; j++) {
+                newArrOne[_keys[j]] = arr[i][_keys[j]]
+            }
+            newArr.push(newArrOne);
+        }
+        return newArr
+    },
+    //排除数组某些项
+    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+    //filterOptionArray(arr,'a')
+    //result：[{b:2,c:9},{b:3,c:5},{b:9},{b:2,c:5},{b:5,c:7}]
+    //filterOptionArray(arr,'a,c')
+    //result：[{b:2},{b:3},{b:9},{b:2},{b:5}]
+    filterOptionArray: function (arr, keys) {
+        var newArr = []
+        var _keys = keys.split(','), newArrOne = {};
+        for (var i = 0, len = arr.length; i < len; i++) {
+            newArrOne = {};
+            for (var key in arr[i]) {
+                //如果key不存在排除keys里面,添加数据
+                if (_keys.indexOf(key) === -1) {
+                    newArrOne[key] = arr[i][key];
+                }
+            }
+            newArr.push(newArrOne);
+        }
+        return newArr
+    },
+    //对象数组的排序
+    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+    //ecDo.arraySort(arr,'a,b')a是第一排序条件，b是第二排序条件
+    //result：[{"a":1,"b":2,"c":9},{"a":2,"b":3,"c":5},{"a":4,"b":2,"c":5},{"a":4,"b":5,"c":7},{"a":5,"b":9}]
+    arraySort: function (arr, sortText) {
+        if (!sortText) {
+            return arr
+        }
+        var _sortText = sortText.split(',').reverse(), _arr = arr.slice(0);
+        for (var i = 0, len = _sortText.length; i < len; i++) {
+            _arr.sort(function (n1, n2) {
+                return n1[_sortText[i]] - n2[_sortText[i]]
+            })
+        }
+        return _arr;
+    },
+    //数组扁平化
+    steamroller: function (arr) {
+        var newArr = [],_this=this;
+        for (var i = 0; i < arr.length; i++) {
+            if (Array.isArray(arr[i])) {
+                // 如果是数组，调用(递归)steamroller 将其扁平化
+                // 然后再 push 到 newArr 中
+                newArr.push.apply(newArr, _this.steamroller(arr[i]));
+            } else {
+                // 不是数组直接 push 到 newArr 中
+                newArr.push(arr[i]);
+            }
+        }
+        return newArr;
+    },
+    //另一种写法
+    //steamroller([1,2,[4,5,[1,23]]])
+    //[1, 2, 4, 5, 1, 23]
+    /*
+     * i=0 newArr.push(arr[i])  [1]
+     * i=1 newArr.push(arr[i])  [1,2]
+     * i=2 newArr = newArr.concat(steamroller(arr[i]));  执行到下面
+     * 第一次i=2进入后 i=0, newArr.push(arr[i]);  [4]
+     * 第一次i=2进入后 i=1, newArr.push(arr[i]);  [4，5]
+     *  * i=2 newArr = newArr.concat(steamroller(arr[i]));  执行到下面
+     * 第二次i=2进入后 i=0, newArr.push(arr[i]);  [1]
+     * 第二次i=2进入后 i=1, newArr.push(arr[i]);  [1，23]  执行到下面
+     * 第二次循环完，回到第一次进入后  newArr = newArr.concat(steamroller(arr[i]));  [4,5].concat([1,23])   [4,5,1,23]
+     * 然后回到第一次   [1,2].concat([4,5,1,23])
+     */
+    //  steamroller: function (arr) {
+    //      var newArr = [];
+    //      for (var i = 0; i < arr.length; i++) {
+    //          if (Array.isArray(arr[i])) {
+    //              // 如果是数组，调用(递归)steamroller 将其扁平化
+    //              // 然后再 push 到 newArr 中
+    //              newArr = newArr.concat(steamroller(arr[i]));
+    //          } else {
+    //              // 不是数组直接 push 到 newArr 中
+    //              newArr.push(arr[i]);
+    //          }
+    //      }
+    //      return newArr;
+    //  },
+
+/*对象及其他*/
+
     //适配rem
     getFontSize: function () {
         var doc = document,
@@ -332,7 +554,7 @@ var ecDo = {
     },
     //到某一个时间的倒计时
     //getEndTime('2017/7/22 16:0:0')
-    //"剩余时间6天 2小时 28 分钟20 秒"
+    //result："剩余时间6天 2小时 28 分钟20 秒"
     getEndTime: function (endTime) {
         var startDate = new Date(); //开始时间，当前时间
         var endDate = new Date(endTime); //结束时间，需传入时间参数
@@ -385,7 +607,7 @@ var ecDo = {
     },
     //设置url参数
     //setUrlPrmt({'a':1,'b':2})
-    //a=1&b=2
+    //result：a=1&b=2
     setUrlPrmt: function (obj) {
         var _rs = [];
         for (var p in obj) {
@@ -397,7 +619,7 @@ var ecDo = {
     },
     //获取url参数
     //getUrlPrmt('segmentfault.com/write?draftId=122000011938')
-    //Object{draftId: "122000011938"}
+    //result：Object{draftId: "122000011938"}
     getUrlPrmt: function (url) {
         url = url ? url : window.location.href;
         var _pa = url.substring(url.indexOf('?') + 1),
@@ -417,11 +639,11 @@ var ecDo = {
 
     //现金额大写转换函数
     //upDigit(168752632)
-    //"人民币壹亿陆仟捌佰柒拾伍万贰仟陆佰叁拾贰元整"
+    //result："人民币壹亿陆仟捌佰柒拾伍万贰仟陆佰叁拾贰元整"
     //upDigit(1682)
-    //"人民币壹仟陆佰捌拾贰元整"
+    //result："人民币壹仟陆佰捌拾贰元整"
     //upDigit(-1693)
-    //"欠人民币壹仟陆佰玖拾叁元整"
+    //result："欠人民币壹仟陆佰玖拾叁元整"
     upDigit: function (n) {
         var fraction = ['角', '分', '厘'];
         var digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
@@ -482,7 +704,9 @@ var ecDo = {
     removeCookie: function (name) {
         this.setCookie(name, 1, -1);
     },
-    /*DOM*/
+
+/*DOM*/
+
     //检测对象是否有哪个类名
     hasClass: function (obj, classStr) {
         if (obj.className && this.trim(obj.className, 1) !== "") {
@@ -532,6 +756,7 @@ var ecDo = {
         this.addClass(obj, newName);
     },
     //获取兄弟节点
+    //ecDo.siblings(obj,'#id')
     siblings: function (obj, opt) {
         var a = []; //定义一个数组，用来存o的兄弟元素
         var p = obj.previousSibling;
@@ -661,56 +886,6 @@ var ecDo = {
             }
         };
     },
-    //获取对象数组某些项
-    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
-    //getOptionArray(arr,'a,c')
-    //[{a:1,c:9},{a:2,c:5},{a:5,c:underfind},{a:4,c:5},{a:4,c:7}]
-    //getOptionArray(arr,'a',1)
-    //getOptionArray(arr,'b',1)
-    //[2, 3, 9, 2, 5]
-    getOptionArray: function (arr, keys, type) {
-        var newArr = []
-        if (!keys) {
-            return arr
-        }
-        //是否只是需要获取某一项的值
-        if (type === 1) {
-            for (var i = 0, len = arr.length; i < len; i++) {
-                newArr.push(arr[i][keys])
-            }
-            return newArr;
-        }
-        var _keys = keys.split(','), newArrOne = {};
-        for (var i = 0, len = arr.length; i < len; i++) {
-            newArrOne = {};
-            for (var j = 0, len1 = _keys.length; j < len1; j++) {
-                newArrOne[_keys[j]] = arr[i][_keys[j]]
-            }
-            newArr.push(newArrOne);
-        }
-        return newArr
-    },
-    //排除数组某些项
-    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
-    //filterOptionArray(arr,'a')
-    //[{b:2,c:9},{b:3,c:5},{b:9},{b:2,c:5},{b:5,c:7}]
-    //filterOptionArray(arr,'a,c')
-    //[{b:2},{b:3},{b:9},{b:2},{b:5}]
-    filterOptionArray: function (arr, keys) {
-        var newArr = []
-        var _keys = keys.split(','), newArrOne = {};
-        for (var i = 0, len = arr.length; i < len; i++) {
-            newArrOne = {};
-            for (var key in arr[i]) {
-                //如果key不存在排除keys里面,添加数据
-                if (_keys.indexOf(key) === -1) {
-                    newArrOne[key] = arr[i][key];
-                }
-            }
-            newArr.push(newArrOne);
-        }
-        return newArr
-    },
     //图片没加载出来时用一张图片代替
     aftLoadImg: function (obj, url, errorUrl,cb) {
         var oImg = new Image(), _this = this;
@@ -781,65 +956,6 @@ var ecDo = {
             }
         }
     },
-    //7.对象数组的排序
-    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
-    //arraySort(arr2,'a,b')  a是第一排序条件，b是第二排序条件
-    arraySort: function (arr, sortText) {
-        if (!sortText) {
-            return arr
-        }
-        var _sortText = sortText.split(',').reverse(), _arr = arr.slice(0);
-        for (var i = 0, len = _sortText.length; i < len; i++) {
-            _arr.sort(function (n1, n2) {
-                return n1[_sortText[i]] - n2[_sortText[i]]
-            })
-        }
-        return _arr;
-    },
-    //8.数组扁平化
-    steamroller: function (arr) {
-        var newArr = [],_this=this;
-        for (var i = 0; i < arr.length; i++) {
-            if (Array.isArray(arr[i])) {
-                // 如果是数组，调用(递归)steamroller 将其扁平化
-                // 然后再 push 到 newArr 中
-                newArr.push.apply(newArr, _this.steamroller(arr[i]));
-            } else {
-                // 不是数组直接 push 到 newArr 中
-                newArr.push(arr[i]);
-            }
-        }
-        return newArr;
-    },
-    //另一种写法
-    //steamroller([1,2,[4,5,[1,23]]])
-    //[1, 2, 4, 5, 1, 23]
-    /*
-     * i=0 newArr.push(arr[i])  [1]
-     * i=1 newArr.push(arr[i])  [1,2]
-     * i=2 newArr = newArr.concat(steamroller(arr[i]));  执行到下面
-     * 第一次i=2进入后 i=0, newArr.push(arr[i]);  [4]
-     * 第一次i=2进入后 i=1, newArr.push(arr[i]);  [4，5]
-     *  * i=2 newArr = newArr.concat(steamroller(arr[i]));  执行到下面
-     * 第二次i=2进入后 i=0, newArr.push(arr[i]);  [1]
-     * 第二次i=2进入后 i=1, newArr.push(arr[i]);  [1，23]  执行到下面
-     * 第二次循环完，回到第一次进入后  newArr = newArr.concat(steamroller(arr[i]));  [4,5].concat([1,23])   [4,5,1,23]
-     * 然后回到第一次   [1,2].concat([4,5,1,23])
-     */
-//  steamroller: function (arr) {
-//      var newArr = [];
-//      for (var i = 0; i < arr.length; i++) {
-//          if (Array.isArray(arr[i])) {
-//              // 如果是数组，调用(递归)steamroller 将其扁平化
-//              // 然后再 push 到 newArr 中
-//              newArr = newArr.concat(steamroller(arr[i]));
-//          } else {
-//              // 不是数组直接 push 到 newArr 中
-//              newArr.push(arr[i]);
-//          }
-//      }
-//      return newArr;
-//  },
     //创建正则字符
     createKeyExp: function (strArr) {
         var str = "";
@@ -905,36 +1021,8 @@ var ecDo = {
                 return Object.prototype.toString.call(o)
         }
     },
-    //找出最长单词 (Find the Longest word in a String)
-    //longestWord('Find the Longest word in a String')
-    //7
-    //longestWord('Find|the|Longest|word|in|a|String','|')
-    //7
-    longestWord: function (str, splitType) {
-        var _splitType = splitType || /\s+/g,
-            _max = 0;
-        var strArr = str.split(_splitType);
-        strArr.forEach(function (item) {
-            if (_max < item.length) {
-                _max = item.length
-            }
-        })
-        return _max;
-    },
-    //句中单词首字母大写 (Title Case a Sentence)
-    //这个我也一直在纠结，英文标题，即使是首字母大写，也未必每一个单词的首字母都是大写的，但是又不知道哪些应该大写，哪些不应该大写
-    //ecDo.titleCaseUp('this is a title')
-    //"This Is A Title"
-    titleCaseUp: function (str, splitType) {
-        var _splitType = splitType || /\s+/g;
-        var strArr = str.split(_splitType),
-            result = "", _this = this
-        strArr.forEach(function (item) {
-            result += _this.changeCase(item, 1) + ' ';
-        })
-        return this.trim(result, 4)
-    },
-    //5.手机类型判断
+
+    //手机类型判断
     browserInfo: function (type) {
         switch (type) {
             case 'android':
@@ -948,78 +1036,6 @@ var ecDo = {
             default:
                 return navigator.userAgent.toLowerCase()
         }
-    },
-    //过滤字符串(html标签，表情，特殊字符)
-    //字符串，替换内容（special-特殊字符,html-html标签,emjoy-emjoy表情,word-小写字母，WORD-大写字母，number-数字,chinese-中文），要替换成什么，默认'',保留哪些特殊字符
-    //如果需要过滤多种字符，type参数使用,分割，如下栗子
-    //过滤字符串的html标签，大写字母，中文，特殊字符，全部替换成*,但是特殊字符'%'，'?'，除了这两个，其他特殊字符全部清除
-    //var str='asd    654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src=""/>啊实打实大蠢猪自行车这些课程';
-    // ecDo.filterStr(str,'html,WORD,chinese,special','*','%?')
-    //"asd    654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
-    filterStr: function (str, type, restr, spstr) {
-        var typeArr = type.split(','), _str = str;
-        for (var i = 0, len = typeArr.length; i < len; i++) {
-            //是否是过滤特殊符号
-            if (typeArr[i] === 'special') {
-                var pattern, regText = '$()[]{}?\|^*+./\"\'+';
-                //是否有哪些特殊符号需要保留
-                if (spstr) {
-                    var _spstr = spstr.split(""), _regText = "[^0-9A-Za-z\\s";
-                    for (var j = 0, len1 = _spstr.length; j < len1; j++) {
-                        if (regText.indexOf(_spstr[j]) === -1) {
-                            _regText += _spstr[j];
-                        }
-                        else {
-                            _regText += '\\' + _spstr[j];
-                        }
-                    }
-                    _regText += ']'
-                    pattern = new RegExp(_regText, 'g');
-                }
-                else {
-                    pattern = new RegExp("[^0-9A-Za-z\\s]", 'g')
-                }
-
-            }
-            var _restr = restr || '';
-            switch (typeArr[i]) {
-                case 'special':
-                    _str = _str.replace(pattern, _restr);
-                    break;
-                case 'html':
-                    _str = _str.replace(/<\/?[^>]*>/g, _restr);
-                    break;
-                case 'emjoy':
-                    _str = _str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, _restr);
-                    break;
-                case 'word':
-                    _str = _str.replace(/[a-z]/g, _restr);
-                    break;
-                case 'WORD':
-                    _str = _str.replace(/[A-Z]/g, _restr);
-                    break;
-                case 'number':
-                    _str = _str.replace(/[0-9]/g, _restr);
-                    break;
-                case 'chinese':
-                    _str = _str.replace(/[\u4E00-\u9FA5]/g, _restr);
-                    break;
-            }
-        }
-        return _str;
-    },
-    //格式化处理字符串
-    //ecDo.formatText('1234asda567asd890')
-    //"12,34a,sda,567,asd,890"
-    //ecDo.formatText('1234asda567asd890',4,' ')
-    //"1 234a sda5 67as d890"
-    //ecDo.formatText('1234asda567asd890',4,'-')
-    //"1-234a-sda5-67as-d890"
-    formatText: function (str, size, delimiter) {
-        var _size = size || 3, _delimiter = delimiter || ',';
-        var regText = '\\B(?=(\\w{' + _size + '})+(?!\\w))';
-        var reg = new RegExp(regText, 'g');
-        return str.replace(reg, _delimiter);
     },
     //函数节流
     // var count=0;
