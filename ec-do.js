@@ -273,14 +273,15 @@ var ecDo = {
     //result：7
     longestWord: function (str, splitType) {
         var _splitType = splitType || /\s+/g,
-            _max = 0;
+            _max = 0,_item='';
         var strArr = str.split(_splitType);
         strArr.forEach(function (item) {
             if (_max < item.length) {
                 _max = item.length
+                _item=item;
             }
         })
-        return _max;
+        return {el:_item,max:_max};
     },
     //句中单词首字母大写 (Title Case a Sentence)
     //这个我也一直在纠结，英文标题，即使是首字母大写，也未必每一个单词的首字母都是大写的，但是又不知道哪些应该大写，哪些不应该大写
@@ -425,19 +426,19 @@ var ecDo = {
     //result：[{a:1,c:9},{a:2,c:5},{a:5,c:underfind},{a:4,c:5},{a:4,c:7}]
     //getOptionArray(arr,'b',1)
     //result：[2, 3, 9, 2, 5]
-    getOptionArray: function (arr, keys, type) {
+    getOptionArray: function (arr, keys) {
         var newArr = []
         if (!keys) {
             return arr
         }
+        var _keys = keys.split(','), newArrOne = {};
         //是否只是需要获取某一项的值
-        if (type === 1) {
+        if (_keys.length === 1) {
             for (var i = 0, len = arr.length; i < len; i++) {
                 newArr.push(arr[i][keys])
             }
             return newArr;
         }
-        var _keys = keys.split(','), newArrOne = {};
         for (var i = 0, len = arr.length; i < len; i++) {
             newArrOne = {};
             for (var j = 0, len1 = _keys.length; j < len1; j++) {
@@ -532,7 +533,7 @@ var ecDo = {
 /*对象及其他*/
 
     //适配rem
-    getFontSize: function () {
+    getFontSize: function (_client) {
         var doc = document,
             win = window;
         var docEl = doc.documentElement,
@@ -541,11 +542,11 @@ var ecDo = {
                 var clientWidth = docEl.clientWidth;
                 if (!clientWidth) return;
                 //如果屏幕大于750（750是根据我效果图设置的，具体数值参考效果图），就设置clientWidth=750，防止font-size会超过100px
-                if (clientWidth > 750) {
-                    clientWidth = 750
+                if (clientWidth > _client) {
+                    clientWidth = _client
                 }
                 //设置根元素font-size大小
-                docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                docEl.style.fontSize = 100 * (clientWidth / _client) + 'px';
             };
         //屏幕大小改变，或者横竖屏切换时，触发函数
         win.addEventListener(resizeEvt, recalc, false);
@@ -676,7 +677,7 @@ var ecDo = {
     filterParams: function (obj) {
         var _newPar = {};
         for (var key in obj) {
-            if ((obj[key] === 0 || obj[key]) && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') {
+            if ((obj[key] === 0 ||obj[key] === false|| obj[key]) && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') {
                 _newPar[key] = obj[key];
             }
         }
