@@ -1,6 +1,6 @@
 /*2.0.0*/
 let ecDo = {
-/*字符串*/
+    /*字符串*/
     //去除空格  type 1-所有空格  2-前后空格  3-前空格 4-后空格
     //trim('  1235asd',1)
     //result：1235asd
@@ -30,17 +30,18 @@ let ecDo = {
     changeCase(str, type) {
         function ToggleCase(str) {
             let itemText = ""
-            str.split("").forEach(item =>{
-                    if (/^([a-z]+)/.test(item)) {
-                        itemText += item.toUpperCase();
-                    } else if (/^([A-Z]+)/.test(item)) {
-                        itemText += item.toLowerCase();
-                    } else {
-                        itemText += item;
-                    }
-                });
+            str.split("").forEach(item => {
+                if (/^([a-z]+)/.test(item)) {
+                    itemText += item.toUpperCase();
+                } else if (/^([A-Z]+)/.test(item)) {
+                    itemText += item.toLowerCase();
+                } else {
+                    itemText += item;
+                }
+            });
             return itemText;
         }
+
         switch (type) {
             case 1:
                 return str.replace(/\b\w+\b/g, function (word) {
@@ -66,11 +67,7 @@ let ecDo = {
     //repeatStr('123',3)
     //"result：123123123"
     repeatStr(str, count) {
-        let text = '';
-        for (let i = 0; i < count; i++) {
-            text += str;
-        }
-        return text;
+        return str.repeat(count);
     },
     //字符串替换(字符串,要替换的字符或者正则表达式（不要写g）,替换成什么)
     //ecDo.replaceAll('这里是上海，中国第三大城市，广东省省会，简称穗，','上海','广州')
@@ -81,7 +78,7 @@ let ecDo = {
     },
     //字符替换*
     //replaceStr(字符串,字符格式, 替换方式,替换的字符（默认*）)
-    replaceStr(str, regArr, type=0, ARepText='*') {
+    replaceStr(str, regArr, type = 0, ARepText = '*') {
         let regtext = '',
             Reg = null,
             replaceText = ARepText;
@@ -200,7 +197,7 @@ let ecDo = {
     //let str='asd    654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src=""/>啊实打实大蠢猪自行车这些课程';
     // ecDo.filterStr(str,'html,WORD,chinese,special','*','%?')
     //result："asd    654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
-    filterStr(str, type, restr='', spstr) {
+    filterStr(str, type, restr = '', spstr) {
         let typeArr = type.split(','), _str = str;
         for (let i = 0, len = typeArr.length; i < len; i++) {
             //是否是过滤特殊符号
@@ -259,7 +256,7 @@ let ecDo = {
     //result："1 234a sda5 67as d890"
     //ecDo.formatText('1234asda567asd890',4,'-')
     //result："1-234a-sda5-67as-d890"
-    formatText(str, size=3, delimiter=',') {
+    formatText(str, size = 3, delimiter = ',') {
         let regText = '\\B(?=(\\w{' + size + '})+(?!\\w))';
         let reg = new RegExp(regText, 'g');
         return str.replace(reg, delimiter);
@@ -269,31 +266,31 @@ let ecDo = {
     //result：7
     //longestWord('Find|the|Longest|word|in|a|String','|')
     //result：7
-    longestWord(str, splitType=/\s+/g) {
-        let _max = 0,_item='';
+    longestWord(str, splitType = /\s+/g) {
+        let _max = 0, _item = '';
         let strArr = str.split(splitType);
-        strArr.forEach(item=> {
+        strArr.forEach(item => {
             if (_max < item.length) {
                 _max = item.length;
-                _item=item;
+                _item = item;
             }
         });
-        return {el:_item,max:_max};
+        return {el: _item, max: _max};
     },
     //句中单词首字母大写 (Title Case a Sentence)
     //这个我也一直在纠结，英文标题，即使是首字母大写，也未必每一个单词的首字母都是大写的，但是又不知道哪些应该大写，哪些不应该大写
     //ecDo.titleCaseUp('this is a title')
     //"This Is A Title"
-    titleCaseUp(str, splitType=/\s+/g) {
+    titleCaseUp(str, splitType = /\s+/g) {
         let strArr = str.split(splitType),
             result = "", _this = this;
-        strArr.forEach(item=>{
+        strArr.forEach(item => {
             result += _this.changeCase(item, 1) + ' ';
         });
         return this.trim(result, 4)
     },
 
-/*数组*/
+    /*数组*/
 
     //数组去重
     removeRepeatArray(arr) {
@@ -305,7 +302,7 @@ let ecDo = {
     },
     //数组顺序打乱
     upsetArr(arr) {
-        return arr.sort(()=> {
+        return arr.sort(() => {
             return Math.random() - 0.5
         });
     },
@@ -323,7 +320,7 @@ let ecDo = {
     //这一块的封装，主要是针对数字类型的数组
     //数组求和
     sumArr(arr) {
-        return arr.reduce((pre, cur)=>{
+        return arr.reduce((pre, cur) => {
             return pre + cur
         })
     },
@@ -474,7 +471,7 @@ let ecDo = {
         }
         let _sortText = sortText.split(',').reverse(), _arr = arr.slice(0);
         for (let i = 0, len = _sortText.length; i < len; i++) {
-            _arr.sort((n1, n2)=>{
+            _arr.sort((n1, n2) => {
                 return n1[_sortText[i]] - n2[_sortText[i]]
             })
         }
@@ -482,7 +479,7 @@ let ecDo = {
     },
     //数组扁平化
     steamroller(arr) {
-        let newArr = [],_this=this;
+        let newArr = [], _this = this;
         for (let i = 0; i < arr.length; i++) {
             if (Array.isArray(arr[i])) {
                 // 如果是数组，调用(递归)steamroller 将其扁平化
@@ -525,7 +522,7 @@ let ecDo = {
     //      return newArr;
     //  },
 
-/*对象及其他*/
+    /*对象及其他*/
 
     //适配rem
     getFontSize(_client) {
@@ -672,7 +669,7 @@ let ecDo = {
     filterParams(obj) {
         let _newPar = {};
         for (let key in obj) {
-            if ((obj[key] === 0 ||obj[key] === false|| obj[key]) && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') {
+            if ((obj[key] === 0 || obj[key] === false || obj[key]) && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') {
                 _newPar[key] = obj[key];
             }
         }
@@ -701,7 +698,7 @@ let ecDo = {
         this.setCookie(name, 1, -1);
     },
 
-/*DOM*/
+    /*DOM*/
 
     //检测对象是否有哪个类名
     hasClass(obj, classStr) {
@@ -774,13 +771,13 @@ let ecDo = {
             let _opt = opt.substr(1);
             let b = [];//定义一个数组，用于储存过滤a的数组
             if (opt[0] === '.') {
-                b = a.filter(item=> item.className === _opt);
+                b = a.filter(item => item.className === _opt);
             }
             else if (opt[0] === '#') {
-                b = a.filter(item=>item.id === _opt);
+                b = a.filter(item => item.id === _opt);
             }
             else {
-                b = a.filter(item=>item.tagName.toLowerCase() === opt);
+                b = a.filter(item => item.tagName.toLowerCase() === opt);
             }
             return b;
         }
@@ -805,17 +802,17 @@ let ecDo = {
         if (arguments.length === 1) {
             return obj.innerHTML;
         } else if (arguments.length === 2) {
-            obj.innerHTML = this.filterStr(arguments[1],'html');
+            obj.innerHTML = this.filterStr(arguments[1], 'html');
         }
     },
     //显示隐藏
     show(obj) {
-        let blockArr=['div','li','ul','ol','dl','table','article','h1','h2','h3','h4','h5','h6','p','hr','header','footer','details','summary','section','aside','']
-        if(blockArr.indexOf(obj.tagName.toLocaleLowerCase())===-1){
-            obj.style.display ='inline';
+        let blockArr = ['div', 'li', 'ul', 'ol', 'dl', 'table', 'article', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'hr', 'header', 'footer', 'details', 'summary', 'section', 'aside', '']
+        if (blockArr.indexOf(obj.tagName.toLocaleLowerCase()) === -1) {
+            obj.style.display = 'inline';
         }
-        else{
-            obj.style.display ='block';
+        else {
+            obj.style.display = 'block';
         }
     },
     hide(obj) {
@@ -839,7 +836,15 @@ let ecDo = {
     //  		console.log(res)
     //  	}
     //  })
-    ajax(obj={type:'POST', url:'', async:true, data:null, success() {}, error() {}}) {
+    ajax(obj){
+        obj = Object.assign({
+            type: 'POST',
+            url: '',
+            async: true,
+            data: null,
+            success() {},
+            error() {}
+        }, obj);
         obj.type = obj.type.toUpperCase();
         let xmlHttp = null;
         if (XMLHttpRequest) {
@@ -869,7 +874,7 @@ let ecDo = {
         };
     },
     //图片没加载出来时用一张图片代替
-    aftLoadImg(obj, url, errorUrl,cb) {
+    aftLoadImg(obj, url, errorUrl, cb) {
         let oImg = new Image(), _this = this;
         oImg.src = url;
         oImg.onload = function () {
@@ -878,8 +883,8 @@ let ecDo = {
                 cb(obj);
             }
         }
-        oImg.onerror=function () {
-            obj.src=errorUrl;
+        oImg.onerror = function () {
+            obj.src = errorUrl;
             if (cb && _this.istype(cb, 'function')) {
                 cb(obj);
             }
@@ -902,7 +907,7 @@ let ecDo = {
     //		loadImg('load-img',100);
     //		}
     //}
-    loadImg(className='ec-load-img', num=0, errorUrl=null) {
+    loadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
         let _this = this;
         let oImgLoad = document.getElementsByClassName(className);
         for (let i = 0, len = oImgLoad.length; i < len; i++) {
@@ -953,7 +958,7 @@ let ecDo = {
     //关键字加标签（多个关键词用空格隔开）
     //ecDo.findKey('守侯我oaks接到了来自下次你离开快乐吉祥留在开城侯','守侯 开','i')
     //"<i>守侯</i>我oaks接到了来自下次你离<i>开</i>快乐吉祥留在<i>开</i>城侯"
-    findKey(str, key, el='span') {
+    findKey(str, key, el = 'span') {
         let arr = null, regStr = null, content = null, Reg = null;
         arr = key.split(/\s+/);
         //alert(regStr); //    如：(前端|过来)
@@ -1038,12 +1043,13 @@ let ecDo = {
             }
             //否则延迟执行
             else {
-                timer = setTimeout(() =>{
+                timer = setTimeout(() => {
                     fn.apply(context, args);
                 }, delay);
             }
         };
     }
 };
+
 
 

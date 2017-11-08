@@ -8,7 +8,7 @@ let uglify = require('gulp-uglify');
  */
 gulp.task('es6-js', function () {
     //pages下面的业务代码进行babel处理
-    gulp.src(['./ec-do-2.0.0.js'])
+    gulp.src(['./ec-do-2.0.0.js','./test-es6.js'])
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -18,5 +18,5 @@ gulp.task('es6-js', function () {
  * 运行任务
  */
 gulp.task('default', ['es6-js'], function () {
-    gulp.watch('./src/js/**/*.js', ['es6-js']);
+    gulp.watch('*.js', ['es6-js']);
 });;
