@@ -283,9 +283,9 @@ let ecDo = {
     //"This Is A Title"
     titleCaseUp(str, splitType = /\s+/g) {
         let strArr = str.split(splitType),
-            result = "", _this = this;
+            result = "";
         strArr.forEach(item => {
-            result += _this.changeCase(item, 1) + ' ';
+            result += this.changeCase(item, 1) + ' ';
         });
         return this.trim(result, 4)
     },
@@ -320,9 +320,7 @@ let ecDo = {
     //这一块的封装，主要是针对数字类型的数组
     //数组求和
     sumArr(arr) {
-        return arr.reduce((pre, cur) => {
-            return pre + cur
-        })
+        return arr.reduce((pre, cur) =>pre + cur)
     },
 
     //数组平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活了！
@@ -397,8 +395,7 @@ let ecDo = {
     //getArrayNum([0,1,2,3,4,5,6,7,8,9],2) 不传第二个参数,默认返回从n1到数组结束的元素
     //result：[2, 3, 4, 5, 6, 7, 8, 9]
     getArrayNum(arr, n1, n2) {
-        let arr1 = arr.slice(n1, n2);
-        return arr1;
+        return arr.slice(n1, n2);
     },
 
     //筛选数组
@@ -408,9 +405,7 @@ let ecDo = {
     //removeArrayForValue(['test','test1','test2','test','aaa'],'test')
     //result：["test1", "test2", "aaa"]  //数组元素的值全等于'test'才被删除
     removeArrayForValue(arr, val, type) {
-        return arr.filter(function (item) {
-            return type ? item.indexOf(val) === -1 : item !== val
-        })
+        return arr.filter(item=>type ? item.indexOf(val) === -1 : item !== val)
     },
     //获取对象数组某些项
     //let arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
@@ -908,9 +903,9 @@ let ecDo = {
     //		}
     //}
     loadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
-        let _this = this;
         let oImgLoad = document.getElementsByClassName(className);
         for (let i = 0, len = oImgLoad.length; i < len; i++) {
+            //如果图片已经滚动到指定的高度
             if (document.documentElement.clientHeight + document.documentElement.scrollTop > oImgLoad[i].offsetTop - num && !oImgLoad[i].isLoad) {
                 //记录图片是否已经加载
                 oImgLoad[i].isLoad = true;
@@ -918,25 +913,27 @@ let ecDo = {
                 oImgLoad[i].style.cssText = "transition: ''; opacity: 0;";
                 if (oImgLoad[i].dataset) {
                     this.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, errorUrl, function (o) {
-                        setTimeout(function () {
+                        //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
+                        setTimeout(()=>{
                             if (o.isLoad) {
-                                _this.removeClass(o, className);
+                                this.removeClass(o, className);
                                 o.style.cssText = "";
                             }
                         }, 1000)
                     });
                 } else {
                     this.aftLoadImg(oImgLoad[i], oImgLoad[i].getAttribute("data-src"), errorUrl, function (o) {
-                        setTimeout(function () {
+                        //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
+                        setTimeout(()=>{
                             if (o.isLoad) {
-                                _this.removeClass(o, className);
+                                this.removeClass(o, className);
                                 o.style.cssText = "";
                             }
                         }, 1000)
                     });
                 }
                 (function (i) {
-                    setTimeout(function () {
+                    setTimeout(()=>{
                         oImgLoad[i].style.cssText = "transition:all 1s; opacity: 1;";
                     }, 16)
                 })(i);

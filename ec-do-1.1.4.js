@@ -405,8 +405,7 @@ var ecDo = {
     //getArrayNum([0,1,2,3,4,5,6,7,8,9],2) 不传第二个参数,默认返回从n1到数组结束的元素
     //result：[2, 3, 4, 5, 6, 7, 8, 9]
     getArrayNum: function (arr, n1, n2) {
-        var arr1 = arr.slice(n1, n2);
-        return arr1;
+        return arr.slice(n1, n2);
     },
 
     //筛选数组
@@ -925,6 +924,7 @@ var ecDo = {
         var _className = className || 'ec-load-img', _num = num || 0, _this = this,_errorUrl=errorUrl||null;
         var oImgLoad = document.getElementsByClassName(_className);
         for (var i = 0, len = oImgLoad.length; i < len; i++) {
+            //如果图片已经滚动到指定的高度
             if (document.documentElement.clientHeight + document.documentElement.scrollTop > oImgLoad[i].offsetTop - _num && !oImgLoad[i].isLoad) {
                 //记录图片是否已经加载
                 oImgLoad[i].isLoad = true;
@@ -932,6 +932,7 @@ var ecDo = {
                 oImgLoad[i].style.cssText = "transition: ''; opacity: 0;"
                 if (oImgLoad[i].dataset) {
                     this.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, _errorUrl, function (o) {
+                        //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
                         setTimeout(function () {
                             if (o.isLoad) {
                                 _this.removeClass(o, _className);
@@ -941,6 +942,7 @@ var ecDo = {
                     });
                 } else {
                     this.aftLoadImg(oImgLoad[i], oImgLoad[i].getAttribute("data-src"), _errorUrl, function (o) {
+                        //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
                         setTimeout(function () {
                             if (o.isLoad) {
                                 _this.removeClass(o, _className);

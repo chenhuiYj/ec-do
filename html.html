@@ -18,9 +18,15 @@
 		<div class="div1"></div>
 		<div class="div1"></div>
 	</body>
-<script src="./dist/ec-do-2.0.0.js"></script>
+<script src="ec-do-1.1.4.js"></script>
 <script type="text/javascript">
 	window.onload=function () {
+        let oDiv1 =document.querySelectorAll("div");
+        for (let i = 0,len = oDiv1.length; i < len; i++){
+            oDiv1[i].onclick = function(){
+                console.log(i)
+            }
+        }
         //let ecDo =require('./dist/ec-do-2.0.0.js');
 		let oDiv=document.getElementById("div1");
 		ecDo.show(oDiv);
