@@ -1,6 +1,6 @@
 /*2.0.0*/
 let ecDo = {
-    /*字符串*/
+//***************字符串模块**************************/
     //去除空格  type 1-所有空格  2-前后空格  3-前空格 4-后空格
     //trim('  1235asd',1)
     //result：1235asd
@@ -289,9 +289,8 @@ let ecDo = {
         });
         return this.trim(result, 4)
     },
-
-    /*数组*/
-
+//***************字符串模块End**************************/
+//***************数组模块**************************/
     //数组去重
     removeRepeatArray(arr) {
         // return arr.filter(function (item, index, self) {
@@ -516,9 +515,9 @@ let ecDo = {
     //      }
     //      return newArr;
     //  },
+//***************数组模块END**************************/
 
-    /*对象及其他*/
-
+//***************对象及其他模块**************************/
     //适配rem
     getFontSize(_client) {
         let doc = document,
@@ -670,7 +669,87 @@ let ecDo = {
         }
         return _newPar;
     },
-    //cookie
+    //数据类型判断
+    //ecDo.istype([],'array')
+    //true
+    //ecDo.istype([])
+    //'[object Array]'
+    istype(o, type) {
+        switch (type.toLowerCase()) {
+            case 'string':
+                return Object.prototype.toString.call(o) === '[object String]';
+            case 'number':
+                return Object.prototype.toString.call(o) === '[object Number]';
+            case 'boolean':
+                return Object.prototype.toString.call(o) === '[object Boolean]';
+            case 'undefined':
+                return Object.prototype.toString.call(o) === '[object Undefined]';
+            case 'null':
+                return Object.prototype.toString.call(o) === '[object Null]';
+            case 'function':
+                return Object.prototype.toString.call(o) === '[object Function]';
+            case 'array':
+                return Object.prototype.toString.call(o) === '[object Array]';
+            case 'object':
+                return Object.prototype.toString.call(o) === '[object Object]';
+            case 'nan':
+                return isNaN(o);
+            case 'elements':
+                return Object.prototype.toString.call(o).indexOf('HTML') !== -1
+            default:
+                return Object.prototype.toString.call(o)
+        }
+    },
+
+    //手机类型判断
+    browserInfo(type) {
+        switch (type) {
+            case 'android':
+                return navigator.userAgent.toLowerCase().indexOf('android') !== -1
+            case 'iphone':
+                return navigator.userAgent.toLowerCase().indexOf('iphone') !== -1
+            case 'ipad':
+                return navigator.userAgent.toLowerCase().indexOf('ipad') !== -1
+            case 'weixin':
+                return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1
+            default:
+                return navigator.userAgent.toLowerCase()
+        }
+    },
+    //函数节流
+    // let count=0;
+    // function fn1(){
+    //     count++;
+    //     console.log(count)
+    // }
+    // //100ms内连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
+    // document.onmousemove=delayFn(fn1,100,200)
+    delayFn(fn, delay, mustDelay) {
+        let timer = null;
+        let t_start;
+        return function () {
+            let context = this, args = arguments, t_cur = +new Date();
+            //先清理上一次的调用触发（上一次调用触发事件不执行）
+            clearTimeout(timer);
+            //如果不存触发时间，那么当前的时间就是触发时间
+            if (!t_start) {
+                t_start = t_cur;
+            }
+            //如果当前时间-触发时间大于最大的间隔时间（mustDelay），触发一次函数运行函数
+            if (t_cur - t_start >= mustDelay) {
+                fn.apply(context, args);
+                t_start = t_cur;
+            }
+            //否则延迟执行
+            else {
+                timer = setTimeout(() => {
+                    fn.apply(context, args);
+                }, delay);
+            }
+        };
+    },
+//***************对象及其他模块END**************************/
+//***************cookie模块*******************************/
     //设置cookie
     setCookie(name, value, iDay) {
         let oDate = new Date();
@@ -692,9 +771,8 @@ let ecDo = {
     removeCookie(name) {
         this.setCookie(name, 1, -1);
     },
-
-    /*DOM*/
-
+//***************cookie模块END*******************************/
+//***************DOM模块*******************************/
     //检测对象是否有哪个类名
     hasClass(obj, classStr) {
         if (obj.className && this.trim(obj.className, 1) !== "") {
@@ -967,85 +1045,7 @@ let ecDo = {
         content = content.replace(/<\/?[^>]*>/g, '')
         return content.replace(Reg, "<" + el + ">$1</" + el + ">");
     },
-    //数据类型判断
-    //ecDo.istype([],'array')
-    //true
-    //ecDo.istype([])
-    //'[object Array]'
-    istype(o, type) {
-        switch (type.toLowerCase()) {
-            case 'string':
-                return Object.prototype.toString.call(o) === '[object String]';
-            case 'number':
-                return Object.prototype.toString.call(o) === '[object Number]';
-            case 'boolean':
-                return Object.prototype.toString.call(o) === '[object Boolean]';
-            case 'undefined':
-                return Object.prototype.toString.call(o) === '[object Undefined]';
-            case 'null':
-                return Object.prototype.toString.call(o) === '[object Null]';
-            case 'function':
-                return Object.prototype.toString.call(o) === '[object Function]';
-            case 'array':
-                return Object.prototype.toString.call(o) === '[object Array]';
-            case 'object':
-                return Object.prototype.toString.call(o) === '[object Object]';
-            case 'nan':
-                return isNaN(o);
-            case 'elements':
-                return Object.prototype.toString.call(o).indexOf('HTML') !== -1
-            default:
-                return Object.prototype.toString.call(o)
-        }
-    },
-
-    //手机类型判断
-    browserInfo(type) {
-        switch (type) {
-            case 'android':
-                return navigator.userAgent.toLowerCase().indexOf('android') !== -1
-            case 'iphone':
-                return navigator.userAgent.toLowerCase().indexOf('iphone') !== -1
-            case 'ipad':
-                return navigator.userAgent.toLowerCase().indexOf('ipad') !== -1
-            case 'weixin':
-                return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1
-            default:
-                return navigator.userAgent.toLowerCase()
-        }
-    },
-    //函数节流
-    // let count=0;
-    // function fn1(){
-    //     count++;
-    //     console.log(count)
-    // }
-    // //100ms内连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
-    // document.onmousemove=delayFn(fn1,100,200)
-    delayFn(fn, delay, mustDelay) {
-        let timer = null;
-        let t_start;
-        return function () {
-            let context = this, args = arguments, t_cur = +new Date();
-            //先清理上一次的调用触发（上一次调用触发事件不执行）
-            clearTimeout(timer);
-            //如果不存触发时间，那么当前的时间就是触发时间
-            if (!t_start) {
-                t_start = t_cur;
-            }
-            //如果当前时间-触发时间大于最大的间隔时间（mustDelay），触发一次函数运行函数
-            if (t_cur - t_start >= mustDelay) {
-                fn.apply(context, args);
-                t_start = t_cur;
-            }
-            //否则延迟执行
-            else {
-                timer = setTimeout(() => {
-                    fn.apply(context, args);
-                }, delay);
-            }
-        };
-    }
+//***************DOM模块END*******************************/
 };
 
 

@@ -683,7 +683,7 @@ param **{number}** n-金额数目
 
     ecDo.filterParams(obj)
 
-description-获取url参数
+description-过滤对象里面值为null或者underfind的的属性underfind的属性
 
 param **{Object}** obj-待处理对象
 
@@ -691,8 +691,65 @@ param **{Object}** obj-待处理对象
 
     ecDo.filterParams({a:"",b:null,c:"010",d:123})
     result：{c: "010", d: 123}
+### 37.istype
 
-### 37.setCookie
+##### description
+
+    ecDo.istype(o, type)
+
+description-数据类型判断
+
+param **{Array|Object|String|Function|Number|Boolean|Undefined|Null|HTML}** o-待处理的对象
+param **{String}** type-类型字符串
+
+##### demo
+
+    ecDo.istype([],'array')
+    result：true
+
+    ecDo.istype([])
+    result：'[object Array]'
+
+
+### 38.browserInfo
+
+##### description
+
+    ecDo.browserInfo(type)
+
+description-手机类型判断
+param **{String}** type-类型字符串（android|iphone|ipad|weixin）
+
+##### demo
+
+    ecDo.browserInfo('android')
+    result：是安卓就返回true，否则就false
+
+    ecDo.browserInfo()
+    result：返回手机浏览器的信息
+
+### 39.delayFn
+
+##### description
+
+    ecDo.delayFn(fn, delay, mustDelay)
+
+description-函数节流
+param **{String}** fn-执行的函数
+param **{Number}** delay-间隔时间
+param **{Number}** mustDelay-最大间隔时间
+
+##### demo
+
+     var count=0;
+     function fn1(){
+         count++;
+         console.log(count)
+     }
+     //每100ms连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
+     document.onmousemove=delayFn(fn1,100,200)
+
+### 40.setCookie
 
 ##### description
 
@@ -708,7 +765,7 @@ param **{Int}** iDay-时间（天数）
 
     ecDo.setCookie('test', 'testcookie', 2)
 
-### 38.getCookie
+### 41.getCookie
 
 ##### description
 
@@ -722,7 +779,7 @@ param **{String}** name-cookie名
 
     ecDo.getCookie('test')
 
-### 39.removeCookie
+### 42.removeCookie
 
 ##### description
 
@@ -736,7 +793,7 @@ param **{String}** name-cookie名
 
     ecDo.removeCookie('test')
 
-### 40.hasClass
+### 43.hasClass
 
 ##### description
 
@@ -752,7 +809,7 @@ param **{String}** classStr-class名
     ecDo.classStr(obj,'test')
     result:true|false
 
-### 41.addClass
+### 44.addClass
 
 ##### description
 
@@ -767,7 +824,7 @@ param **{String}** classStr-class名
 
     ecDo.addClass(obj,'test')
 
-### 42.removeClass
+### 45.removeClass
 
 ##### description
 
@@ -782,7 +839,7 @@ param **{String}** classStr-class名
 
     ecDo.removeClass(obj,'test')
 
-### 43.replaceClass
+### 46.replaceClass
 
 ##### description
 
@@ -798,7 +855,7 @@ param **{String}** oldName-替换的类名
 
     ecDo.replaceClass(obj,'test','afterClass')
 
-### 44.siblings
+### 47.siblings
 
 ##### description
 
@@ -815,7 +872,7 @@ param **{String}** opt-过滤条件
     result：符合条件的Dom对象
 
 
-### 45.css
+### 48.css
 
 ##### description
 
@@ -830,7 +887,7 @@ param **{Object}** json-样式名
 
     ecDo.css(obj,{'width':'300px','height':'300px'})
 
-### 46.html
+### 49.html
 
 ##### description
 
@@ -849,7 +906,7 @@ param **{String}** str-html内容
 
     ecDo.html(obj,'<div>1111</div>')
 
-### 47.text
+### 50.text
 
 ##### description
 
@@ -868,7 +925,7 @@ param **{String}** str-内容(html标签将会被过滤)
 
     ecDo.text(obj,'1230.312asd')
 
-### 48.show
+### 51.show
 
 ##### description
 
@@ -882,7 +939,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.show(obj)
 
-### 49.hide
+### 52.hide
 
 ##### description
 
@@ -896,7 +953,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.hide(obj)
 
-### 50.ajax
+### 53.ajax
 
 ##### description
 
@@ -926,7 +983,7 @@ param **{Object}** 对象参数
       	}
     })
 
-### 51.aftLoadImg
+### 54.aftLoadImg
 
 ##### description
 
@@ -944,7 +1001,7 @@ param **{Function}** cb-回调函数,参数为obj
     ecDo.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, _errorUrl,function(o){console.log(o)});
 
 
-### 52.loadImg
+### 55.loadImg
 
 ##### description
 
@@ -975,7 +1032,7 @@ param **{String}** errorUrl-出错的图片的url
             }
         }
 
-### 53.createKeyExp
+### 56.createKeyExp
 
 ##### description
 
@@ -990,7 +1047,7 @@ param **{Array}** strArr-要创建的关键字
     ecDo.createKeyExp(['守候','开'])
     result：(前端|过来)
 
-### 54.findKey
+### 57.findKey
 
 ##### description
 
@@ -1009,64 +1066,6 @@ param **{String}** el-要添加的元素，html标签元素  默认span
 
     ecDo.findKey('守侯我oaks接到了来自下次你离开快乐吉祥留在开城侯','守侯 开','i')
     result："<i>守侯</i>我oaks接到了来自下次你离<i>开</i>快乐吉祥留在<i>开</i>城侯"
-
-### 55.istype
-
-##### description
-
-    ecDo.istype(o, type)
-
-description-数据类型判断
-
-param **{Array|Object|String|Function|Number|Boolean|Undefined|Null|HTML}** o-待处理的对象
-param **{String}** type-类型字符串
-
-##### demo
-
-    ecDo.istype([],'array')
-    result：true
-
-    ecDo.istype([])
-    result：'[object Array]'
-
-
-### 56.browserInfo
-
-##### description
-
-    ecDo.browserInfo(type)
-
-description-手机类型判断
-param **{String}** type-类型字符串（android|iphone|ipad|weixin）
-
-##### demo
-
-    ecDo.browserInfo('android')
-    result：是安卓就返回true，否则就false
-
-    ecDo.browserInfo()
-    result：返回手机浏览器的信息
-
-### 57.delayFn
-
-##### description
-
-    ecDo.delayFn(fn, delay, mustDelay)
-
-description-函数节流
-param **{String}** fn-执行的函数
-param **{Number}** delay-间隔时间
-param **{Number}** mustDelay-最大间隔时间
-
-##### demo
-
-     var count=0;
-     function fn1(){
-         count++;
-         console.log(count)
-     }
-     //每100ms连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
-     document.onmousemove=delayFn(fn1,100,200)
 
 ## LICENSE
 MIT
