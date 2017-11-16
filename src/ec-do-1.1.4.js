@@ -1,6 +1,6 @@
 /*1.1.4*/
 var ecDo = {
-/*字符串*/
+//****************************字符串****************************/
     //去除空格  type 1-所有空格  2-前后空格  3-前空格 4-后空格
     //trim('  1235asd',1)
     //result：1235asd
@@ -297,7 +297,7 @@ var ecDo = {
         return this.trim(result, 4)
     },
 
-/*数组*/
+//****************************数组*****************************/
 
     //数组去重
     removeRepeatArray: function (arr) {
@@ -529,7 +529,7 @@ var ecDo = {
     //      return newArr;
     //  },
 
-/*对象及其他*/
+//****************************对象及其他*****************************/
 
     //适配rem
     getFontSize: function (_client) {
@@ -682,7 +682,7 @@ var ecDo = {
         }
         return _newPar;
     },
-    //cookie
+//****************************cookie****************************/
     //设置cookie
     setCookie: function (name, value, iDay) {
         var oDate = new Date();

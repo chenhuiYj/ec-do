@@ -8,11 +8,24 @@ let uglify = require('gulp-uglify');
  */
 gulp.task('es6-js', function () {
     //pages下面的业务代码进行babel处理
-    gulp.src(['./ec-do-2.0.0.js','./test-es6.js'])
+    gulp.src(['./src/ec-do-2.0.0.js','./test-es6.js'])
         .pipe(babel({
             presets: ['es2015']
         }))
         .pipe(gulp.dest('./dist'));
+});
+/**
+ * 压缩js
+ */
+gulp.task('minify-js',()=>{
+    return gulp.src(['./src/ec-do-1.1.4.js','./dist/ec-do-2.0.0.js'])
+        .pipe(uglify({
+            compress:false,
+            mangle:{
+                reserved:['$super', '$', 'exports', 'require', 'define', 'module']
+            }
+        }))
+        .pipe(gulp.dest('./src/min'));
 });
 /**
  * 运行任务
