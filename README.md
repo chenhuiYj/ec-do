@@ -57,7 +57,7 @@ description-大小写转换
 
 param **{String}** str-待处理的字符串
 
-param **{Int}** type-转换的方式（1-首字母大写，2-首页母小写，3-大小写转换，4-全部大写，5-全部小写，不传返回原字符串）
+param **{Int}** type-转换的方式（1-首字母大写，2-首字母小写，3-大小写转换，4-全部大写，5-全部小写，不传返回原字符串）
 
 ##### demo
 
@@ -87,7 +87,7 @@ param **{Int}** type-复制的次数
 
     ecDo.replaceAll(str, AFindText, ARepText)
 
-description-字符串循环复制
+description-字符串替换
 
 param **{String}** str-待处理的字符串
 
@@ -167,6 +167,7 @@ param **{String}** str-待检测的字符串
 
 ##### description
 
+
     ecDo.randomWord(count)
 
 description-随机码
@@ -235,7 +236,7 @@ param **{String}** spstr-保留的特殊字符
 
     ecDo.formatText(str, size, delimiter)
 
-description-检测字符串的出现次数
+description-格式化处理字符串
 
 param **{String}** str-待处理的字符串
 
@@ -260,9 +261,9 @@ param **{String}** delimiter-间隔符，默认','
 
     ecDo.formatText(str, splitType)
 
-description-检测字符串的出现次数
+description-找出最长单词
 
-param **{String}** str-找出最长单词
+param **{String}** str-字符串
 
 param **{splitType}** size-间隔符，默认' '
 
@@ -282,7 +283,7 @@ param **{splitType}** size-间隔符，默认' '
 
 description-句中单词首字母大写
 
-param **{String}** str-找出最长单词
+param **{String}** str
 
 param **{splitType}** size-间隔符，默认' '
 
