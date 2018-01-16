@@ -556,7 +556,7 @@ let ecDo = {
             m = Math.floor(t / 1000 / 60 % 60);
             s = Math.floor(t / 1000 % 60);
         }
-        return `剩余时间${d}天${h}小时${m}分钟${s}秒"`;
+        return {d,h,m,s};
     },
     //随进产生颜色
     randomColor() {
