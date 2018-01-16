@@ -758,9 +758,9 @@ let ecDo = {
     },
     //获取cookie
     getCookie(name) {
-        let arr = document.cookie.split('; ');
+        let arr = document.cookie.split('; '),arr2;
         for (let i = 0; i < arr.length; i++) {
-            let arr2 = arr[i].split('=');
+            arr2 = arr[i].split('=');
             if (arr2[0] == name) {
                 return arr2[1];
             }
