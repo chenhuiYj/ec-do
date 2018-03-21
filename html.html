@@ -6,7 +6,6 @@
 		<style>
 			#div1{
 				color: #f00;
-				display: none;
 			}
 		</style>
 	</head>
@@ -18,22 +17,23 @@
 		<div class="div1"></div>
 		<div class="div1"></div>
 	</body>
-<script src="src/ec-do-1.1.4.js"></script>
+<script src="src/ec-do-3.0.0.js"></script>
 <script type="text/javascript">
 	window.onload=function () {
-        let oDiv1 =document.querySelectorAll("div");
-        for (let i = 0,len = oDiv1.length; i < len; i++){
-            oDiv1[i].onclick = function(){
-                console.log(i)
-            }
-        }
+        let oDiv1 =document.querySelectorAll(".div1");
+        let oDiv3=document.querySelector("#div1");
+        ecDo.css(oDiv3,{'height':'100px','width':'100px','background':'#333'});
+        ecDo.css(oDiv1,{'height':'100px','width':'100px','background':'#09f'});
         //let ecDo =require('./dist/ec-do-2.0.0.js');
 		let oDiv=document.getElementById("div1");
 		ecDo.show(oDiv);
         ecDo.text(oDiv,'<div id="div1">45132134656</div>');
-        let odiv2=ecDo.siblings(oDiv,'#div2')
-        ecDo.css(odiv2[0],{'height':'300px','width':'300px','background':'#ccc'})
+        let oDiv2=ecDo.siblings(oDiv,'#div2')
+        ecDo.css(oDiv2[0],{'height':'300px','width':'300px','background':'#ccc'})
 
+        console.log(ecDo.encryptStr('18819266335',[5],0,'-'));
+
+        console.log(ecDo.encryptStr('18819322663',[3,5,3],0));
     }
 </script>
 </html>
