@@ -858,9 +858,18 @@ let ecDo = {
         return a;
     },
     //设置样式
-    css(obj, json) {
-        for (let attr in json) {
-            obj.style[attr] = json[attr];
+    css(dom, json) {
+        if (dom.length) {
+            for (let i = 0; i < dom.length; i++) {
+                for (let attr in json) {
+                    dom[i].style[attr] = json[attr];
+                }
+            }
+        }
+        else {
+            for (let attr in json) {
+                dom.style[attr] = json[attr];
+            }
         }
     },
     //设置HTML内容
