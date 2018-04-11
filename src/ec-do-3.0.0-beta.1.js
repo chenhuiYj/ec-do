@@ -78,7 +78,7 @@ let ecDo = {
     },
     //字符替换*
     //replaceStr(字符串,字符格式, 替换方式,替换的字符（默认*）)
-    replaceStr(str, regArr, type = 0, ARepText = '*') {
+    encryptStr(str, regArr, type = 0, ARepText = '*') {
         let regtext = '',
             Reg = null,
             replaceText = ARepText;
@@ -121,30 +121,45 @@ let ecDo = {
     //checkType('165226226326','phone')
     //result：false
     //大家可以根据需要扩展
-    checkType(str, type) {
-        switch (type) {
-            case 'email':
+    checkType:(function(){
+        let rules={
+            email(str){
                 return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
-            case 'phone':
+            },
+            phone(str){
                 return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
-            case 'tel':
+            },
+            tel(str){
                 return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
-            case 'number':
+            },
+            number(str){
                 return /^[0-9]$/.test(str);
-            case 'english':
+            },
+            english(str){
                 return /^[a-zA-Z]+$/.test(str);
-            case 'text':
+            },
+            text(str){
                 return /^\w+$/.test(str);
-            case 'chinese':
+            },
+            chinese(str){
                 return /^[\u4E00-\u9FA5]+$/.test(str);
-            case 'lower':
+            },
+            lower(str){
                 return /^[a-z]+$/.test(str);
-            case 'upper':
+            },
+            upper(str){
                 return /^[A-Z]+$/.test(str);
-            default:
-                return true;
+            }
+        };
+        return {
+            check(str, type){
+                return rules[type]?rules[type](str):false;
+            },
+            addRule(type,fn){
+                rules[type]=fn;
+            }
         }
-    },
+    })(),
     //检测密码强度
     //checkPwd('12asdASAD')
     //result：3(强度等级为3)
@@ -276,6 +291,10 @@ let ecDo = {
             }
         });
         return {el: _item, max: _max};
+
+        //return str.split(splitType).map(w => {return {el:w,count:w.length}}).sort((n1,n2)=>n2.count-n1.count)[0];
+
+
     },
     //句中单词首字母大写 (Title Case a Sentence)
     //这个我也一直在纠结，英文标题，即使是首字母大写，也未必每一个单词的首字母都是大写的，但是又不知道哪些应该大写，哪些不应该大写
@@ -1057,3 +1076,4 @@ let ecDo = {
     },
 //***************DOM模块END*******************************/
 };
+//ecDo.checkType=ecDo.checkType();
