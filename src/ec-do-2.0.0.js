@@ -775,14 +775,7 @@ let ecDo = {
 //***************DOM模块*******************************/
     //检测对象是否有哪个类名
     hasClass(obj, classStr) {
-        if (obj.className && this.trim(obj.className, 1) !== "") {
-            let arr = obj.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含
-            return (arr.indexOf(classStr) === -1) ? false : true;
-        }
-        else {
-            return false;
-        }
-
+        return (" " + obj.className + " ").indexOf(" " + classStr + " ") > -1;
     },
     //添加类名
     addClass(obj, classStr) {
