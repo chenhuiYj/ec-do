@@ -28,7 +28,7 @@ let ecDo = {
     //changeCase('asdasd',1)
     //result：Asdasd
     changeCase(str, type) {
-        function ToggleCase(str) {
+        function toggleCase(str) {
             let itemText = ""
             str.split("").forEach(item => {
                 if (/^([a-z]+)/.test(item)) {
@@ -53,7 +53,7 @@ let ecDo = {
                     return word.substring(0, 1).toLowerCase() + word.substring(1).toUpperCase();
                 });
             case 3:
-                return ToggleCase(str);
+                return toggleCase(str);
             case 4:
                 return str.toUpperCase();
             case 5:
@@ -77,45 +77,43 @@ let ecDo = {
         return str.replace(raRegExp, ARepText);
     },
     //字符替换*
-    //replaceStr(字符串,字符格式, 替换方式,替换的字符（默认*）)
-    encryptStr(str, regArr, type = 0, ARepText = '*') {
+    //replaceStr(字符串,替换的位置,替换的字符（默认*）)
+    encryptStr(str, regIndex, ARepText = '*') {
         let regtext = '',
             Reg = null,
+            _regIndex=regIndex.split(','),
             replaceText = ARepText;
         //replaceStr('18819322663',[3,5,3],0)
         //result：188*****663
         //repeatStr是在上面定义过的（字符串循环复制），大家注意哦
-        if (regArr.length === 3 && type === 0) {
-            regtext = '(\\w{' + regArr[0] + '})\\w{' + regArr[1] + '}(\\w{' + regArr[2] + '})'
-            Reg = new RegExp(regtext);
-            let replaceCount = this.repeatStr(replaceText, regArr[1]);
-            return str.replace(Reg, '$1' + replaceCount + '$2')
-        }
-        //replaceStr('asdasdasdaa',[3,5,3],1)
-        //result：***asdas***
-        else if (regArr.length === 3 && type === 1) {
-            regtext = '\\w{' + regArr[0] + '}(\\w{' + regArr[1] + '})\\w{' + regArr[2] + '}'
-            Reg = new RegExp(regtext);
-            let replaceCount1 = this.repeatStr(replaceText, regArr[0]);
-            let replaceCount2 = this.repeatStr(replaceText, regArr[2]);
-            return str.replace(Reg, replaceCount1 + '$1' + replaceCount2)
-        }
-        //replaceStr('1asd88465asdwqe3',[5],0)
-        //result：*****8465asdwqe3
-        else if (regArr.length === 1 && type === 0) {
-            regtext = '(^\\w{' + regArr[0] + '})'
-            Reg = new RegExp(regtext);
-            let replaceCount = this.repeatStr(replaceText, regArr[0]);
-            return str.replace(Reg, replaceCount)
-        }
-        //replaceStr('1asd88465asdwqe3',[5],1,'+')
-        //result："1asd88465as+++++"
-        else if (regArr.length === 1 && type === 1) {
-            regtext = '(\\w{' + regArr[0] + '}$)'
-            Reg = new RegExp(regtext);
-            let replaceCount = this.repeatStr(replaceText, regArr[0]);
-            return str.replace(Reg, replaceCount)
-        }
+        _regIndex=_regIndex.map(item=>+item);
+        regtext = '(\\w{' + _regIndex[0] + '})\\w{' + (1+_regIndex[1]-_regIndex[0]) + '}';
+        Reg = new RegExp(regtext);
+        let replaceCount = this.repeatStr(replaceText, (1+_regIndex[1]-_regIndex[0]));
+        return str.replace(Reg, '$1' + replaceCount);
+    },
+    //字符替换*
+    //replaceStr(字符串,不替换位置,替换的字符（默认*）)
+    unEncryptStr(str, regIndex, ARepText = '*') {
+        let regtext = '',
+            Reg = null,
+            _regIndex=regIndex.split(','),
+            replaceText = ARepText;
+        _regIndex=_regIndex.map(item=>+item);
+        regtext = '(\\w{' + _regIndex[0] + '})(\\w{' + (1+_regIndex[1]-_regIndex[0]) + '})(\\w{' + (str.length-_regIndex[1]-1) + '})';
+        Reg = new RegExp(regtext);
+        let replaceCount1 = this.repeatStr(replaceText, _regIndex[0]);
+        let replaceCount2 = this.repeatStr(replaceText, str.length-_regIndex[1]-1);
+        return str.replace(Reg, replaceCount1 + '$2' + replaceCount2);
+    },
+    encryptStartStr(str,length,replaceText){
+        let regtext = '(\\w{' + length + '})';
+        let Reg = new RegExp(regtext);
+        let replaceCount = this.repeatStr(replaceText, length);
+        return str.replace(Reg, replaceCount);
+    },
+    encryptEndStr(str,length,replaceText){
+        return this.encryptStartStr(str.split('').reverse().join(''),length,replaceText).split('').reverse().join('');
     },
     //检测字符串
     //checkType('165226226326','phone')
