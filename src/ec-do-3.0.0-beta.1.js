@@ -94,7 +94,7 @@ let ecDo = {
     },
     //字符替换*
     //replaceStr(字符串,不替换位置,替换的字符（默认*）)
-    unEncryptStr(str, regIndex, ARepText = '*') {
+    encryptUnStr(str, regIndex, ARepText = '*') {
         let regtext = '',
             Reg = null,
             _regIndex=regIndex.split(','),
