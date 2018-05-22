@@ -598,16 +598,17 @@ let ecDo = {
         }
         return {d,h,m,s};
     },
-    formatDate(fmt) {
+    formatDate(date,fmt) {
+        let _date=new Date(date);
         let o = {
-            "M+" : this.getMonth()+1,                 //月份
-            "d+" : this.getDate(),                    //日
-            "h+" : this.getHours(),                   //小时
-            "m+" : this.getMinutes(),                 //分
-            "s+" : this.getSeconds()                 //秒
+            "M+" : _date.getMonth()+1,                 //月份
+            "d+" : _date.getDate(),                    //日
+            "h+" : _date.getHours(),                   //小时
+            "m+" : _date.getMinutes(),                 //分
+            "s+" : _date.getSeconds()                 //秒
         };
         if(/(y+)/.test(fmt)) {
-            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+            fmt=fmt.replace(RegExp.$1, (_date.getFullYear()+"").substr(4 - RegExp.$1.length));
         }
         for(let k in o) {
             if(new RegExp("("+ k +")").test(fmt)){
