@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+    console.log(ecDo.checkType.check('18819663362','mobile'));
+    ecDo.checkType.addRule('password',function (str) {
+        return /^[-a-zA-Z0-9._]+$/.test(str);
+    })
+    console.log(ecDo.checkType.check('***asdasd654zxc','password'));
+</script>
+</body>
+</html>

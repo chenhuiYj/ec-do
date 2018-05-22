@@ -58,25 +58,22 @@ let ecDo = {
             return word.substring(0, 1).toLowerCase() + word.substring(1).toUpperCase();
         });
     },
-    //字符串循环复制
-    //repeatStr(str->字符串, count->次数)
-    //repeatStr('123',3)
-    //"result：123123123"
     /**
      * @description 字符串循环复制
      */
     repeatStr(str, count) {
         return str.repeat(count);
     },
-    //字符串替换(字符串,要替换的字符或者正则表达式（不要写g）,替换成什么)
-    //ecDo.replaceAll('这里是上海，中国第三大城市，广东省省会，简称穗，','上海','广州')
-    //result："这里是广州，中国第三大城市，广东省省会，简称穗，"
+    /**
+     * @description 字符串替换
+     */
     replaceAll(str, AFindText, ARepText) {
         let raRegExp = new RegExp(AFindText, "g");
         return str.replace(raRegExp, ARepText);
     },
-    //字符替换*
-    //replaceStr(字符串,替换的位置,替换的字符（默认*）)
+    /**
+     * @description 加密字符串
+     */
     encryptStr(str, regIndex, ARepText = '*') {
         let regtext = '',
             Reg = null,
@@ -91,8 +88,9 @@ let ecDo = {
         let replaceCount = this.repeatStr(replaceText, (1+_regIndex[1]-_regIndex[0]));
         return str.replace(Reg, '$1' + replaceCount);
     },
-    //字符替换*
-    //replaceStr(字符串,不替换位置,替换的字符（默认*）)
+    /**
+     * @description 不加密字符串
+     */
     encryptUnStr(str, regIndex, ARepText = '*') {
         let regtext = '',
             Reg = null,
@@ -105,25 +103,30 @@ let ecDo = {
         let replaceCount2 = this.repeatStr(replaceText, str.length-_regIndex[1]-1);
         return str.replace(Reg, replaceCount1 + '$2' + replaceCount2);
     },
-    encryptStartStr(str,length,replaceText){
+    /**
+     * @description 字符串开始位置加密
+     */
+    encryptStartStr(str,length,replaceText = '*'){
         let regtext = '(\\w{' + length + '})';
         let Reg = new RegExp(regtext);
         let replaceCount = this.repeatStr(replaceText, length);
         return str.replace(Reg, replaceCount);
     },
-    encryptEndStr(str,length,replaceText){
+    /**
+     * @description 字符串结束位置加密
+     */
+    encryptEndStr(str,length,replaceText = '*'){
         return this.encryptStartStr(str.split('').reverse().join(''),length,replaceText).split('').reverse().join('');
     },
-    //检测字符串
-    //checkType('165226226326','phone')
-    //result：false
-    //大家可以根据需要扩展
+    /**
+     * @description 检测字符串
+     */
     checkType:(function(){
         let rules={
             email(str){
                 return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
             },
-            phone(str){
+            mobile(str){
                 return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
             },
             tel(str){
@@ -157,10 +160,10 @@ let ecDo = {
             }
         }
     })(),
-    //检测密码强度
-    //checkPwd('12asdASAD')
-    //result：3(强度等级为3)
-    checkPwd(str) {
+    /**
+     * @description 检测密码强度
+     */
+    checkPwdLevel(str) {
         let nowLv = 0;
         if (str.length < 6) {
             return nowLv
@@ -179,26 +182,15 @@ let ecDo = {
         }
         return nowLv;
     },
-    //随机码
-    //count取值范围2-36
-
-    //randomWord(10)
-    //result："2584316588472575"
-
-    //randomWord(14)
-    //result："9b405070dd00122640c192caab84537"
-
-    //randomWord(36)
-    //result："83vhdx10rmjkyb9"
-
-    randomWord(count) {
+    /**
+     * @description 随机码
+     */
+    randomWord(count=36) {
         return Math.random().toString(count).substring(2);
     },
-
-    //查找字符串
-    //let strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuadbhjcibloguyeajzxkcabloguyiwezxc967'
-    //countStr(strTest,'blog')
-    //result：6
+    /**
+     * @description 统计特定字符串的次数
+     */
     countStr(str, strSplit) {
         return str.split(strSplit).length - 1
     },
@@ -340,9 +332,9 @@ let ecDo = {
         let strArr = str.split(splitType),
             result = "";
         strArr.forEach(item => {
-            result += this.changeCase(item, 1) + ' ';
+            result += this.firstWordUpper(item, 1) + ' ';
         });
-        return this.trim(result, 4)
+        return this.trimRight(result)
     },
 //***************字符串模块End**************************/
 //***************数组模块**************************/
