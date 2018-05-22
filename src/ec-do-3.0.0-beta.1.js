@@ -1,22 +1,33 @@
 /*2.0.0*/
 let ecDo = {
 //***************字符串模块**************************/
-    //去除空格  type 1-所有空格  2-前后空格  3-前空格 4-后空格
-    //trim('  1235asd',1)
-    //result：1235asd
+    /**
+     * @description 清除左右空格
+     */
     trim(str) {
         return str.replace(/(^\s*)|(\s*$)/g, "");
     },
+    /**
+     * @description 清除所有空格
+     */
     trimAll(str){
         return str.replace(/\s+/g, "");
     },
+    /**
+     * @description 清除左空格
+     */
     trimLeft(str){
         return str.replace(/(^\s*)/g, "");
     },
+    /**
+     * @description 清除右空格
+     */
     trimRight(str){
         return str.replace(/(\s*$)/g, "");
     },
-    //大小写转换
+    /**
+     * @description 大小写切换
+     */
     toggleCase(str) {
         let itemText = ""
         str.split("").forEach(item => {
@@ -30,14 +41,18 @@ let ecDo = {
         });
         return itemText;
     },
-    //首字母大写
+    /**
+     * @description 首字母大写
+     */
     firstWordUpper(str){
         return str.replace(/\b\w+\b/g, function (word) {
             return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
 
         });
     },
-    //首字母小写
+    /**
+     * @description 首字母小写
+     */
     firstWordLower(str){
         return str.replace(/\b\w+\b/g, function (word) {
             return word.substring(0, 1).toLowerCase() + word.substring(1).toUpperCase();
@@ -47,6 +62,9 @@ let ecDo = {
     //repeatStr(str->字符串, count->次数)
     //repeatStr('123',3)
     //"result：123123123"
+    /**
+     * @description 字符串循环复制
+     */
     repeatStr(str, count) {
         return str.repeat(count);
     },
@@ -207,9 +225,6 @@ let ecDo = {
             },
             number(str,replaceStr=''){
                 return str.replace(/[1-9]/g, replaceStr);
-            },
-            chinese(str,replaceStr=''){
-                return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
             },
             specialStr(str,replaceStr='',spstr){
                 let regText = '$()[]{}?\|^*+./\"\'+',pattern;
@@ -733,7 +748,7 @@ let ecDo = {
     //true
     //ecDo.istype([])
     //'[object Array]'
-    istype(o, type) {
+    isType(o, type) {
         switch (type.toLowerCase()) {
             case 'string':
                 return Object.prototype.toString.call(o) === '[object String]';
