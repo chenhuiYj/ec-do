@@ -16,47 +16,32 @@ let ecDo = {
     trimRight(str){
         return str.replace(/(\s*$)/g, "");
     },
-    /*type
-     1:首字母大写
-     2：首字母小写
-     3：大小写转换
-     * */
-    //changeCase('asdasd',1)
-    //result：Asdasd
-    changeCase(str, type) {
-        function toggleCase(str) {
-            let itemText = ""
-            str.split("").forEach(item => {
-                if (/^([a-z]+)/.test(item)) {
-                    itemText += item.toUpperCase();
-                } else if (/^([A-Z]+)/.test(item)) {
-                    itemText += item.toLowerCase();
-                } else {
-                    itemText += item;
-                }
-            });
-            return itemText;
-        }
+    //大小写转换
+    toggleCase(str) {
+        let itemText = ""
+        str.split("").forEach(item => {
+            if (/^([a-z]+)/.test(item)) {
+                itemText += item.toUpperCase();
+            } else if (/^([A-Z]+)/.test(item)) {
+                itemText += item.toLowerCase();
+            } else {
+                itemText += item;
+            }
+        });
+        return itemText;
+    },
+    //首字母大写
+    firstWordUpper(str){
+        return str.replace(/\b\w+\b/g, function (word) {
+            return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
 
-        switch (type) {
-            case 1:
-                return str.replace(/\b\w+\b/g, function (word) {
-                    return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
-
-                });
-            case 2:
-                return str.replace(/\b\w+\b/g, function (word) {
-                    return word.substring(0, 1).toLowerCase() + word.substring(1).toUpperCase();
-                });
-            case 3:
-                return toggleCase(str);
-            case 4:
-                return str.toUpperCase();
-            case 5:
-                return str.toLowerCase();
-            default:
-                return str;
-        }
+        });
+    },
+    //首字母小写
+    firstWordLower(str){
+        return str.replace(/\b\w+\b/g, function (word) {
+            return word.substring(0, 1).toLowerCase() + word.substring(1).toUpperCase();
+        });
     },
     //字符串循环复制
     //repeatStr(str->字符串, count->次数)
