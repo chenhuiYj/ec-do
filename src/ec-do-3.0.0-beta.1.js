@@ -4,26 +4,22 @@ let ecDo = {
     //去除空格  type 1-所有空格  2-前后空格  3-前空格 4-后空格
     //trim('  1235asd',1)
     //result：1235asd
-    trim(str, type) {
-        switch (type) {
-            case 1:
-                return str.replace(/\s+/g, "");
-            case 2:
-                return str.replace(/(^\s*)|(\s*$)/g, "");
-            case 3:
-                return str.replace(/(^\s*)/g, "");
-            case 4:
-                return str.replace(/(\s*$)/g, "");
-            default:
-                return str;
-        }
+    trim(str) {
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+    },
+    trimAll(str){
+        return str.replace(/\s+/g, "");
+    },
+    trimLeft(str){
+        return str.replace(/(^\s*)/g, "");
+    },
+    trimRight(str){
+        return str.replace(/(\s*$)/g, "");
     },
     /*type
      1:首字母大写
      2：首字母小写
      3：大小写转换
-     4：全部大写
-     5：全部小写
      * */
     //changeCase('asdasd',1)
     //result：Asdasd
