@@ -191,13 +191,28 @@ let ecDo = {
     //let str='asd    654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src=""/>啊实打实大蠢猪自行车这些课程';
     // ecDo.filterStr(str,'html,WORD,chinese,special','*','%?')
     //result："asd    654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
-    filterStr(str, type, restr = '', spstr) {
-        let typeArr = type.split(','), _str = str;
-        for (let i = 0, len = typeArr.length; i < len; i++) {
-            //是否是过滤特殊符号
-            let pattern;
-            if (typeArr[i] === 'special') {
-                let regText = '$()[]{}?\|^*+./\"\'+';
+    filterStr:(function(){
+        let typeFn={
+            html(str,replaceStr=''){
+                return str.replace(/<\/?[^>]*>/g, replaceStr);
+            },
+            emjoy(str,replaceStr=''){
+                return str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, replaceStr);
+            },
+            WORD(str,replaceStr=''){
+                return str.replace(/[A-Z]/g, replaceStr);
+            },
+            word(str,replaceStr=''){
+                return str.replace(/[a-z]/g, replaceStr);
+            },
+            number(str,replaceStr=''){
+                return str.replace(/[1-9]/g, replaceStr);
+            },
+            chinese(str,replaceStr=''){
+                return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
+            },
+            specialStr(str,replaceStr='',spstr){
+                let regText = '$()[]{}?\|^*+./\"\'+',pattern;
                 //是否有哪些特殊符号需要保留
                 if (spstr) {
                     let _spstr = spstr.split(""), _regText = "[^0-9A-Za-z\\s";
@@ -215,34 +230,22 @@ let ecDo = {
                 else {
                     pattern = new RegExp("[^0-9A-Za-z\\s]", 'g')
                 }
-
-            }
-            switch (typeArr[i]) {
-                case 'special':
-                    _str = _str.replace(pattern, restr);
-                    break;
-                case 'html':
-                    _str = _str.replace(/<\/?[^>]*>/g, restr);
-                    break;
-                case 'emjoy':
-                    _str = _str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, restr);
-                    break;
-                case 'word':
-                    _str = _str.replace(/[a-z]/g, restr);
-                    break;
-                case 'WORD':
-                    _str = _str.replace(/[A-Z]/g, restr);
-                    break;
-                case 'number':
-                    _str = _str.replace(/[0-9]/g, restr);
-                    break;
-                case 'chinese':
-                    _str = _str.replace(/[\u4E00-\u9FA5]/g, restr);
-                    break;
+                return str = str.replace(pattern, replaceStr);
             }
         }
-        return _str;
-    },
+        return{
+            handle(type,str){
+                let arr = Array.prototype.slice.call(arguments);
+                arr.splice(0,1);
+                return typeFn[type]?typeFn[type].apply(null, arr):false;
+            },
+            addType(type,fn){
+                if(!typeFn[type]){
+                    typeFn[type]=fn;
+                }
+            }
+        }
+    })(),
     filterSpecialStr(str,replaceStr='',spstr){
         let regText = '$()[]{}?\|^*+./\"\'+',pattern;
         //是否有哪些特殊符号需要保留

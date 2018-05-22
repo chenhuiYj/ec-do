@@ -31,12 +31,18 @@
 //        let oDiv2=ecDo.siblings(oDiv,'#div2')
 //        ecDo.css(oDiv2[0],{'height':'300px','width':'300px','background':'#ccc'})
 //
-        console.log(ecDo.encryptStr('18819322663','3,7','-'));
+//        console.log(ecDo.encryptStr('18819322663','3,7','-'));
+//
+//        console.log(ecDo.unEncryptStr('18819322663','3,7','-'));
+//
+//        console.log(ecDo.encryptStartStr('18819322663','3','+'));
+//        console.log(ecDo.encryptEndStr('18819322663','3','+'));
 
-        console.log(ecDo.unEncryptStr('18819322663','3,7','-'));
-
-        console.log(ecDo.encryptStartStr('18819322663','3','+'));
-        console.log(ecDo.encryptEndStr('18819322663','3','+'));
+        console.log(ecDo.filterStr.addType('chinese',function (str,replaceStr='') {
+            return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
+        }));
+        console.log(ecDo.filterStr.handle('specialStr','asdasd46撒打算的','.',''));
+        console.log(ecDo.filterStr.handle('specialStr','asdasd46465--+*//6','...','//+'));
 
 //        console.log(ecDo.checkType.check('188170239','phone'));
 //        ecDo.checkType.addRule('money',function (str) {
