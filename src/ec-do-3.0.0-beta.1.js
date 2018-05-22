@@ -758,7 +758,245 @@ let ecDo = {
                 return Object.prototype.toString.call(o)
         }
     },
+    //表单验证
+    validateForm:(function () {
+        let ruleData = {
+            /**
+             * @description 不能为空
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isNoNull(val, msg){
+                if (!val) {
+                    return msg
+                }
+            },
+            /**
+             * @description 最小长度
+             * @param val
+             * @param length
+             * @param msg
+             * @return {*}
+             */
+            minLength(val, length, msg){
+                if (val.toString().length < length) {
+                    return msg
+                }
+            },
+            /**
+             * @description 最大长度
+             * @param val
+             * @param length
+             * @param msg
+             * @return {*}
+             */
+            maxLength(val, length, msg){
+                if (val.toString().length > length) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是手机号码格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isMobile(val, msg){
+                if (!/^1[3-9]\d{9}$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是固定电话
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isTel(val, msg){
+                if (!/^\d{3}-\d{8}|\d{4}-\d{7}|\d{11}$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是邮箱
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isEmail(val, msg){
+                if (!/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-zd]{2,5}$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是号码格式（身份证）
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isCard(val, msg){
+                if (!/^\d{15}$|^\d{18}$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是数字格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isNumber(val, msg){
+                if (!/^[0-9]+$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是有效数值格式（两个小数点）
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isCount(val, msg){
+                if (!/^[1-9]{1}\d*(.\d{1,2})?$|^[0]{1}$|^0.\d{1,2}$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是中文格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isChinese(val, msg){
+                if (!/^[^\u4E00-\u9FA5]+$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isEnglish(val, msg){
+                if (!/^[a-zA-Z]+$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是大写英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isUpperEnglish(val, msg){
+                if (!/^[A-Z]+$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是小写英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isLowerEnglish(val, msg){
+                if (!/^[a-z]+$/.test(val)) {
+                    return msg
+                }
+            },
+            /**
+             * @description 是否是密码
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isPassWord(val, msg){
+                if (!/^[a-zA-Z0-9._-]+$/.test(val)) {
+                    return msg
+                }
+            },
+        }
+        return {
+            /**
+             * @description 查询接口
+             * @param arr
+             * @return {*}
+             */
+            check: function (arr) {
+                let ruleMsg, checkRule, _rule;
+                for (let i = 0, len = arr.length; i < len; i++) {
+                    //如果字段找不到
+                    if (arr[i].el === undefined) {
+                        return '字段找不到！'
+                    }
+                    //遍历规则
+                    for (let j = 0; j < arr[i].rules.length; j++) {
+                        //提取规则
+                        checkRule = arr[i].rules[j].rule.split(":");
+                        _rule = checkRule.shift();
+                        checkRule.unshift(arr[i].el);
+                        checkRule.push(arr[i].rules[j].msg);
+                        //如果规则错误
+                        ruleMsg = ruleData[_rule].apply(null, checkRule);
+                        if (ruleMsg) {
+                            //返回错误信息
+                            return ruleMsg;
+                        }
+                    }
+                }
+            },
+            /**
+             * @description 校验所有接口
+             * @param arr
+             * @return {*}
+             */
+            checkAll: function (arr) {
+                let ruleMsg, checkRule, _rule,msgArr=[];
+                for (let i = 0, len = arr.length; i < len; i++) {
+                    //如果字段找不到
+                    if (arr[i].el === undefined) {
+                        return '字段找不到！'
+                    }
+                    //如果字段为空以及规则不是校验空的规则
 
+                    //遍历规则
+                    for (let j = 0; j < arr[i].rules.length; j++) {
+                        //提取规则
+                        //如果字段为空且规则不是校验空值，执行下次循环
+                        if ((arr[i].el === ''||arr[i].el === null)&&arr[i].rules[j].rule[0]!=='isNoNull') {
+                            continue;
+                        }
+                        checkRule = arr[i].rules[j].rule.split(":");
+                        _rule = checkRule.shift();
+                        checkRule.unshift(arr[i].el);
+                        checkRule.push(arr[i].rules[j].msg);
+                        //如果规则错误
+                        ruleMsg = ruleData[_rule].apply(null, checkRule);
+                        if (ruleMsg) {
+                            //返回错误信息
+                            msgArr.push({
+                                el:arr[i].el,
+                                alias:arr[i].alias,
+                                rules:_rule,
+                                msg:ruleMsg
+                            });
+                        }
+                    }
+                }
+                return msgArr.length>0?msgArr:false;
+            },
+            /**
+             * @description 添加规则接口
+             * @param type
+             * @param fn
+             */
+            addRule:function (type,fn) {
+                ruleData[type]=fn;
+            }
+        }
+    })(),
     //手机类型判断
     browserInfo(type) {
         switch (type) {
