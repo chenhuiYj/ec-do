@@ -194,13 +194,9 @@ let ecDo = {
     countStr(str, strSplit) {
         return str.split(strSplit).length - 1
     },
-    //过滤字符串(html标签，表情，特殊字符)
-    //字符串，替换内容（special-特殊字符,html-html标签,emjoy-emjoy表情,word-小写字母，WORD-大写字母，number-数字,chinese-中文），要替换成什么，默认'',保留哪些特殊字符
-    //如果需要过滤多种字符，type参数使用,分割，如下栗子
-    //过滤字符串的html标签，大写字母，中文，特殊字符，全部替换成*,但是特殊字符'%'，'?'，除了这两个，其他特殊字符全部清除
-    //let str='asd    654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src=""/>啊实打实大蠢猪自行车这些课程';
-    // ecDo.filterStr(str,'html,WORD,chinese,special','*','%?')
-    //result："asd    654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
+    /**
+     * @description 过滤特定类型字符串
+     */
     filterStr:(function(){
         let typeFn={
             html(str,replaceStr=''){
@@ -217,6 +213,9 @@ let ecDo = {
             },
             number(str,replaceStr=''){
                 return str.replace(/[1-9]/g, replaceStr);
+            },
+            chinese(str,replaceStr=''){
+                return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
             },
             specialStr(str,replaceStr='',spstr){
                 let regText = '$()[]{}?\|^*+./\"\'+',pattern;
@@ -253,6 +252,9 @@ let ecDo = {
             }
         }
     })(),
+    /**
+     * @description 过滤字符串的特殊符号
+     */
     filterSpecialStr(str,replaceStr='',spstr){
         let regText = '$()[]{}?\|^*+./\"\'+',pattern;
         //是否有哪些特殊符号需要保留
@@ -274,31 +276,45 @@ let ecDo = {
         }
         return str = str.replace(pattern, replaceStr);
     },
+    /**
+     * @description 过滤字符串的html标签
+     */
     filterHtml(str,replaceStr=''){
         return str.replace(/<\/?[^>]*>/g, replaceStr);
     },
+    /**
+     * @description 过滤字符串的表情
+     */
     filterEmjoy(str,replaceStr=''){
         return str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, replaceStr);
     },
+    /**
+     * @description 过滤字符串的大写字母
+     */
     filterWordUpper(str,replaceStr=''){
         return str.replace(/[A-Z]/g, replaceStr);
     },
+    /**
+     * @description 过滤字符串的小写字母
+     */
     filterWordLower(str,replaceStr=''){
         return str.replace(/[a-z]/g, replaceStr);
     },
+    /**
+     * @description 过滤字符串的数字
+     */
     filterNumber(str,replaceStr=''){
         return str.replace(/[1-9]/g, replaceStr);
     },
+    /**
+     * @description 过滤字符串的中文
+     */
     filterChinese(str,replaceStr=''){
         return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
     },
-    //格式化处理字符串
-    //ecDo.formatText('1234asda567asd890')
-    //result："12,34a,sda,567,asd,890"
-    //ecDo.formatText('1234asda567asd890',4,' ')
-    //result："1 234a sda5 67as d890"
-    //ecDo.formatText('1234asda567asd890',4,'-')
-    //result："1-234a-sda5-67as-d890"
+    /**
+     * @description 格式化处理字符串
+     */
     formatText(str, size = 3, delimiter = ',') {
         let regText = '\\B(?=(\\w{' + size + '})+(?!\\w))';
         let reg = new RegExp(regText, 'g');
@@ -309,6 +325,12 @@ let ecDo = {
     //result：7
     //longestWord('Find|the|Longest|word|in|a|String','|')
     //result：7
+    /**
+     * @description 找出最长单词
+     * @param str
+     * @param splitType
+     * @return {{el: string, max: number}}
+     */
     longestWord(str, splitType = /\s+/g) {
         let _max = 0, _item = '';
         let strArr = str.split(splitType);
@@ -319,16 +341,15 @@ let ecDo = {
             }
         });
         return {el: _item, max: _max};
-
-        //return str.split(splitType).map(w => {return {el:w,count:w.length}}).sort((n1,n2)=>n2.count-n1.count)[0];
-
-
     },
-    //句中单词首字母大写 (Title Case a Sentence)
-    //这个我也一直在纠结，英文标题，即使是首字母大写，也未必每一个单词的首字母都是大写的，但是又不知道哪些应该大写，哪些不应该大写
-    //ecDo.titleCaseUp('this is a title')
-    //"This Is A Title"
+    /**
+     * @description 句中单词首字母大写
+     * @param str
+     * @param splitType
+     * @return {*}
+     */
     titleCaseUp(str, splitType = /\s+/g) {
+        //这个我也一直在纠结，英文标题，即使是首字母大写，也未必每一个单词的首字母都是大写的，但是又不知道哪些应该大写，哪些不应该大写
         let strArr = str.split(splitType),
             result = "";
         strArr.forEach(item => {
@@ -338,38 +359,51 @@ let ecDo = {
     },
 //***************字符串模块End**************************/
 //***************数组模块**************************/
-    //数组去重
-    removeRepeatArray(arr) {
-        // return arr.filter(function (item, index, self) {
-        //     return self.indexOf(item) === index;
-        // });
+    /**
+     * @description 数组去重
+     * @param arr
+     * @return {[*]}
+     */
+    unique(arr) {
         //es6
         return [...new Set(arr)]
     },
-    //数组顺序打乱
+    /**
+     * @description 数组顺序打乱
+     * @param arr
+     * @return {Array.<T>}
+     */
     upsetArr(arr) {
         return arr.sort(() => {
             return Math.random() - 0.5
         });
     },
 
-    //数组最大值
-    //这一块的封装，主要是针对数字类型的数组
+    /**
+     * @description 数组最大值（数值数组）
+     * @param arr
+     */
     maxArr(arr) {
         return Math.max.apply(null, arr);
     },
-    //数组最小值
+    /**
+     * @description 数组最小值（数值数组）
+     * @param arr
+     */
     minArr(arr) {
         return Math.min.apply(null, arr);
     },
-
-    //这一块的封装，主要是针对数字类型的数组
-    //数组求和
+    /**
+     * @description 数组求和（数值数组）
+     * @param arr
+     */
     sumArr(arr) {
         return arr.reduce((pre, cur) =>pre + cur)
     },
-
-    //数组平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活了！
+    /**
+     * @description 数组平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活了（数值数组）
+     * @param arr
+     */
     covArr(arr) {
         return this.sumArr(arr) / arr.length;
     },
@@ -408,7 +442,7 @@ let ecDo = {
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3,1)
     //传参（rank=3，ranktype=1），只返回出现次数排序（升序）前三的
     //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1}]
-    getCount(arr, rank, ranktype) {
+    getCount(arr) {
         let obj = {}, k, arr1 = []
         //记录每一元素出现的次数
         for (let i = 0, len = arr.length; i < len; i++) {
@@ -427,12 +461,7 @@ let ecDo = {
         arr1.sort(function (n1, n2) {
             return n2.count - n1.count
         });
-        //如果ranktype为1，则为升序，反转数组
-        if (ranktype === 1) {
-            arr1 = arr1.reverse();
-        }
-        let rank1 = rank || arr1.length;
-        return arr1.slice(0, rank1);
+        return arr1;
     },
 
     //得到n1-n2下标的数组
