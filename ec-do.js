@@ -963,7 +963,27 @@ var ecDo = {
             }
         }
         return _str;
+    },
+    //计算用户位置与预设位置之间的距离(弧面上两点)
+    getDistance: function (lat, lng) {
+    let distance = 0;
+    const rule = {
+    lat: 24.495721,//公司的纬度
+    lng: 118.189,//公司的经度
     }
+    const radLat1 = lat * Math.PI / 180;
+    const radLat2 = rule.lat * Math.PI / 180;
+    const deltaLat = radLat1 - radLat2;
+    const deltaLng = lng * Math.PI / 180 - rule.lng * Math.PI / 180;
+    distance = 2 * Math.asin(
+      Math.sqrt(
+        Math.pow(Math.sin(deltaLat / 2), 2)
+        +
+        Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(deltaLng / 2), 2)
+      )
+    );
+    return distance * 6378137;
+    },
 }
 
 
