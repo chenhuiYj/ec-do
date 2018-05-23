@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+    //removeArrayForValue(['test','test1','test2','test','aaa'],'test','%')
+    //result：["aaa"]   带有'test'的都删除
+    //removeArrayForValue(['test','test1','test2','test','aaa'],'test')
+    //result：["test1", "test2", "aaa"]  //数组元素的值全等于'test'才被删除
+    console.log(ecDo.removeArrayForValue(['test','test1','test2','test','aaa'],'test'));
+    console.log(ecDo.removeArrayForLike(['test','test1','test2','test','aaa'],'test'));
+</script>
+</body>
+</html>

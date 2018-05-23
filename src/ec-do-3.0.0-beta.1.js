@@ -407,16 +407,20 @@ let ecDo = {
     covArr(arr) {
         return this.sumArr(arr) / arr.length;
     },
-    //从数组中随机获取元素
+    /**
+     * @description 从数组中随机获取元素
+     * @param arr
+     * @return {*}
+     */
     randomOne(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     },
-
-    //回数组（字符串）一个元素出现的次数
-    //getEleCount('asd56+asdasdwqe','a')
-    //result：3
-    //getEleCount([1,2,3,4,5,66,77,22,55,22],22)
-    //result：2
+    /**
+     * @description 返回数组（字符串）一个元素出现的次数
+     * @param obj
+     * @param ele
+     * @return {number}
+     */
     getEleCount(obj, ele) {
         let num = 0;
         for (let i = 0, len = obj.length; i < len; i++) {
@@ -428,20 +432,11 @@ let ecDo = {
     },
 
     //返回数组（字符串）出现最多的几次元素和出现次数
-    //arr, rank->长度，默认为数组长度，ranktype，排序方式，默认降序
-    //返回值：el->元素，count->次数
-    //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2])
-    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
-    //默认情况，返回所有元素出现的次数
-    //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3)
-    //传参（rank=3），只返回出现次数排序前三的
-    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2}]
-    //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],null,1)
-    //传参（ranktype=1,rank=null），升序返回所有元素出现次数
-    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1},{"el":"3","count":2},{"el":"1","count":4},{"el":"2","count":6}]
-    //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3,1)
-    //传参（rank=3，ranktype=1），只返回出现次数排序（升序）前三的
-    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1}]
+    /**
+     * @description 降序返回数组（字符串）每个元素的出现次数
+     * @param arr
+     * @return {Array}
+     */
     getCount(arr) {
         let obj = {}, k, arr1 = []
         //记录每一元素出现的次数
@@ -463,31 +458,40 @@ let ecDo = {
         });
         return arr1;
     },
-
-    //得到n1-n2下标的数组
-    //getArrayNum([0,1,2,3,4,5,6,7,8,9],5,9)
-    //result：[5, 6, 7, 8, 9]
-    //getArrayNum([0,1,2,3,4,5,6,7,8,9],2) 不传第二个参数,默认返回从n1到数组结束的元素
-    //result：[2, 3, 4, 5, 6, 7, 8, 9]
+    /**
+     * @description 得到n1-n2下标的数组
+     * @param arr
+     * @param n1
+     * @param n2
+     * @return {string|Array.<T>|Blob|ArrayBuffer}
+     */
     getArrayNum(arr, n1, n2) {
         return arr.slice(n1, n2);
     },
-
-    //筛选数组
-    //删除值为'val'的数组元素
-    //removeArrayForValue(['test','test1','test2','test','aaa'],'test','%')
-    //result：["aaa"]   带有'test'的都删除
-    //removeArrayForValue(['test','test1','test2','test','aaa'],'test')
-    //result：["test1", "test2", "aaa"]  //数组元素的值全等于'test'才被删除
-    removeArrayForValue(arr, val, type) {
-        return arr.filter(item=>type ? item.indexOf(val) === -1 : item !== val)
+    /**
+     * @description 删除值为'val'的数组元素
+     * @param arr
+     * @param val
+     * @return {Array.<T>|*}
+     */
+    removeArrayForValue(arr, val) {
+        return arr.filter(item=>item !== val)
     },
-    //获取对象数组某些项
-    //let arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
-    //getOptionArray(arr,'a,c')
-    //result：[{a:1,c:9},{a:2,c:5},{a:5,c:underfind},{a:4,c:5},{a:4,c:7}]
-    //getOptionArray(arr,'b',1)
-    //result：[2, 3, 9, 2, 5]
+    /**
+     * @description 删除值含有'val'的数组元素
+     * @param arr
+     * @param val
+     * @return {Array.<T>|*}
+     */
+    removeArrayForLike(arr, val) {
+        return arr.filter(item=>item.indexOf(val) === -1);
+    },
+    /**
+     * @description 获取对象数组某些项
+     * @param arr
+     * @param keys
+     * @return {*}
+     */
     getOptionArray(arr, keys) {
         let newArr = [];
         if (!keys) {
@@ -510,12 +514,12 @@ let ecDo = {
         }
         return newArr
     },
-    //排除数组某些项
-    //let arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
-    //filterOptionArray(arr,'a')
-    //result：[{b:2,c:9},{b:3,c:5},{b:9},{b:2,c:5},{b:5,c:7}]
-    //filterOptionArray(arr,'a,c')
-    //result：[{b:2},{b:3},{b:9},{b:2},{b:5}]
+    /**
+     * @description 排除数组某些项
+     * @param arr
+     * @param keys
+     * @return {Array}
+     */
     filterOptionArray(arr, keys) {
         let newArr = [];
         let _keys = keys.split(','), newArrOne = {};
@@ -531,10 +535,12 @@ let ecDo = {
         }
         return newArr;
     },
-    //对象数组的排序
-    //let arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
-    //ecDo.arraySort(arr,'a,b')a是第一排序条件，b是第二排序条件
-    //result：[{"a":1,"b":2,"c":9},{"a":2,"b":3,"c":5},{"a":4,"b":2,"c":5},{"a":4,"b":5,"c":7},{"a":5,"b":9}]
+    /**
+     * @description 对象数组的排序
+     * @param arr
+     * @param sortText
+     * @return {*}
+     */
     arraySort(arr, sortText) {
         if (!sortText) {
             return arr
@@ -547,7 +553,11 @@ let ecDo = {
         }
         return _arr;
     },
-    //数组扁平化
+    /**
+     * @description 数组扁平化
+     * @param arr
+     * @return {Array}
+     */
     steamroller(arr) {
         let newArr = [], _this = this;
         for (let i = 0; i < arr.length; i++) {
@@ -594,7 +604,10 @@ let ecDo = {
 //***************数组模块END**************************/
 
 //***************对象及其他模块**************************/
-    //适配rem
+    /**
+     * @description 适配rem
+     * @param _client 效果图的宽度
+     */
     getFontSize(_client) {
         let doc = document,
             win = window;
@@ -615,9 +628,11 @@ let ecDo = {
         //文档加载完成时，触发函数
         doc.addEventListener('DOMContentLoaded', recalc, false);
     },
-    //到某一个时间的倒计时
-    //getEndTime('2017/7/22 16:0:0')
-    //result："剩余时间6天 2小时 28 分钟20 秒"
+    /**
+     * @description 到某一个时间的倒计时
+     * @param endTime
+     * @return {{d: number, h: number, m: number, s: number}}
+     */
     getEndTime(endTime) {
         let startDate = new Date(); //开始时间，当前时间
         let endDate = new Date(endTime); //结束时间，需传入时间参数
@@ -634,8 +649,15 @@ let ecDo = {
         }
         return {d,h,m,s};
     },
+    /**
+     * @description
+     * @param date
+     * @param fmt
+     * @return {*}
+     */
     formatDate(date,fmt) {
         let _date=new Date(date);
+        let _fmt=fmt||'yyyy-MM-dd hh:mm:ss'
         let o = {
             "M+" : _date.getMonth()+1,                 //月份
             "d+" : _date.getDate(),                    //日
@@ -643,33 +665,35 @@ let ecDo = {
             "m+" : _date.getMinutes(),                 //分
             "s+" : _date.getSeconds()                 //秒
         };
-        if(/(y+)/.test(fmt)) {
-            fmt=fmt.replace(RegExp.$1, (_date.getFullYear()+"").substr(4 - RegExp.$1.length));
+        if(/(y+)/.test(_fmt)) {
+            _fmt=_fmt.replace(RegExp.$1, (_date.getFullYear()+"").substr(4 - RegExp.$1.length));
         }
         for(let k in o) {
-            if(new RegExp("("+ k +")").test(fmt)){
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length===1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            if(new RegExp("("+ k +")").test(_fmt)){
+                _fmt = _fmt.replace(RegExp.$1, (RegExp.$1.length===1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
             }
         }
-        return fmt;
+        return _fmt;
     },
-        //随进产生颜色
-    randomColor() {
-        //randomNumber是下面定义的函数
-        //写法1
-        //return 'rgb(' + this.randomNumber(255) + ',' + this.randomNumber(255) + ',' + this.randomNumber(255) + ')';
-
-        //写法2
-        return '#' + Math.random().toString(16).substring(2).substr(0, 6);
-
-        //写法3
-        //let color='#',_index=this.randomNumber(15);
-        //for(let i=0;i<6;i++){
-        //color+='0123456789abcdef'[_index];
-        //}
-        //return color;
+    /**
+     * @description 随机产生颜色
+     * @return {string}
+     */
+    randomColor(sum) {
+        //
+        if(sum){
+            return '#' + Math.random().toString(16).substring(2).substr(0, 6);
+        }
+        else{
+            return 'rgb(' + this.randomNumber(255) + ',' + this.randomNumber(255) + ',' + this.randomNumber(255) + ')';
+        }
     },
-    //随机返回一个范围的数字
+    /**
+     * @description 随机返回一个范围的数字
+     * @param n1
+     * @param n2
+     * @return {number}
+     */
     randomNumber(n1, n2) {
         //randomNumber(5,10)
         //返回5-10的随机整数，包括5，10
@@ -687,21 +711,25 @@ let ecDo = {
             return Math.round(Math.random() * 255)
         }
     },
-    //设置url参数
-    //setUrlParam({'a':1,'b':2})
-    //result：a=1&b=2
-    setUrlParam(obj) {
+    /**
+     * @description 设置url参数
+     * @param obj
+     * @return {string}
+     */
+    setUrlParam(url,obj) {
         let _rs = [];
         for (let p in obj) {
             if (obj[p] != null && obj[p] != '') {
                 _rs.push(p + '=' + obj[p])
             }
         }
-        return _rs.join('&');
+        return url+'?'+_rs.join('&');
     },
-    //获取url参数
-    //getUrlParam('segmentfault.com/write?draftId=122000011938')
-    //result：Object{draftId: "122000011938"}
+    /**
+     * @description 获取url参数
+     * @param url
+     * @return {{}}
+     */
     getUrlParam(url) {
         url = url ? url : window.location.href;
         let _pa = url.substring(url.indexOf('?') + 1),
@@ -718,14 +746,11 @@ let ecDo = {
         }
         return _rs;
     },
-
-    //现金额大写转换函数
-    //upDigit(168752632)
-    //result："人民币壹亿陆仟捌佰柒拾伍万贰仟陆佰叁拾贰元整"
-    //upDigit(1682)
-    //result："人民币壹仟陆佰捌拾贰元整"
-    //upDigit(-1693)
-    //result："欠人民币壹仟陆佰玖拾叁元整"
+    /**
+     * @description 现金额大写转换函数
+     * @param n
+     * @return {string}
+     */
     upDigit(n) {
         let fraction = ['角', '分', '厘'];
         let digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
@@ -752,9 +777,11 @@ let ecDo = {
         }
         return head + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整');
     },
-    //清除对象中值为空的属性
-    //filterParams({a:"",b:null,c:"010",d:123})
-    //Object {c: "010", d: 123}
+    /**
+     * @description 清除对象中值为空的属性
+     * @param obj
+     * @return {{}}
+     */
     filterParams(obj) {
         let _newPar = {};
         for (let key in obj) {
@@ -764,12 +791,21 @@ let ecDo = {
         }
         return _newPar;
     },
-    //数据类型判断
+    //
     //ecDo.istype([],'array')
     //true
     //ecDo.istype([])
     //'[object Array]'
+    /**
+     * @description 数据类型判断
+     * @param o
+     * @param type
+     * @return {*}
+     */
     isType(o, type) {
+        if(!type){
+            return Object.prototype.toString.call(o)
+        }
         switch (type.toLowerCase()) {
             case 'string':
                 return Object.prototype.toString.call(o) === '[object String]';
@@ -790,12 +826,12 @@ let ecDo = {
             case 'nan':
                 return isNaN(o);
             case 'elements':
-                return Object.prototype.toString.call(o).indexOf('HTML') !== -1
-            default:
-                return Object.prototype.toString.call(o)
+                return Object.prototype.toString.call(o).indexOf('HTML') !== -1;
         }
     },
-    //表单验证
+    /**
+     * @description 表单验证
+     */
     validateForm:(function () {
         let ruleData = {
             /**
@@ -1034,7 +1070,11 @@ let ecDo = {
             }
         }
     })(),
-    //手机类型判断
+    /**
+     * @description 手机类型判断
+     * @param type
+     * @return {*}
+     */
     browserInfo(type) {
         switch (type) {
             case 'android':
@@ -1234,13 +1274,13 @@ let ecDo = {
     hide(obj) {
         obj.style.display = "none";
     },
-    /* 封装ajax函数
-     * @param {string}obj.type http连接的方式，包括POST和GET两种方式
-     * @param {string}obj.url 发送请求的url
-     * @param {boolean}obj.async 是否为异步请求，true为异步的，false为同步的
-     * @param {object}obj.data 发送的参数，格式为对象类型
-     * @param {function}obj.success ajax发送并接收成功调用的回调函数
-     * @param {function}obj.error ajax发送失败或者接收失败调用的回调函数
+    /** @description  封装ajax函数
+     *  @param {string}obj.type http连接的方式，包括POST和GET两种方式
+     *  @param {string}obj.url 发送请求的url
+     *  @param {boolean}obj.async 是否为异步请求，true为异步的，false为同步的
+     *  @param {object}obj.data 发送的参数，格式为对象类型
+     *  @param {function}obj.success ajax发送并接收成功调用的回调函数
+     *  @param {function}obj.error ajax发送失败或者接收失败调用的回调函数
      */
     //  ajax({
     //  	type:'get',
