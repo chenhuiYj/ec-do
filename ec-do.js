@@ -964,7 +964,7 @@ var ecDo = {
         }
         return _str;
     },
-    //计算用户位置与预设位置之间的距离(弧面上两点)
+    //计算用户位置与预设位置之间的距离(弧面上两点)(主要用于计算经纬度两点间距离)
     getDistance: function (lat, lng) {
     let distance = 0;
     const rule = {
