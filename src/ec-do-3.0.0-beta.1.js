@@ -1159,7 +1159,7 @@ let ecDo = {
     },
     //添加类名
     addClass(obj, classStr) {
-        if ((this.istype(obj, 'array') || this.istype(obj, 'elements')) && obj.length >= 1) {
+        if ((this.isType(obj, 'array') || this.isType(obj, 'elements')) && obj.length >= 1) {
             for (let i = 0, len = obj.length; i < len; i++) {
                 if (!this.hasClass(obj[i], classStr)) {
                     obj[i].className += " " + classStr;
@@ -1171,11 +1171,12 @@ let ecDo = {
                 obj.className += " " + classStr;
             }
         }
+        return this;
     },
     //删除类名
     removeClass(obj, classStr) {
         let reg;
-        if ((this.istype(obj, 'array') || this.istype(obj, 'elements')) && obj.length > 1) {
+        if ((this.isType(obj, 'array') || this.isType(obj, 'elements')) && obj.length > 1) {
             for (let i = 0, len = obj.length; i < len; i++) {
                 if (this.hasClass(obj[i], classStr)) {
                     reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
@@ -1189,11 +1190,13 @@ let ecDo = {
                 obj.className = obj.className.replace(reg, '');
             }
         }
+        return this;
     },
     //替换类名("被替换的类名","替换的类名")
     replaceClass(obj, newName, oldName) {
         this.removeClass(obj, oldName);
         this.addClass(obj, newName);
+        return this;
     },
     //获取兄弟节点
     //ecDo.siblings(obj,'#id')
@@ -1244,6 +1247,7 @@ let ecDo = {
                 dom.style[attr] = json[attr];
             }
         }
+        return this;
     },
     //设置HTML内容
     html(obj) {
@@ -1252,6 +1256,7 @@ let ecDo = {
         } else if (arguments.length === 2) {
             obj.innerHTML = arguments[1];
         }
+        return this;
     },
     //设置HTML内容
     text(obj) {
@@ -1260,6 +1265,7 @@ let ecDo = {
         } else if (arguments.length === 2) {
             obj.innerHTML = this.filterStr(arguments[1], 'html');
         }
+        return this;
     },
     //显示隐藏
     show(obj) {
@@ -1270,9 +1276,11 @@ let ecDo = {
         else {
             obj.style.display = 'block';
         }
+        return this;
     },
     hide(obj) {
         obj.style.display = "none";
+        return this;
     },
     /** @description  封装ajax函数
      *  @param {string}obj.type http连接的方式，包括POST和GET两种方式
@@ -1335,13 +1343,13 @@ let ecDo = {
         oImg.src = url;
         oImg.onload = function () {
             obj.src = oImg.src;
-            if (cb && _this.istype(cb, 'function')) {
+            if (cb && _this.isType(cb, 'function')) {
                 cb(obj);
             }
         };
         oImg.onerror = function () {
             obj.src = errorUrl;
-            if (cb && _this.istype(cb, 'function')) {
+            if (cb && _this.isType(cb, 'function')) {
                 cb(obj);
             }
         }
@@ -1355,16 +1363,8 @@ let ecDo = {
     //<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>
     //<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>....
     //data-src储存src的数据，到需要加载的时候把data-src的值赋值给src属性，图片就会加载。
-    //详细可以查看testLoadImg.html
-
-    //window.onload = function() {
-    //	loadImg('load-img',100);
-    //	window.onscroll = function() {
-    //		loadImg('load-img',100);
-    //		}
-    //}
     loadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
-        let oImgLoad = document.getElementsByClassName(className);
+        let oImgLoad = document.getElementsByClassName(className),_this=this;
         for (let i = 0, len = oImgLoad.length; i < len; i++) {
             //如果图片已经滚动到指定的高度
             if (document.documentElement.clientHeight + document.documentElement.scrollTop > oImgLoad[i].offsetTop - num && !oImgLoad[i].isLoad) {
@@ -1377,7 +1377,7 @@ let ecDo = {
                         //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
                         setTimeout(()=>{
                             if (o.isLoad) {
-                                this.removeClass(o, className);
+                                _this.removeClass(o, className);
                                 o.style.cssText = "";
                             }
                         }, 1000)
@@ -1387,7 +1387,7 @@ let ecDo = {
                         //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
                         setTimeout(()=>{
                             if (o.isLoad) {
-                                this.removeClass(o, className);
+                                _this.removeClass(o, className);
                                 o.style.cssText = "";
                             }
                         }, 1000)
