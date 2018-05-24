@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+     let count=0;
+     function fn1(){
+         count++;
+         console.log(count)
+     }
+     //100ms内连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
+     document.onmousemove=ecDo.delayFn(fn1,100,200)
+</script>
+</body>
+</html>

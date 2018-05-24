@@ -79,8 +79,6 @@ let ecDo = {
             Reg = null,
             _regIndex=regIndex.split(','),
             replaceText = ARepText;
-        //replaceStr('18819322663',[3,5,3],0)
-        //result：188*****663
         //repeatStr是在上面定义过的（字符串循环复制），大家注意哦
         _regIndex=_regIndex.map(item=>+item);
         regtext = '(\\w{' + _regIndex[0] + '})\\w{' + (1+_regIndex[1]-_regIndex[0]) + '}';
@@ -286,7 +284,7 @@ let ecDo = {
      * @description 过滤字符串的表情
      */
     filterEmjoy(str,replaceStr=''){
-        return str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, replaceStr);
+        return str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/ig, replaceStr);
     },
     /**
      * @description 过滤字符串的大写字母
@@ -650,7 +648,7 @@ let ecDo = {
         return {d,h,m,s};
     },
     /**
-     * @description
+     * @description 时间格式化
      * @param date
      * @param fmt
      * @return {*}
@@ -706,13 +704,14 @@ let ecDo = {
             return Math.round(Math.random() * n1)
         }
         //randomNumber()
-        //返回0-255的随机整数，包括0，255
+        //返回0-100000000的随机整数，包括0，100000000
         else {
-            return Math.round(Math.random() * 255)
+            return Math.round(Math.random() * 100000000)
         }
     },
     /**
      * @description 设置url参数
+     * @param url
      * @param obj
      * @return {string}
      */
@@ -1091,7 +1090,7 @@ let ecDo = {
     //     console.log(count)
     // }
     // //100ms内连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
-    // document.onmousemove=delayFn(fn1,100,200)
+    // document.onmousemove=ecDo.delayFn(fn1,100,200)
     delayFn(fn, delay, mustDelay) {
         let timer = null;
         let t_start;
