@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        span{
+            color: #f00;
+        }
+    </style>
+</head>
+<body>
+<div id="content">将来小有成就的我，一定会感谢现在努力的自己。<br/>不求与别人相比，只求超越自己</div>
+</body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+    let oDiv=document.querySelector('#content');
+    let _html=ecDo.findKey(ecDo.html(oDiv),'自己 我');
+    ecDo.html(oDiv,_html);
+</script>
+</html>

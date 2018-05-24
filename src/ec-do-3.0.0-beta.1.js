@@ -791,11 +791,6 @@ let ecDo = {
         }
         return _newPar;
     },
-    //
-    //ecDo.istype([],'array')
-    //true
-    //ecDo.istype([])
-    //'[object Array]'
     /**
      * @description 数据类型判断
      * @param o
@@ -1146,18 +1141,22 @@ let ecDo = {
     },
 //***************cookie模块END*******************************/
 //***************DOM模块*******************************/
-    //检测对象是否有哪个类名
+    //测试用例参考example/dom.html
+    /**
+     * @description 检测对象是否有哪个类名
+     * @param obj
+     * @param classStr
+     * @return {boolean}
+     */
     hasClass(obj, classStr) {
-        if (obj.className && this.trim(obj.className, 1) !== "") {
-            let arr = obj.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含
-            return (arr.indexOf(classStr) === -1) ? false : true;
-        }
-        else {
-            return false;
-        }
-
+        return obj.className.split(/\s+/).indexOf(classStr) === -1 ? false : true;
     },
-    //添加类名
+    /**
+     * @description 添加类名
+     * @param obj
+     * @param classStr
+     * @return {ecDo}
+     */
     addClass(obj, classStr) {
         if ((this.isType(obj, 'array') || this.isType(obj, 'elements')) && obj.length >= 1) {
             for (let i = 0, len = obj.length; i < len; i++) {
@@ -1173,7 +1172,12 @@ let ecDo = {
         }
         return this;
     },
-    //删除类名
+    /**
+     * @description 删除类名
+     * @param obj
+     * @param classStr
+     * @return {ecDo}
+     */
     removeClass(obj, classStr) {
         let reg;
         if ((this.isType(obj, 'array') || this.isType(obj, 'elements')) && obj.length > 1) {
@@ -1192,14 +1196,24 @@ let ecDo = {
         }
         return this;
     },
-    //替换类名("被替换的类名","替换的类名")
+    /**
+     * @description 替换类名
+     * @param obj
+     * @param newName
+     * @param oldName
+     * @return {ecDo}
+     */
     replaceClass(obj, newName, oldName) {
         this.removeClass(obj, oldName);
         this.addClass(obj, newName);
         return this;
     },
-    //获取兄弟节点
-    //ecDo.siblings(obj,'#id')
+    /**
+     * @description 获取兄弟节点
+     * @param obj
+     * @param opt
+     * @return {Array}
+     */
     siblings(obj, opt) {
         let a = []; //定义一个数组，用来存obj的兄弟元素
         let p = obj.previousSibling;
@@ -1233,7 +1247,12 @@ let ecDo = {
         }
         return a;
     },
-    //设置样式
+    /**
+     * @description 设置样式
+     * @param dom
+     * @param json
+     * @return {ecDo}
+     */
     css(dom, json) {
         if (dom.length) {
             for (let i = 0; i < dom.length; i++) {
@@ -1249,7 +1268,11 @@ let ecDo = {
         }
         return this;
     },
-    //设置HTML内容
+    /**
+     * @description 设置或获取innerHTML
+     * @param obj
+     * @return {*}
+     */
     html(obj) {
         if (arguments.length === 1) {
             return obj.innerHTML;
@@ -1258,7 +1281,11 @@ let ecDo = {
         }
         return this;
     },
-    //设置HTML内容
+    /**
+     * @description 设置或获取文本内容
+     * @param obj
+     * @return {*}
+     */
     text(obj) {
         if (arguments.length === 1) {
             return obj.innerHTML;
@@ -1267,7 +1294,11 @@ let ecDo = {
         }
         return this;
     },
-    //显示隐藏
+    /**
+     * @description 显示元素
+     * @param obj
+     * @return {ecDo}
+     */
     show(obj) {
         let blockArr = ['div', 'li', 'ul', 'ol', 'dl', 'table', 'article', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'hr', 'header', 'footer', 'details', 'summary', 'section', 'aside', '']
         if (blockArr.indexOf(obj.tagName.toLocaleLowerCase()) === -1) {
@@ -1278,6 +1309,11 @@ let ecDo = {
         }
         return this;
     },
+    /**
+     * @description 隐藏元素
+     * @param obj
+     * @return {ecDo}
+     */
     hide(obj) {
         obj.style.display = "none";
         return this;
@@ -1337,7 +1373,13 @@ let ecDo = {
             }
         };
     },
-    //图片没加载出来时用一张图片代替
+    /**
+     * @description 图片没加载出来时用一张图片代替
+     * @param obj
+     * @param url
+     * @param errorUrl
+     * @param cb
+     */
     aftLoadImg(obj, url, errorUrl, cb) {
         let oImg = new Image(), _this = this;
         oImg.src = url;
@@ -1354,15 +1396,12 @@ let ecDo = {
             }
         }
     },
-    //图片滚动懒加载
-    //@className {string} 要遍历图片的类名
-    //@num {number} 距离多少的时候开始加载 默认 0
-    //比如，一张图片距离文档顶部3000，num参数设置200，那么在页面滚动到2800的时候，图片加载。不传num参数就滚动，num默认是0，页面滚动到3000就加载
-    //html代码
-    //<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>
-    //<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>
-    //<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304' /></p>....
-    //data-src储存src的数据，到需要加载的时候把data-src的值赋值给src属性，图片就会加载。
+    /**
+     * @description 图片滚动懒加载
+     * @param className 要遍历图片的类名
+     * @param num 距离多少的时候开始加载 默认 0
+     * @param errorUrl 出错时候的图片
+     */
     loadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
         let oImgLoad = document.getElementsByClassName(className),_this=this;
         for (let i = 0, len = oImgLoad.length; i < len; i++) {
@@ -1401,26 +1440,18 @@ let ecDo = {
             }
         }
     },
-    //创建正则字符
-    createKeyExp(strArr) {
-        let str = "";
-        for (let i = 0; i < strArr.length; i++) {
-            if (i !== strArr.length - 1) {
-                str = str + strArr[i] + "|";
-            } else {
-                str = str + strArr[i];
-            }
-        }
-        return "(" + str + ")";
-    },
-    //关键字加标签（多个关键词用空格隔开）
-    //ecDo.findKey('守侯我oaks接到了来自下次你离开快乐吉祥留在开城侯','守侯 开','i')
-    //"<i>守侯</i>我oaks接到了来自下次你离<i>开</i>快乐吉祥留在<i>开</i>城侯"
+    /**
+     * @description 关键词加标签（多个关键词用空格隔开）
+     * @param str
+     * @param key
+     * @param el
+     * @return {XML|string|void|*}
+     */
     findKey(str, key, el = 'span') {
         let arr = null, regStr = null, content = null, Reg = null;
-        arr = key.split(/\s+/);
         //alert(regStr); //    如：(前端|过来)
-        regStr = this.createKeyExp(arr);
+        regStr = "(" +key.split(/\s+/).join('|')+ ")";
+        //alert(regStr); //    如：(前端|过来)
         content = str;
         //alert(Reg);//        /如：(前端|过来)/g
         Reg = new RegExp(regStr, "g");
