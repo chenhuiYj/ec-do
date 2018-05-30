@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+    console.log(`过滤字符|${ecDo.filterStr.handle('specialStr','sadasdasdzxc4512235%$@^&^@*!(4613zxc','','@')}|`);
+    ecDo.filterStr.addType('english',function (str,replaceStr='') {
+        return str.replace(/[a-zA-Z]/g, replaceStr);
+    });
+    console.log(ecDo.filterStr.handle('english','asdasd46撒打算的','.',''));
+    console.log(ecDo.filterSpecialStr('sadasdasdzxc4512235%$@^&^@*!(4613zxcasdasd46撒打算的','','@'));
+    console.log(ecDo.filterHtml('<title>Title</title>'));
+    console.log(ecDo.filterWordUpper('asdasdWECASasd'));
+    console.log(ecDo.filterWordLower('asdasdWECASasd'));
+    console.log(ecDo.filterNumber('asdasd67w9e41z5xc'));
+    console.log(ecDo.filterChinese('8963325asd阿斯达所多1'));
+    console.log(ecDo.filterEmjoy('\u2014 asdasdWECASasd'));
+</script>
+</body>
+</html>
