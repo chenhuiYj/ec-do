@@ -78,7 +78,7 @@ let ecDo = {
     },
     //字符替换*
     //replaceStr(字符串,字符格式, 替换方式,替换的字符（默认*）)
-    replaceStr(str, regArr, type = 0, ARepText = '*') {
+    encryptStr(str, regArr, type = 0, ARepText = '*') {
         let regtext = '',
             Reg = null,
             replaceText = ARepText;
@@ -118,14 +118,14 @@ let ecDo = {
         }
     },
     //检测字符串
-    //checkType('165226226326','phone')
+    //checkType('165226226326','mobile')
     //result：false
     //大家可以根据需要扩展
     checkType(str, type) {
         switch (type) {
             case 'email':
                 return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
-            case 'phone':
+            case 'mobile':
                 return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
             case 'tel':
                 return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
@@ -352,11 +352,14 @@ let ecDo = {
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2])
     //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
     //默认情况，返回所有元素出现的次数
+
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3)
     //传参（rank=3），只返回出现次数排序前三的
+
     //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2}]
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],null,1)
     //传参（ranktype=1,rank=null），升序返回所有元素出现次数
+
     //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1},{"el":"3","count":2},{"el":"1","count":4},{"el":"2","count":6}]
     //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3,1)
     //传参（rank=3，ranktype=1），只返回出现次数排序（升序）前三的
