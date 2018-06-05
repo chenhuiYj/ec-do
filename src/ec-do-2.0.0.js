@@ -148,7 +148,7 @@ let ecDo = {
     //检测密码强度
     //checkPwd('12asdASAD')
     //result：3(强度等级为3)
-    checkPwd(str) {
+    checkPwdLevel(str) {
         let nowLv = 0;
         if (str.length < 6) {
             return nowLv
@@ -179,7 +179,7 @@ let ecDo = {
     //randomWord(36)
     //result："83vhdx10rmjkyb9"
 
-    randomWord(count) {
+    randomWord(count=36) {
         return Math.random().toString(count).substring(2);
     },
 
@@ -764,7 +764,7 @@ let ecDo = {
         let arr = document.cookie.split('; '),arr2;
         for (let i = 0; i < arr.length; i++) {
             arr2 = arr[i].split('=');
-            if (arr2[0] == name) {
+            if (arr2[0] === name) {
                 return arr2[1];
             }
         }

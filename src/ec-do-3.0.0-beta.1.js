@@ -166,17 +166,12 @@ let ecDo = {
         if (str.length < 6) {
             return nowLv
         }
-        if (/[0-9]/.test(str)) {
-            nowLv++
-        }
-        if (/[a-z]/.test(str)) {
-            nowLv++
-        }
-        if (/[A-Z]/.test(str)) {
-            nowLv++
-        }
-        if (/[\.|-|_]/.test(str)) {
-            nowLv++
+        //nowLv=str.replace(/[0-9]/,' ').replace(/[A-Z]/,' ').replace(/[a-z]/,' ').replace(/[_.\-]/,' ').replace(/[^\s]/g,'').length;
+        let rules=[/[0-9]/,/[a-z]/,/[A-Z]/,/[\.|-|_]/];
+        for(let i=0;i<rules.length;i++){
+            if(rules[i].test(str)){
+                nowLv++;
+            }
         }
         return nowLv;
     },
@@ -1117,13 +1112,17 @@ let ecDo = {
     },
 //***************对象及其他模块END**************************/
 //***************cookie模块*******************************/
-    //设置cookie
+    /**
+     * @description 设置cookie
+     */
     setCookie(name, value, iDay) {
         let oDate = new Date();
         oDate.setDate(oDate.getDate() + iDay);
         document.cookie = name + '=' + value + ';expires=' + oDate;
     },
-    //获取cookie
+    /**
+     * @description 获取cookie
+     */
     getCookie(name) {
         let arr = document.cookie.split('; '),arr2;
         for (let i = 0; i < arr.length; i++) {
@@ -1134,9 +1133,22 @@ let ecDo = {
         }
         return '';
     },
-    //删除cookie
+    /**
+     * @description 删除cookie
+     */
     removeCookie(name) {
         this.setCookie(name, 1, -1);
+    },
+    /**
+     * @description 操作cookie
+     */
+    cookie(name, value, iDay){
+        if(arguments.length===1){
+            return this.getCookie(name);
+        }
+        else{
+            this.setCookie(name, value, iDay);
+        }
     },
 //***************cookie模块END*******************************/
 //***************DOM模块*******************************/
