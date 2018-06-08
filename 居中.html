@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style>
+        .div{
+            position: fixed;
+            top:0;
+            right:0;
+            bottom:0;
+            left:0;
+            background-color: #999;
+        }
+        .div1{
+            width:200px;
+            height:200px;
+            background:#333;
+            position:absolute;
+            top:0;
+            right:0;
+            bottom:0;
+            left:0;
+            margin:auto;
+        }
+    </style>
+</head>
+<body>
+<div class="div">
+    <div class="div1">qqqqqqqqqq</div>
+</div>
+<script >
+//    let arr = ['cii','sjj','sdf'];
+    //代替for --- entries
+    /*for(let [index,val] of arr.entries()){
+        console.log(index,val)
+    }*/
+//    let list = arr.entries();
+    //手动循环
+    /*console.log(list.next().value)
+    console.log(list.next().value)
+    console.log(list.next().value)
+    console.log(list.next().value)*/
+
+    //箭头函数
+    let json = {
+        a:'cjj',
+        b:'cuijianjun'
+    }
+    let json1 = {
+        c:'cjj',
+        d:'cuijianjun'
+    }
+    let arr = [1,2,3];
+    //key值构建
+    let key = 'skill';
+    /*var obj = {
+        [key]:'web'
+    }*/
+    //console.log(obj)
+    // === 同值相等  Object.is  严格相等
+//    console.log(Object.is(json.a,json1.a))//
+//    console.log(Object.is(-0,+0))
+
+    //let d = Object.assign(json,json1)//对象合并
+    //console.log(d)
+//    let f= Symbol();
+//    let obj = {
+//        [f]:"崔健军"
+//    }
+//    console.log(obj[f])
+
+
+    /*let obj = {name:'jspang',skill:'web'};
+    let age = Symbol();
+    obj[age]=18;
+    console.log(obj)
+    for(let item in obj){
+        console.log(item)
+    }*/
+    /*let setArr = new WeakSet();
+    let obj = {name:'jspang',skill:'web'}
+    setArr.add("1")
+    //setArr.delete("1")
+    console.log(setArr.size)*/
+   /* let obj = {name:'jspang',skill:'web'};
+    console.log(obj.name)
+    var map = new Map();
+    map.set(obj,"1");
+    console.log(map)*/
+    //map增删查
+//    console.log(map.get(obj))
+
+    //map.delete(obj)
+//    console.log(map.has(obj));
+    // set get has delete clear size
+    // proxy 代理ES6 增强 对象和函数（方法） 生命周期
+
+    /*let pro = new Proxy({
+        add:function(val){
+            return val+100
+        },
+        name:'I am cuijianjun'
+    },{
+        get:function(target,key,property){
+            console.log('come in Get')
+            return target[key]
+        },
+        set:function(target,key,value,receiver){
+            console.log(`setting ${key} = ${value}`)
+            return target[key] = value;
+        }
+    })
+    //console.log(pro.name)
+    pro.name = "cuijianjun"*/
+    /*let target = function(){
+        return "I am cuijianjun"
+    }
+    let handler = {
+        apply(target,ctx,args){
+            console.log('do apply')
+            return Reflect.apply(...arguments);
+        }
+    }
+    let pro = new Proxy(target,handler)
+    console.log(pro())*/
+
+    //promise es5 回调地狱
+    /*let state = 1;
+    function step1(resolve,reject){
+        console.log('1.开始洗菜做饭')
+        if(state == 1){
+            resolve("洗菜做饭---完成")
+        }else{
+            reject("洗菜做饭 ---失败")
+        }
+    }
+    function step2(resolve,reject){
+        console.log('2.开始坐下来吃饭')
+        if(state == 1){
+            resolve("坐下来吃饭---完成")
+        }else{
+            reject("坐下来吃饭 ---失败")
+        }
+    }
+    function step3(resolve,reject){
+        console.log('3.开始收拾桌子')
+        if(state == 1){
+            resolve("收拾桌子---完成")
+        }else{
+            reject("收拾桌子 ---失败")
+        }
+    }
+    new Promise(step1).then(function(val){
+        console.log(val)
+        return new Promise(step2)
+    }).then(function(val){
+        console.log(val)
+        return new Promise(step3)
+    }).then(function(val){
+        console.log(val)
+    })*/
+    //class
+    /*class Coder {
+        name(val){
+            console.log(val);
+            return val
+        }
+        skill(val){
+            console.log(this.name("崔健军") + val)
+        }
+        constructor(a,b){
+            this.a =a;
+            this.b=b;
+        }
+        add(){
+            return this.a + this.b
+        }
+    }
+    class htmler extends Coder{
+
+    }
+    let cui = new htmler;
+    cui.name("cuijianjun")*/
+
+</script>
+</body>
+</html>

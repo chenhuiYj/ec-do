@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        span{
+            width: 100px;
+            text-align: justify;
+            float: left;
+        }
+        span:after{
+            content:'.';
+            width: 100%;
+            display: inline-block;
+            overflow: hidden;
+            height: 0;
+        }
+        input{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <span>昵称</span>：<input type="text" style = 'width: 100px'><br><br>
+        <span>电子邮箱</span>：<input type="email" style = 'width: 100px;'>
+    </div>
+</body>
+</html> 
