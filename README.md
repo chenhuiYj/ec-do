@@ -1079,7 +1079,26 @@ param **{String}** name-cookie名
 
     ecDo.removeCookie('test')
 
-### 61.hasClass
+### 61.cookie
+
+##### description
+
+    ecDo.cookie(name, value, iDay)
+
+description-设置cookie
+
+param **{String}** name-cookie名
+param **{String}** value-cookie值
+param **{Int}** iDay-时间（天数）
+
+##### demo
+
+    ecDo.cookie('test', 'testcookie', 2)//设置
+    ecDo.cookie('test')//获取
+    ecDo.cookie('test', 'testcookie', -1)//删除，中间的值已经没有意义，只要天数设置-1，只要无效
+
+
+### 62.hasClass
 
 ##### description
 
@@ -1095,7 +1114,7 @@ param **{String}** classStr-class名
     ecDo.hasClass(obj,'test')
 result:true|false
 
-### 62.addClass
+### 63.addClass
 
 ##### description
 
@@ -1110,7 +1129,7 @@ param **{String}** classStr-class名
 
     ecDo.addClass(obj,'test')
 
-### 63.removeClass
+### 64.removeClass
 
 ##### description
 
@@ -1125,7 +1144,7 @@ param **{String}** classStr-class名
 
     ecDo.removeClass(obj,'test')
 
-### 64.replaceClass
+### 65.replaceClass
 
 ##### description
 
@@ -1141,7 +1160,7 @@ param **{String}** oldName-替换的类名
 
     ecDo.replaceClass(obj,'test','afterClass')
 
-### 65.siblings
+### 66.siblings
 
 ##### description
 
@@ -1158,7 +1177,7 @@ param **{String}** opt-过滤条件
     result：符合条件的Dom对象
 
 
-### 66.css
+### 67.css
 
 ##### description
 
@@ -1173,7 +1192,7 @@ param **{Object}** json-样式名
 
     ecDo.css(obj,{'width':'300px','height':'300px'})
 
-### 67.html
+### 68.html
 
 ##### description
 
@@ -1192,7 +1211,7 @@ param **{String}** str-html内容
 
     ecDo.html(obj,'<div>1111</div>')
 
-### 68.text
+### 69.text
 
 ##### description
 
@@ -1211,7 +1230,7 @@ param **{String}** str-内容(html标签将会被过滤)
 
     ecDo.text(obj,'1230.312asd')
 
-### 69.show
+### 70.show
 
 ##### description
 
@@ -1225,7 +1244,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.show(obj)
 
-### 70.hide
+### 71.hide
 
 ##### description
 
@@ -1239,7 +1258,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.hide(obj)
 
-### 71.ajax
+### 72.ajax
 
 ##### description
 
@@ -1269,7 +1288,7 @@ param **{Object}** 对象参数
       	}
     })
 
-### 72.aftLoadImg
+### 73.aftLoadImg
 
 ##### description
 
@@ -1287,7 +1306,7 @@ param **{Function}** cb-回调函数,参数为obj
     ecDo.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, _errorUrl,function(o){console.log(o)});
 
 
-### 73.loadImg
+### 74.loadImg
 
 ##### description
 
@@ -1320,7 +1339,7 @@ param **{String}** errorUrl-出错的图片的url
 
 参考example/loadImg.html
 
-### 74.findKey
+### 75.findKey
 
 ##### description
 
