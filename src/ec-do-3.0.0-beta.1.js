@@ -385,14 +385,14 @@ let ecDo = {
      * @param arr
      */
     maxArr(arr) {
-        return Math.max.apply(null, arr);
+        return Math.max(...arr);
     },
     /**
      * @description 数组最小值（数值数组）
      * @param arr
      */
     minArr(arr) {
-        return Math.min.apply(null, arr);
+        return Math.min(...arr);
     },
     /**
      * @description 数组求和（数值数组）
