@@ -1072,19 +1072,26 @@ let ecDo = {
      * @param type
      * @return {*}
      */
-    browserInfo(type) {
-        switch (type) {
-            case 'android':
-                return navigator.userAgent.toLowerCase().indexOf('android') !== -1
-            case 'iphone':
-                return navigator.userAgent.toLowerCase().indexOf('iphone') !== -1
-            case 'ipad':
-                return navigator.userAgent.toLowerCase().indexOf('ipad') !== -1
-            case 'weixin':
-                return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1
-            default:
-                return navigator.userAgent.toLowerCase()
+    getBrowserInfo(type) {
+        let typeObj={
+            android:'android',
+            iphone:'android',
+            ipad:'ipad',
+            weixin:'micromessenger'
         }
+        return type?navigator.userAgent.toLowerCase().indexOf(typeObj[type]) !== -1:navigator.userAgent.toLowerCase();
+        // switch (type) {
+        //     case 'android':
+        //         return navigator.userAgent.toLowerCase().indexOf('android') !== -1
+        //     case 'iphone':
+        //         return navigator.userAgent.toLowerCase().indexOf('iphone') !== -1
+        //     case 'ipad':
+        //         return navigator.userAgent.toLowerCase().indexOf('ipad') !== -1
+        //     case 'weixin':
+        //         return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1
+        //     default:
+        //         return navigator.userAgent.toLowerCase()
+        // }
     },
     //函数节流
     // let count=0;

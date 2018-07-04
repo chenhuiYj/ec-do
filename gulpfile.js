@@ -18,7 +18,7 @@ gulp.task('es6-js', function () {
  * 压缩js
  */
 gulp.task('minify-js',()=>{
-    return gulp.src(['./dist/ec-do-3.0.0-beta.1.js','./dist/ec-do-2.0.0.js'])
+    return gulp.src(['./dist/ec-do-3.0.0-beta.1.js','./dist/ec-do-2.0.0.js','./src/ec-do-1.1.4.js'])
         .pipe(uglify({
             compress:false,
             mangle:{

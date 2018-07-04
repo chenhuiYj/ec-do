@@ -995,21 +995,21 @@ description-表单验证
 ##### demo
 参考example/validateForm.html
 
-### 56.browserInfo
+### 56.getBrowserInfo
 
 ##### description
 
-    ecDo.browserInfo(type)
+    ecDo.getBrowserInfo(type)
 
 description-手机类型判断
 param **{String}** type-类型字符串（android|iphone|ipad|weixin）
 
 ##### demo
 
-    ecDo.browserInfo('android')
+    ecDo.getBrowserInfo('android')
 result：是安卓就返回true，否则就false
 
-    ecDo.browserInfo()
+    ecDo.getBrowserInfo()
 result：返回手机浏览器的信息
 
 ### 57.delayFn
