@@ -13,7 +13,7 @@
         pw: 'asda'
     }
     //校验函数调用
-    console.log(ecDo.validateForm.check([
+    ecDo.validateForm.check([
         {
             //校验的数据
             el: testData.phone,
@@ -26,42 +26,53 @@
             el: testData.pw,
             rules: [
                 {rule: 'isNoNull', msg: '电话不能为空'},
-                {rule:'minLength:6',msg:'密码长度不能小于6'}
+                {rule: 'minLength:6', msg: '密码长度不能小于6'}
             ]
         }
-    ]));
+    ]).then(info => {
+        console.log(info)
+    }).catch(err => {
+        console.log(err)
+    });
     //扩展-添加日期范围校验
-    ecDo.validateForm.addRule('isDateRank',function (val,msg) {
-        if(new Date(val[0]).getTime()>=new Date(val[1]).getTime()){
+    ecDo.validateForm.addRule('isDateRank', function (val, msg) {
+        if (new Date(val[0]).getTime() >= new Date(val[1]).getTime()) {
             return msg;
         }
     });
     //校验函数调用
-    console.log(ecDo.validateForm.checkAll([
+    ecDo.validateForm.checkAll([
         {
             //校验的数据
             el: testData.phone,
-            alias:'mobile',
+            alias: 'mobile',
             //校验的规则
             rules: [
-                {rule: 'isNoNull', msg: '电话不能为空'}, {rule: 'isMobile', msg: '手机号码格式不正确'},{rule:'minLength:6',msg: '手机号码不能少于6'}
+                {rule: 'isNoNull', msg: '电话不能为空'}, {rule: 'isMobile', msg: '手机号码格式不正确'}, {
+                    rule: 'minLength:6',
+                    msg: '手机号码不能少于6'
+                }
             ]
         },
         {
             el: testData.pw,
-            alias:'pwd',
+            alias: 'pwd',
             rules: [
                 {rule: 'isNoNull', msg: '密码不能为空'},
-                {rule:'minLength:6',msg:'密码长度不能小于6'}
+                {rule: 'minLength:6', msg: '密码长度不能小于6'}
             ]
         },
         {
-            el:['2017-8-9 22:00:00','2017-8-8 24:00:00'],
-            rules:[{
-                rule:'isDateRank',msg:'日期范围不正确'
+            el: ['2017-8-9 22:00:00', '2017-8-8 24:00:00'],
+            rules: [{
+                rule: 'isDateRank', msg: '日期范围不正确'
             }]
         }
-    ]));
+    ]).then(info => {
+        console.log(info)
+    }).catch(err => {
+        console.log(err)
+    });
 </script>
 </body>
 </html>

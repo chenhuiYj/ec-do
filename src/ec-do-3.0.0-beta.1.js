@@ -151,7 +151,14 @@ let ecDo = {
         };
         return {
             check(str, type){
-                return rules[type]?rules[type](str):false;
+                return new Promise(function(resolve, reject) {
+                    if (rules[type]) {
+                        resolve(rules[type](str));
+                    }
+                    else{
+                        reject(false);
+                    }
+                });
             },
             addRule(type,fn){
                 rules[type]=fn;
@@ -995,6 +1002,7 @@ let ecDo = {
              * @return {*}
              */
             check: function (arr) {
+                debugger;
                 let ruleMsg, checkRule, _rule;
                 for (let i = 0, len = arr.length; i < len; i++) {
                     //如果字段找不到
@@ -1010,10 +1018,18 @@ let ecDo = {
                         checkRule.push(arr[i].rules[j].msg);
                         //如果规则错误
                         ruleMsg = ruleData[_rule].apply(null, checkRule);
-                        if (ruleMsg) {
-                            //返回错误信息
-                            return ruleMsg;
-                        }
+                        // if (ruleMsg) {
+                        //     //返回错误信息
+                        //     return ruleMsg;
+                        // }
+                        return new Promise(function(resolve, reject) {
+                            if (!ruleMsg) {
+                                resolve('success');
+                            }
+                            else{
+                                reject(ruleMsg);
+                            }
+                        });
                     }
                 }
             },
@@ -1055,7 +1071,15 @@ let ecDo = {
                         }
                     }
                 }
-                return msgArr.length>0?msgArr:false;
+                //return msgArr.length>0?msgArr:false;
+                return new Promise(function(resolve, reject) {
+                    if (msgArr.length===0) {
+                        resolve('success');
+                    }
+                    else{
+                        reject(msgArr);
+                    }
+                });
             },
             /**
              * @description 添加规则接口

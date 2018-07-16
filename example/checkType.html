@@ -7,11 +7,19 @@
 <body>
 <script src="../src/ec-do-3.0.0-beta.1.js"></script>
 <script>
-    console.log(ecDo.checkType.check('165226226326','mobile'));
-    ecDo.checkType.addRule('password',function (str) {
+    ecDo.checkType.check('18522622636', 'mobile').then(info => {
+        console.log(info)
+    }).catch(err => {
+        console.log(err)
+    });
+    ecDo.checkType.addRule('password', function (str) {
         return /^[-a-zA-Z0-9._]+$/.test(str);
     })
-    console.log(ecDo.checkType.check('***asdasd654zxc','password'));
+    ecDo.checkType.check('asdasd654zxc', 'password').then(info => {
+        console.log(info)
+    }).catch(err => {
+        console.log(err)
+    });
 </script>
 </body>
 </html>
