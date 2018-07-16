@@ -664,7 +664,7 @@ param **{String}** ele-要匹配的元素
 
 ##### description
 
-    ecDo.getCount(arr, rank, ranktype)
+    ecDo.getCount(arr)
 
 description-获取数组（字符串）所有元素的出现次数
 
