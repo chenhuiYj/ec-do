@@ -653,9 +653,8 @@ let ecDo = {
      * @param fmt
      * @return {*}
      */
-    formatDate(date,fmt) {
-        let _date=new Date(date);
-        let _fmt=fmt||'yyyy-MM-dd hh:mm:ss'
+    formatDate(date,fmt='yyyy-MM-dd hh:mm:ss') {
+        let _date=new Date(date),_fmt=fmt;
         let o = {
             "M+" : _date.getMonth()+1,                 //月份
             "d+" : _date.getDate(),                    //日
