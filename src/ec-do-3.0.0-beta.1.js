@@ -567,18 +567,20 @@ let ecDo = {
      * @return {Array}
      */
     steamroller(arr) {
-        let newArr = [], _this = this;
-        for (let i = 0; i < arr.length; i++) {
-            if (Array.isArray(arr[i])) {
-                // 如果是数组，调用(递归)steamroller 将其扁平化
-                // 然后再 push 到 newArr 中
-                newArr.push.apply(newArr, _this.steamroller(arr[i]));
-            } else {
-                // 不是数组直接 push 到 newArr 中
-                newArr.push(arr[i]);
-            }
-        }
-        return newArr;
+        // let newArr = [], _this = this;
+        // for (let i = 0; i < arr.length; i++) {
+        //     if (Array.isArray(arr[i])) {
+        //         // 如果是数组，调用(递归)steamroller 将其扁平化
+        //         // 然后再 push 到 newArr 中
+        //         newArr.push.apply(newArr, _this.steamroller(arr[i]));
+        //     } else {
+        //         // 不是数组直接 push 到 newArr 中
+        //         newArr.push(arr[i]);
+        //     }
+        // }
+        //return newArr;
+        let flattened = [].concat(...arr);
+        return flattened.some(item => Array.isArray(item)) ? this.steamroller(flattened) : flattened;
     },
     //另一种写法
     //steamroller([1,2,[4,5,[1,23]]])
