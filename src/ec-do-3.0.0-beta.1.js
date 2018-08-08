@@ -677,7 +677,6 @@ let ecDo = {
      * @return {string}
      */
     randomColor(sum) {
-        //
         if(sum){
             return '#' + Math.random().toString(16).substring(2).substr(0, 6);
         }
