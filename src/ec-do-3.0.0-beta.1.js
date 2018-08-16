@@ -990,7 +990,6 @@ let ecDo = {
              * @return {*}
              */
             check: function (arr) {
-                debugger;
                 let ruleMsg, checkRule, _rule;
                 for (let i = 0, len = arr.length; i < len; i++) {
                     //如果字段找不到
