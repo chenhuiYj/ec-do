@@ -1093,6 +1093,12 @@ let ecDo = {
         return type?navigator.userAgent.toLowerCase().indexOf(typeObj[type]) !== -1:navigator.userAgent.toLowerCase();
     },
     //函数节流
+    /**
+     * @description 函数节流
+     * @param fn 执行的函数
+     * @param delay 延迟的时间
+     * @param mustDelay 最大间隔时间
+     */
     // let count=0;
     // function fn1(){
     //     count++;
