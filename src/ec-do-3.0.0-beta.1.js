@@ -570,35 +570,6 @@ let ecDo = {
         let flattened = [].concat(...arr);
         return flattened.some(item => Array.isArray(item)) ? this.steamroller(flattened) : flattened;
     },
-    //另一种写法
-    //steamroller([1,2,[4,5,[1,23]]])
-    //[1, 2, 4, 5, 1, 23]
-    /*
-     * i=0 newArr.push(arr[i])  [1]
-     * i=1 newArr.push(arr[i])  [1,2]
-     * i=2 newArr = newArr.concat(steamroller(arr[i]));  执行到下面
-     * 第一次i=2进入后 i=0, newArr.push(arr[i]);  [4]
-     * 第一次i=2进入后 i=1, newArr.push(arr[i]);  [4，5]
-     *  * i=2 newArr = newArr.concat(steamroller(arr[i]));  执行到下面
-     * 第二次i=2进入后 i=0, newArr.push(arr[i]);  [1]
-     * 第二次i=2进入后 i=1, newArr.push(arr[i]);  [1，23]  执行到下面
-     * 第二次循环完，回到第一次进入后  newArr = newArr.concat(steamroller(arr[i]));  [4,5].concat([1,23])   [4,5,1,23]
-     * 然后回到第一次   [1,2].concat([4,5,1,23])
-     */
-    //  steamroller(arr) {
-    //      let newArr = [];
-    //      for (let i = 0; i < arr.length; i++) {
-    //          if (Array.isArray(arr[i])) {
-    //              // 如果是数组，调用(递归)steamroller 将其扁平化
-    //              // 然后再 push 到 newArr 中
-    //              newArr = newArr.concat(steamroller(arr[i]));
-    //          } else {
-    //              // 不是数组直接 push 到 newArr 中
-    //              newArr.push(arr[i]);
-    //          }
-    //      }
-    //      return newArr;
-    //  },
 //***************数组模块END**************************/
 
 //***************对象及其他模块**************************/
