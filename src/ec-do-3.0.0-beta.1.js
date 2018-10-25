@@ -962,34 +962,33 @@ let ecDo = {
              */
             check: function (arr) {
                 let ruleMsg, checkRule, _rule;
-                for (let i = 0, len = arr.length; i < len; i++) {
-                    //如果字段找不到
-                    if (arr[i].el === undefined) {
-                        return '字段找不到！'
-                    }
-                    //遍历规则
-                    for (let j = 0; j < arr[i].rules.length; j++) {
-                        //提取规则
-                        checkRule = arr[i].rules[j].rule.split(":");
-                        _rule = checkRule.shift();
-                        checkRule.unshift(arr[i].el);
-                        checkRule.push(arr[i].rules[j].msg);
-                        //如果规则错误
-                        ruleMsg = ruleData[_rule].apply(null, checkRule);
-                        // if (ruleMsg) {
-                        //     //返回错误信息
-                        //     return ruleMsg;
-                        // }
-                        return new Promise(function(resolve, reject) {
-                            if (!ruleMsg) {
-                                resolve('success');
+                return new Promise(function(resolve, reject) {
+                    for (let i = 0, len = arr.length; i < len; i++) {
+                        //如果字段找不到
+                        if (arr[i].el === undefined) {
+                            return '字段找不到！'
+                        }
+                        //遍历规则
+                        for (let j = 0; j < arr[i].rules.length; j++) {
+                            //提取规则
+                            //如果字段为空且规则不是校验空值，执行下次循环
+                            if ((arr[i].el === ''||arr[i].el === null)&&arr[i].rules[j].rule[0]!=='isNoNull') {
+                                continue;
                             }
-                            else{
+                            checkRule = arr[i].rules[j].rule.split(":");
+                            _rule = checkRule.shift();
+                            checkRule.unshift(arr[i].el);
+                            checkRule.push(arr[i].rules[j].msg);
+                            //如果规则错误
+                            ruleMsg = ruleData[_rule].apply(null, checkRule);
+                            if (ruleMsg) {
                                 reject(ruleMsg);
+                                return;
                             }
-                        });
+                        }
                     }
-                }
+                    resolve('success');
+                });
             },
             /**
              * @description 校验所有接口
