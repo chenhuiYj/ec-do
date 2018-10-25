@@ -996,7 +996,7 @@ let ecDo = {
              * @return {*}
              */
             checkAll: function (arr) {
-                let ruleMsg, checkRule, _rule,msgArr=[];
+                let ruleMsg, checkRule, _rule,msgObj={};
                 for (let i = 0, len = arr.length; i < len; i++) {
                     //如果字段找不到
                     if (arr[i].el === undefined) {
@@ -1019,22 +1019,27 @@ let ecDo = {
                         ruleMsg = ruleData[_rule].apply(null, checkRule);
                         if (ruleMsg) {
                             //返回错误信息
-                            msgArr.push({
+                            msgObj[arr[i].alias]={
                                 el:arr[i].el,
-                                alias:arr[i].alias,
                                 rules:_rule,
                                 msg:ruleMsg
-                            });
+                            }
+                            // msgObj.push({
+                            //     el:arr[i].el,
+                            //     alias:arr[i].alias,
+                            //     rules:_rule,
+                            //     msg:ruleMsg
+                            // });
                         }
                     }
                 }
-                //return msgArr.length>0?msgArr:false;
+                //return msgObj.length>0?msgObj:false;
                 return new Promise(function(resolve, reject) {
-                    if (msgArr.length===0) {
+                    if (Object.keys(msgObj).length===0) {
                         resolve('success');
                     }
                     else{
-                        reject(msgArr);
+                        reject(msgObj);
                     }
                 });
             },
