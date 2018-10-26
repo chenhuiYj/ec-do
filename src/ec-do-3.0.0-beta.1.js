@@ -850,7 +850,7 @@ let ecDo = {
              * @return {*}
              */
             isTel(val, msg){
-                if (!/^\d{3}-\d{8}|\d{4}-\d{7}|\d{11}$/.test(val)) {
+                if (!/^([0-9]+-)*(\d{3}-\d{8}|\d{4}-\d{7}|\d{11})(-[0-9]+)*$/.test(val)) {
                     return msg
                 }
             },
@@ -901,12 +901,15 @@ let ecDo = {
             /**
              * @description 是否是中文格式
              * @param val
+             * @param like
              * @param msg
              * @return {*}
              */
-            isChinese(val, msg){
-                if (!/^[^\u4E00-\u9FA5]+$/.test(val)) {
-                    return msg
+            chinese(val,like, msg){
+                switch (like){
+                    case '*':return !/^[\u4E00-\u9FA5]+$/.test(val)?msg:'';
+                    case '%':return !/[\u4E00-\u9FA5]+/.test(val)?msg:'';
+                    case '-':return /[\u4E00-\u9FA5]+/.test(val)?msg:'';
                 }
             },
             /**
@@ -961,7 +964,7 @@ let ecDo = {
              * @return {*}
              */
             check: function (arr) {
-                let ruleMsg, checkRule, _rule;
+                let ruleMsg, checkRule, _rule,_rules;
                 return new Promise(function(resolve, reject) {
                     for (let i = 0, len = arr.length; i < len; i++) {
                         //如果字段找不到
@@ -971,19 +974,25 @@ let ecDo = {
                         //遍历规则
                         for (let j = 0; j < arr[i].rules.length; j++) {
                             //提取规则
-                            //如果字段为空且规则不是校验空值，执行下次循环
-                            if ((arr[i].el === ''||arr[i].el === null)&&arr[i].rules[j].rule[0]!=='isNoNull') {
-                                continue;
+                            _rules=arr[i].rules[j].rule.split(",");
+                            for(let n=0;n<_rules.length;n++){
+                                checkRule = _rules[n].split(":");
+                                //如果字段为空且规则不是校验空值，执行下次循环
+                                if ((arr[i].el === ''||arr[i].el === null)&&checkRule[0]!=='isNoNull') {
+                                    continue;
+                                }
+                                _rule = checkRule.shift();
+                                checkRule.unshift(arr[i].el);
+                                checkRule.push(arr[i].rules[j].msg);
+                                //如果规则错误
+                                ruleMsg = ruleData[_rule].apply(null, checkRule);
+                                if(!ruleMsg){
+                                    ruleMsg='';
+                                    break;
+                                }
                             }
-                            checkRule = arr[i].rules[j].rule.split(":");
-                            _rule = checkRule.shift();
-                            checkRule.unshift(arr[i].el);
-                            checkRule.push(arr[i].rules[j].msg);
-                            //如果规则错误
-                            ruleMsg = ruleData[_rule].apply(null, checkRule);
-                            if (ruleMsg) {
+                            if(ruleMsg){
                                 reject(ruleMsg);
-                                return;
                             }
                         }
                     }
@@ -996,7 +1005,7 @@ let ecDo = {
              * @return {*}
              */
             checkAll: function (arr) {
-                let ruleMsg, checkRule, _rule,msgObj={};
+                let ruleMsg, checkRule, _rule,msgObj={},_rules;
                 for (let i = 0, len = arr.length; i < len; i++) {
                     //如果字段找不到
                     if (arr[i].el === undefined) {
@@ -1008,15 +1017,21 @@ let ecDo = {
                     for (let j = 0; j < arr[i].rules.length; j++) {
                         //提取规则
                         //如果字段为空且规则不是校验空值，执行下次循环
-                        if ((arr[i].el === ''||arr[i].el === null)&&arr[i].rules[j].rule[0]!=='isNoNull') {
+                        if ((arr[i].el === ''||arr[i].el === null)&&arr[i].rules[j].rule!=='isNoNull') {
                             continue;
                         }
-                        checkRule = arr[i].rules[j].rule.split(":");
-                        _rule = checkRule.shift();
-                        checkRule.unshift(arr[i].el);
-                        checkRule.push(arr[i].rules[j].msg);
-                        //如果规则错误
-                        ruleMsg = ruleData[_rule].apply(null, checkRule);
+                        _rules=arr[i].rules[j].rule.split(",");
+                        for(let n=0;n<_rules.length;i++){
+                            checkRule = _rules[n].split(":");
+                            _rule = checkRule.shift();
+                            checkRule.unshift(arr[i].el);
+                            checkRule.push(arr[i].rules[j].msg);
+                            //如果规则错误
+                            ruleMsg = ruleData[_rule].apply(null, checkRule);
+                            if(!ruleMsg){
+                                ruleMsg='';
+                            }
+                        }
                         if (ruleMsg) {
                             //返回错误信息
                             msgObj[arr[i].alias]={
@@ -1024,12 +1039,7 @@ let ecDo = {
                                 rules:_rule,
                                 msg:ruleMsg
                             }
-                            // msgObj.push({
-                            //     el:arr[i].el,
-                            //     alias:arr[i].alias,
-                            //     rules:_rule,
-                            //     msg:ruleMsg
-                            // });
+                            return;
                         }
                     }
                 }
