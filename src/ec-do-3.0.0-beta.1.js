@@ -77,13 +77,13 @@ let ecDo = {
     encryptStr(str, regIndex, ARepText = '*') {
         let regtext = '',
             Reg = null,
-            _regIndex=regIndex.split(','),
+            _regIndex = regIndex.split(','),
             replaceText = ARepText;
         //repeatStr是在上面定义过的（字符串循环复制），大家注意哦
-        _regIndex=_regIndex.map(item=>+item);
-        regtext = '(\\w{' + _regIndex[0] + '})\\w{' + (1+_regIndex[1]-_regIndex[0]) + '}';
+        _regIndex = _regIndex.map(item => +item);
+        regtext = '(\\w{' + _regIndex[0] + '})\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '}';
         Reg = new RegExp(regtext);
-        let replaceCount = this.repeatStr(replaceText, (1+_regIndex[1]-_regIndex[0]));
+        let replaceCount = this.repeatStr(replaceText, (1 + _regIndex[1] - _regIndex[0]));
         return str.replace(Reg, '$1' + replaceCount);
     },
     /**
@@ -92,19 +92,19 @@ let ecDo = {
     encryptUnStr(str, regIndex, ARepText = '*') {
         let regtext = '',
             Reg = null,
-            _regIndex=regIndex.split(','),
+            _regIndex = regIndex.split(','),
             replaceText = ARepText;
-        _regIndex=_regIndex.map(item=>+item);
-        regtext = '(\\w{' + _regIndex[0] + '})(\\w{' + (1+_regIndex[1]-_regIndex[0]) + '})(\\w{' + (str.length-_regIndex[1]-1) + '})';
+        _regIndex = _regIndex.map(item => +item);
+        regtext = '(\\w{' + _regIndex[0] + '})(\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '})(\\w{' + (str.length - _regIndex[1] - 1) + '})';
         Reg = new RegExp(regtext);
         let replaceCount1 = this.repeatStr(replaceText, _regIndex[0]);
-        let replaceCount2 = this.repeatStr(replaceText, str.length-_regIndex[1]-1);
+        let replaceCount2 = this.repeatStr(replaceText, str.length - _regIndex[1] - 1);
         return str.replace(Reg, replaceCount1 + '$2' + replaceCount2);
     },
     /**
      * @description 字符串开始位置加密
      */
-    encryptStartStr(str,length,replaceText = '*'){
+    encryptStartStr(str, length, replaceText = '*'){
         let regtext = '(\\w{' + length + '})';
         let Reg = new RegExp(regtext);
         let replaceCount = this.repeatStr(replaceText, length);
@@ -113,14 +113,14 @@ let ecDo = {
     /**
      * @description 字符串结束位置加密
      */
-    encryptEndStr(str,length,replaceText = '*'){
-        return this.encryptStartStr(str.split('').reverse().join(''),length,replaceText).split('').reverse().join('');
+    encryptEndStr(str, length, replaceText = '*'){
+        return this.encryptStartStr(str.split('').reverse().join(''), length, replaceText).split('').reverse().join('');
     },
     /**
      * @description 检测字符串
      */
-    checkType:(function(){
-        let rules={
+    checkType: (function () {
+        let rules = {
             email(str){
                 return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
             },
@@ -151,17 +151,17 @@ let ecDo = {
         };
         return {
             check(str, type){
-                return new Promise(function(resolve, reject) {
+                return new Promise(function (resolve, reject) {
                     if (rules[type]) {
                         resolve(rules[type](str));
                     }
-                    else{
+                    else {
                         reject(false);
                     }
                 });
             },
-            addRule(type,fn){
-                rules[type]=fn;
+            addRule(type, fn){
+                rules[type] = fn;
             }
         }
     })(),
@@ -174,9 +174,9 @@ let ecDo = {
             return nowLv
         }
         //nowLv=str.replace(/[0-9]/,' ').replace(/[A-Z]/,' ').replace(/[a-z]/,' ').replace(/[_.\-]/,' ').replace(/[^\s]/g,'').length;
-        let rules=[/[0-9]/,/[a-z]/,/[A-Z]/,/[\.|-|_]/];
-        for(let i=0;i<rules.length;i++){
-            if(rules[i].test(str)){
+        let rules = [/[0-9]/, /[a-z]/, /[A-Z]/, /[\.|-|_]/];
+        for (let i = 0; i < rules.length; i++) {
+            if (rules[i].test(str)) {
                 nowLv++;
             }
         }
@@ -185,7 +185,7 @@ let ecDo = {
     /**
      * @description 随机码
      */
-    randomWord(count=36) {
+    randomWord(count = 36) {
         return Math.random().toString(count).substring(2);
     },
     /**
@@ -197,28 +197,28 @@ let ecDo = {
     /**
      * @description 过滤特定类型字符串
      */
-    filterStr:(function(){
-        let typeFn={
-            html(str,replaceStr=''){
+    filterStr: (function () {
+        let typeFn = {
+            html(str, replaceStr = ''){
                 return str.replace(/<\/?[^>]*>/g, replaceStr);
             },
-            emjoy(str,replaceStr=''){
+            emjoy(str, replaceStr = ''){
                 return str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, replaceStr);
             },
-            WORD(str,replaceStr=''){
+            WORD(str, replaceStr = ''){
                 return str.replace(/[A-Z]/g, replaceStr);
             },
-            word(str,replaceStr=''){
+            word(str, replaceStr = ''){
                 return str.replace(/[a-z]/g, replaceStr);
             },
-            number(str,replaceStr=''){
+            number(str, replaceStr = ''){
                 return str.replace(/[1-9]/g, replaceStr);
             },
-            chinese(str,replaceStr=''){
+            chinese(str, replaceStr = ''){
                 return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
             },
-            specialStr(str,replaceStr='',spstr){
-                let regText = '$()[]{}?\|^*+./\"\'+',pattern;
+            specialStr(str, replaceStr = '', spstr){
+                let regText = '$()[]{}?\|^*+./\"\'+', pattern;
                 //是否有哪些特殊符号需要保留
                 if (spstr) {
                     let _spstr = spstr.split(""), _regText = "[^0-9A-Za-z\\s";
@@ -239,15 +239,15 @@ let ecDo = {
                 return str = str.replace(pattern, replaceStr);
             }
         }
-        return{
-            handle(type,str){
+        return {
+            handle(type, str){
                 let arr = Array.prototype.slice.call(arguments);
-                arr.splice(0,1);
-                return typeFn[type]?typeFn[type].apply(null, arr):false;
+                arr.splice(0, 1);
+                return typeFn[type] ? typeFn[type].apply(null, arr) : false;
             },
-            addType(type,fn){
-                if(!typeFn[type]){
-                    typeFn[type]=fn;
+            addType(type, fn){
+                if (!typeFn[type]) {
+                    typeFn[type] = fn;
                 }
             }
         }
@@ -255,8 +255,8 @@ let ecDo = {
     /**
      * @description 过滤字符串的特殊符号
      */
-    filterSpecialStr(str,replaceStr='',spstr){
-        let regText = '$()[]{}?\|^*+./\"\'+',pattern;
+    filterSpecialStr(str, replaceStr = '', spstr){
+        let regText = '$()[]{}?\|^*+./\"\'+', pattern;
         //是否有哪些特殊符号需要保留
         if (spstr) {
             let _spstr = spstr.split(""), _regText = "[^0-9A-Za-z\\s";
@@ -279,37 +279,37 @@ let ecDo = {
     /**
      * @description 过滤字符串的html标签
      */
-    filterHtml(str,replaceStr=''){
+    filterHtml(str, replaceStr = ''){
         return str.replace(/<\/?[^>]*>/g, replaceStr);
     },
     /**
      * @description 过滤字符串的表情
      */
-    filterEmjoy(str,replaceStr=''){
+    filterEmjoy(str, replaceStr = ''){
         return str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/ig, replaceStr);
     },
     /**
      * @description 过滤字符串的大写字母
      */
-    filterWordUpper(str,replaceStr=''){
+    filterWordUpper(str, replaceStr = ''){
         return str.replace(/[A-Z]/g, replaceStr);
     },
     /**
      * @description 过滤字符串的小写字母
      */
-    filterWordLower(str,replaceStr=''){
+    filterWordLower(str, replaceStr = ''){
         return str.replace(/[a-z]/g, replaceStr);
     },
     /**
      * @description 过滤字符串的数字
      */
-    filterNumber(str,replaceStr=''){
+    filterNumber(str, replaceStr = ''){
         return str.replace(/[1-9]/g, replaceStr);
     },
     /**
      * @description 过滤字符串的中文
      */
-    filterChinese(str,replaceStr=''){
+    filterChinese(str, replaceStr = ''){
         return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
     },
     /**
@@ -377,8 +377,8 @@ let ecDo = {
         // return arr.sort(() => {
         //     return Math.random() - 0.5
         // });
-        let j,_item;
-        for (let i=0; i<arr.length; i++) {
+        let j, _item;
+        for (let i = 0; i < arr.length; i++) {
             j = Math.floor(Math.random() * i);
             _item = arr[i];
             arr[i] = arr[j];
@@ -406,7 +406,7 @@ let ecDo = {
      * @param arr
      */
     sumArr(arr) {
-        return arr.reduce((pre, cur) =>pre + cur)
+        return arr.reduce((pre, cur) => pre + cur)
     },
     /**
      * @description 数组平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活了（数值数组）
@@ -483,7 +483,7 @@ let ecDo = {
      * @return {Array.<T>|*}
      */
     removeArrayForValue(arr, val) {
-        return arr.filter(item=>item !== val)
+        return arr.filter(item => item !== val)
     },
     /**
      * @description 删除值含有'val'的数组元素
@@ -492,7 +492,7 @@ let ecDo = {
      * @return {Array.<T>|*}
      */
     removeArrayForLike(arr, val) {
-        return arr.filter(item=>item.indexOf(val) === -1);
+        return arr.filter(item => item.indexOf(val) === -1);
     },
     /**
      * @description 获取对象数组某些项
@@ -616,7 +616,7 @@ let ecDo = {
             m = Math.floor(t / 1000 / 60 % 60);
             s = Math.floor(t / 1000 % 60);
         }
-        return {d,h,m,s};
+        return {d, h, m, s};
     },
     /**
      * @description 时间格式化
@@ -624,21 +624,21 @@ let ecDo = {
      * @param fmt
      * @return {*}
      */
-    formatDate(date,fmt='yyyy-MM-dd hh:mm:ss') {
-        let _date=new Date(date),_fmt=fmt;
+    formatDate(date, fmt = 'yyyy-MM-dd hh:mm:ss') {
+        let _date = new Date(date), _fmt = fmt;
         let o = {
-            "M+" : _date.getMonth()+1,                 //月份
-            "d+" : _date.getDate(),                    //日
-            "h+" : _date.getHours(),                   //小时
-            "m+" : _date.getMinutes(),                 //分
-            "s+" : _date.getSeconds()                 //秒
+            "M+": _date.getMonth() + 1,                 //月份
+            "d+": _date.getDate(),                    //日
+            "h+": _date.getHours(),                   //小时
+            "m+": _date.getMinutes(),                 //分
+            "s+": _date.getSeconds()                 //秒
         };
-        if(/(y+)/.test(_fmt)) {
-            _fmt=_fmt.replace(RegExp.$1, (_date.getFullYear()+"").substr(4 - RegExp.$1.length));
+        if (/(y+)/.test(_fmt)) {
+            _fmt = _fmt.replace(RegExp.$1, (_date.getFullYear() + "").substr(4 - RegExp.$1.length));
         }
-        for(let k in o) {
-            if(new RegExp("("+ k +")").test(_fmt)){
-                _fmt = _fmt.replace(RegExp.$1, (RegExp.$1.length===1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+        for (let k in o) {
+            if (new RegExp("(" + k + ")").test(_fmt)) {
+                _fmt = _fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
             }
         }
         return _fmt;
@@ -648,10 +648,10 @@ let ecDo = {
      * @return {string}
      */
     randomColor(sum) {
-        if(sum){
+        if (sum) {
             return '#' + Math.random().toString(16).substring(2).substr(0, 6);
         }
-        else{
+        else {
             return 'rgb(' + this.randomNumber(255) + ',' + this.randomNumber(255) + ',' + this.randomNumber(255) + ')';
         }
     },
@@ -684,14 +684,14 @@ let ecDo = {
      * @param obj
      * @return {string}
      */
-    setUrlParam(url,obj) {
+    setUrlParam(url, obj) {
         let _rs = [];
         for (let p in obj) {
             if (obj[p] != null && obj[p] != '') {
                 _rs.push(p + '=' + obj[p])
             }
         }
-        return url+'?'+_rs.join('&');
+        return url + '?' + _rs.join('&');
     },
     /**
      * @description 获取url参数
@@ -766,7 +766,7 @@ let ecDo = {
      * @return {*}
      */
     isType(o, type) {
-        if(!type){
+        if (!type) {
             return Object.prototype.toString.call(o)
         }
         switch (type.toLowerCase()) {
@@ -795,7 +795,7 @@ let ecDo = {
     /**
      * @description 表单验证
      */
-    validateForm:(function () {
+    validateForm: (function () {
         let ruleData = {
             /**
              * @description 不能为空
@@ -883,9 +883,25 @@ let ecDo = {
              * @return {*}
              */
             isNumber(val, msg){
-                if (!/^[0-9]+$/.test(val)) {
-                    return msg
-                }
+                return !/^[0-9]+$/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否包含数字格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            hasNumber(val, msg){
+                return !/[0-9]+/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否不包含数字格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            noNumber(val, msg){
+                return /[0-9]+/.test(val) ? msg : '';
             },
             /**
              * @description 是否是有效数值格式（两个小数点）
@@ -901,16 +917,29 @@ let ecDo = {
             /**
              * @description 是否是中文格式
              * @param val
-             * @param like
              * @param msg
              * @return {*}
              */
-            chinese(val,like, msg){
-                switch (like){
-                    case '*':return !/^[\u4E00-\u9FA5]+$/.test(val)?msg:'';
-                    case '%':return !/[\u4E00-\u9FA5]+/.test(val)?msg:'';
-                    case '-':return /[\u4E00-\u9FA5]+/.test(val)?msg:'';
-                }
+            isChinese(val, msg){
+                return !/^[\u4E00-\u9FA5]+$/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否包含中文
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            hasChinese(val, msg){
+                return !/[\u4E00-\u9FA5]+/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否不包含
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            noChinese(val, msg){
+                return /[\u4E00-\u9FA5]+/.test(val) ? msg : '';
             },
             /**
              * @description 是否是英文字母格式
@@ -919,9 +948,25 @@ let ecDo = {
              * @return {*}
              */
             isEnglish(val, msg){
-                if (!/^[a-zA-Z]+$/.test(val)) {
-                    return msg
-                }
+                return !/^[a-zA-Z]+$/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否包含英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            hasEnglish(val, msg){
+                return !/[a-zA-Z]+/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否不包含英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            noEnglish(val, msg){
+                return /[a-zA-Z]+/.test(val) ? msg : '';
             },
             /**
              * @description 是否是大写英文字母格式
@@ -930,9 +975,25 @@ let ecDo = {
              * @return {*}
              */
             isUpperEnglish(val, msg){
-                if (!/^[A-Z]+$/.test(val)) {
-                    return msg
-                }
+                return !/^[A-Z]+$/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否包含大写英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            hasUpperEnglish(val, msg){
+                return !/[A-Z]+/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否不包含大写英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            noUpperEnglish(val, msg){
+                return /[A-Z]+/.test(val) ? msg : '';
             },
             /**
              * @description 是否是小写英文字母格式
@@ -941,9 +1002,25 @@ let ecDo = {
              * @return {*}
              */
             isLowerEnglish(val, msg){
-                if (!/^[a-z]+$/.test(val)) {
-                    return msg
-                }
+                return !/^[a-z]+$/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否包含小写英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            hasLowerEnglish(val, msg){
+                return !/[a-z]+/.test(val) ? msg : '';
+            },
+            /**
+             * @description 是否不包含小写英文字母格式
+             * @param val
+             * @param msg
+             * @return {*}
+             */
+            isLowerEnglish(val, msg){
+                return /[a-z]+/.test(val) ? msg : '';
             },
             /**
              * @description 是否是密码
@@ -964,8 +1041,8 @@ let ecDo = {
              * @return {*}
              */
             check: function (arr) {
-                let ruleMsg, checkRule, _rule,_rules;
-                return new Promise(function(resolve, reject) {
+                let ruleMsg, checkRule, _rule, _rules;
+                return new Promise(function (resolve, reject) {
                     for (let i = 0, len = arr.length; i < len; i++) {
                         //如果字段找不到
                         if (arr[i].el === undefined) {
@@ -974,11 +1051,11 @@ let ecDo = {
                         //遍历规则
                         for (let j = 0; j < arr[i].rules.length; j++) {
                             //提取规则
-                            _rules=arr[i].rules[j].rule.split(",");
-                            for(let n=0;n<_rules.length;n++){
+                            _rules = arr[i].rules[j].rule.split(",");
+                            for (let n = 0; n < _rules.length; n++) {
                                 checkRule = _rules[n].split(":");
                                 //如果字段为空且规则不是校验空值，执行下次循环
-                                if ((arr[i].el === ''||arr[i].el === null)&&checkRule[0]!=='isNoNull') {
+                                if ((arr[i].el === '' || arr[i].el === null) && checkRule[0] !== 'isNoNull') {
                                     continue;
                                 }
                                 _rule = checkRule.shift();
@@ -986,12 +1063,12 @@ let ecDo = {
                                 checkRule.push(arr[i].rules[j].msg);
                                 //如果规则错误
                                 ruleMsg = ruleData[_rule].apply(null, checkRule);
-                                if(!ruleMsg){
-                                    ruleMsg='';
+                                if (!ruleMsg) {
+                                    ruleMsg = '';
                                     break;
                                 }
                             }
-                            if(ruleMsg){
+                            if (ruleMsg) {
                                 reject(ruleMsg);
                             }
                         }
@@ -1005,50 +1082,49 @@ let ecDo = {
              * @return {*}
              */
             checkAll: function (arr) {
-                let ruleMsg, checkRule, _rule,msgObj={},_rules;
+                let ruleMsg, checkRule, _rule, msgObj = {}, _rules;
                 for (let i = 0, len = arr.length; i < len; i++) {
                     //如果字段找不到
                     if (arr[i].el === undefined) {
                         return '字段找不到！'
                     }
-                    //如果字段为空以及规则不是校验空的规则
 
                     //遍历规则
                     for (let j = 0; j < arr[i].rules.length; j++) {
                         //提取规则
                         //如果字段为空且规则不是校验空值，执行下次循环
-                        if ((arr[i].el === ''||arr[i].el === null)&&arr[i].rules[j].rule!=='isNoNull') {
+                        if ((arr[i].el === '' || arr[i].el === null) && arr[i].rules[j].rule !== 'isNoNull') {
                             continue;
                         }
-                        _rules=arr[i].rules[j].rule.split(",");
-                        for(let n=0;n<_rules.length;i++){
+                        _rules = arr[i].rules[j].rule.split(",");
+                        for (let n = 0; n < _rules.length; i++) {
                             checkRule = _rules[n].split(":");
                             _rule = checkRule.shift();
                             checkRule.unshift(arr[i].el);
                             checkRule.push(arr[i].rules[j].msg);
                             //如果规则错误
                             ruleMsg = ruleData[_rule].apply(null, checkRule);
-                            if(!ruleMsg){
-                                ruleMsg='';
+                            if (!ruleMsg) {
+                                ruleMsg = '';
                             }
                         }
                         if (ruleMsg) {
                             //返回错误信息
-                            msgObj[arr[i].alias]={
-                                el:arr[i].el,
-                                rules:_rule,
-                                msg:ruleMsg
+                            msgObj[arr[i].alias] = {
+                                el: arr[i].el,
+                                rules: _rule,
+                                msg: ruleMsg
                             }
                             return;
                         }
                     }
                 }
                 //return msgObj.length>0?msgObj:false;
-                return new Promise(function(resolve, reject) {
-                    if (Object.keys(msgObj).length===0) {
+                return new Promise(function (resolve, reject) {
+                    if (Object.keys(msgObj).length === 0) {
                         resolve('success');
                     }
-                    else{
+                    else {
                         reject(msgObj);
                     }
                 });
@@ -1058,8 +1134,8 @@ let ecDo = {
              * @param type
              * @param fn
              */
-            addRule:function (type,fn) {
-                ruleData[type]=fn;
+            addRule: function (type, fn) {
+                ruleData[type] = fn;
             }
         }
     })(),
@@ -1069,13 +1145,13 @@ let ecDo = {
      * @return {*}
      */
     getBrowserInfo(type) {
-        let typeObj={
-            android:'android',
-            iphone:'android',
-            ipad:'ipad',
-            weixin:'micromessenger'
+        let typeObj = {
+            android: 'android',
+            iphone: 'android',
+            ipad: 'ipad',
+            weixin: 'micromessenger'
         }
-        return type?navigator.userAgent.toLowerCase().indexOf(typeObj[type]) !== -1:navigator.userAgent.toLowerCase();
+        return type ? navigator.userAgent.toLowerCase().indexOf(typeObj[type]) !== -1 : navigator.userAgent.toLowerCase();
     },
     //函数节流
     /**
@@ -1129,7 +1205,7 @@ let ecDo = {
      * @description 获取cookie
      */
     getCookie(name) {
-        let arr = document.cookie.split('; '),arr2;
+        let arr = document.cookie.split('; '), arr2;
         for (let i = 0; i < arr.length; i++) {
             arr2 = arr[i].split('=');
             if (arr2[0] == name) {
@@ -1148,10 +1224,10 @@ let ecDo = {
      * @description 操作cookie
      */
     cookie(name, value, iDay){
-        if(arguments.length===1){
+        if (arguments.length === 1) {
             return this.getCookie(name);
         }
-        else{
+        else {
             this.setCookie(name, value, iDay);
         }
     },
@@ -1358,8 +1434,10 @@ let ecDo = {
             url: '',
             async: true,
             data: null,
-            success() {},
-            error() {}
+            success() {
+            },
+            error() {
+            }
         }, obj);
         obj.type = obj.type.toUpperCase();
         let xmlHttp = null;
@@ -1419,7 +1497,7 @@ let ecDo = {
      * @param errorUrl 出错时候的图片
      */
     loadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
-        let oImgLoad = document.getElementsByClassName(className),_this=this;
+        let oImgLoad = document.getElementsByClassName(className), _this = this;
         for (let i = 0, len = oImgLoad.length; i < len; i++) {
             //如果图片已经滚动到指定的高度
             if (document.documentElement.clientHeight + document.documentElement.scrollTop > oImgLoad[i].offsetTop - num && !oImgLoad[i].isLoad) {
@@ -1430,7 +1508,7 @@ let ecDo = {
                 if (oImgLoad[i].dataset) {
                     this.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, errorUrl, function (o) {
                         //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             if (o.isLoad) {
                                 _this.removeClass(o, className);
                                 o.style.cssText = "";
@@ -1440,7 +1518,7 @@ let ecDo = {
                 } else {
                     this.aftLoadImg(oImgLoad[i], oImgLoad[i].getAttribute("data-src"), errorUrl, function (o) {
                         //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             if (o.isLoad) {
                                 _this.removeClass(o, className);
                                 o.style.cssText = "";
@@ -1449,7 +1527,7 @@ let ecDo = {
                     });
                 }
                 (function (i) {
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         oImgLoad[i].style.cssText = "transition:all 1s; opacity: 1;";
                     }, 16)
                 })(i);
@@ -1466,7 +1544,7 @@ let ecDo = {
     findKey(str, key, el = 'span') {
         let arr = null, regStr = null, content = null, Reg = null;
         //alert(regStr); //    如：(前端|过来)
-        regStr = "(" +key.split(/\s+/).join('|')+ ")";
+        regStr = "(" + key.split(/\s+/).join('|') + ")";
         //alert(regStr); //    如：(前端|过来)
         content = str;
         //alert(Reg);//        /如：(前端|过来)/g

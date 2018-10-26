@@ -14,20 +14,20 @@
     }
     //校验函数调用
     ecDo.validateForm.check([
-//        {
-//            //校验的数据
-//            el: testData.phone,
-//            //校验的规则
-//            rules: [
-//                {rule: 'isNoNull', msg: '电话不能为空'},{rule:'isMobile,isEmail',msg:'电话格式错误'}
-//            ]
-//        },
+        {
+            //校验的数据
+            el: testData.phone,
+            //校验的规则
+            rules: [
+                {rule: 'isNoNull', msg: '电话不能为空'},{rule:'isMobile,isEmail',msg:'电话格式错误'}
+            ]
+        },
         {
             //校验的数据
             el: testData.name,
             //校验的规则
             rules: [
-                {rule: 'isNoNull', msg: '姓名不能为空'},{rule:'chinese:%',msg:'格式错误'}
+                {rule: 'isNoNull', msg: '姓名不能为空'},{rule:'noChinese',msg:'格式错误'}
             ]
         }
     ]).then(info => {
