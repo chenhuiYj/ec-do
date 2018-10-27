@@ -296,7 +296,7 @@ let ecVaildate=(function () {
          * @return {*}
          */
         checkAll: function (arr) {
-            let ruleMsg, checkRule, _rule, msgObj = {}, _rules;
+            let ruleMsg, checkRule, _rule, msgObj = {}, valObj = {},_rules;
             for (let i = 0, len = arr.length; i < len; i++) {
                 //如果字段找不到
                 if (arr[i].el === undefined) {
@@ -325,10 +325,7 @@ let ecVaildate=(function () {
                     }
                     if (ruleMsg) {
                         //返回错误信息
-                        msgObj[arr[i].alias] = {
-                            el:arr[i].el,
-                            msg: ruleMsg
-                        }
+                        msgObj[arr[i].alias] =ruleMsg;
                     }
                 }
             }
