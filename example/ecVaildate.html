@@ -20,6 +20,9 @@
             outline: none;
             padding-left: 10px;
         }
+        .u-input-text.err{
+            border: 1px solid #f00;
+        }
 
         .u-btn-submit {
             width: 100px;
@@ -28,14 +31,37 @@
             background: #09f;
             color: #fff;
         }
+        .u-tips{
+            margin: 10px 0;
+            font-size: 14px;
+            padding-left: 50px;
+            color: #f00;
+            text-align: left;
+        }
+        .u-tips.success{
+            color: #4cb94c;
+        }
     </style>
 </head>
 <body>
-<div class="m-from-box" id="form-box">
-    <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="userName"></p>
-    <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="userContact"></p>
-    <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit"></p>
+<div id="form-box">
+    <div class="m-from-box">
+        <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo1.userName"></p>
+        <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo1.userContact"></p>
+        <p class="u-tips">{{demo1.tips}}</p>
+        <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit1"></p>
+    </div>
+
+    <div class="m-from-box">
+        <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo2.userName" :class="{'err':demo2.tips.userName}"></p>
+        <p class="u-tips">{{demo2.tips.userName}}</p>
+        <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo2.userContact" :class="{'err':demo2.tips.contact}"></p>
+        <p class="u-tips">{{demo2.tips.contact}}</p>
+        <p class="u-tips success" v-if="demo2.tips==='success'">提交成功</p>
+        <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit2"></p>
+    </div>
 </div>
+
 </body>
 <script src="../src/vue.min.js"></script>
 <script src="../src/ec-validate.js"></script>
@@ -43,12 +69,70 @@
     new Vue({
         el: '#form-box',
         data: {
-            userName: '',
-            userContact: ''
-        },
-        methods:{
-            handleSubmit(){
+            demo1: {
+                userName: '',
+                userContact: '',
+                tips: ''
+            },
+            demo2: {
+                userName: '',
+                userContact: '',
+                tips: {}
+            }
 
+        },
+        methods: {
+            handleSubmit1(){
+                let _this = this;
+                ecVaildate.check([
+                    {
+                        //校验的数据
+                        el: _this.demo1.userName,
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '姓名不能为空'}
+                        ],
+                    },
+                    {
+                        //校验的数据
+                        el: _this.demo1.userContact,
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                        ]
+                    }
+                ]).then(info => {
+                    this.demo1.tips=info
+                }).catch(err => {
+                    this.demo1.tips=err
+                });
+            },
+            handleSubmit2(){
+                let _this = this;
+                ecVaildate.check([
+                    {
+                        //校验的数据
+                        el: _this.demo2.userName,
+                        alias:'userName',
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '姓名不能为空'}
+                        ],
+                    },
+                    {
+                        //校验的数据
+                        el: _this.demo2.userContact,
+                        alias:'contact',
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                        ]
+                    }
+                ]).then(info => {
+                    this.demo2.tips=info
+                }).catch(err => {
+                    this.demo2.tips=err
+                });
             }
         }
     })

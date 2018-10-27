@@ -247,7 +247,7 @@ let ecVaildate=(function () {
          * @return {*}
          */
         check: function (arr) {
-            let ruleMsg, checkRule, _rule, _rules;
+            let ruleMsg, checkRule, _rule, _rules,_errorObj={};
             return new Promise(function (resolve, reject) {
                 for (let i = 0, len = arr.length; i < len; i++) {
                     //如果字段找不到
@@ -267,15 +267,23 @@ let ecVaildate=(function () {
                             _rule = checkRule.shift();
                             checkRule.unshift(arr[i].el);
                             checkRule.push(arr[i].rules[j].msg);
-                            //如果规则错误
+                            //记录规则错误
                             ruleMsg = ruleData[_rule].apply(null, checkRule);
+                            //如果有一项符合，跳出本次循环
                             if (!ruleMsg) {
                                 ruleMsg = '';
                                 break;
                             }
                         }
                         if (ruleMsg) {
-                            reject(ruleMsg);
+                            if(arr[i].alias){
+                                _errorObj[arr[i].alias||'errorMsg']=ruleMsg;
+                            }
+                            else{
+                                _errorObj=ruleMsg;
+                            }
+                            reject(_errorObj);
+                            return;
                         }
                     }
                 }
@@ -318,8 +326,7 @@ let ecVaildate=(function () {
                     if (ruleMsg) {
                         //返回错误信息
                         msgObj[arr[i].alias] = {
-                            el: arr[i].el,
-                            rules: _rule,
+                            el:arr[i].el,
                             msg: ruleMsg
                         }
                     }
