@@ -48,13 +48,14 @@
 </head>
 <body>
 <div id="form-box">
+    <!--校验单个字段-->
     <div class="m-from-box">
         <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo1.userName"></p>
         <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo1.userContact"></p>
         <p class="u-tips">{{demo1.tips}}</p>
         <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit1"></p>
     </div>
-
+    <!--校验单个字段，带别名定位-->
     <div class="m-from-box">
         <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo2.userName"
                   :class="{'err':demo2.tips.userName}"></p>
@@ -66,7 +67,7 @@
         <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit2"></p>
     </div>
 
-
+    <!--校验全部-->
     <div class="m-from-box">
         <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo3.userName"
                   :class="{'err':demo3.tips.userName}"></p>
