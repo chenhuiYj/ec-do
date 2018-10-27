@@ -1034,6 +1034,9 @@ let ecDo = {
                 }
             },
         }
+        function handleCheck(arr) {
+
+        }
         return {
             /**
              * @description 查询接口
@@ -1093,12 +1096,12 @@ let ecDo = {
                     for (let j = 0; j < arr[i].rules.length; j++) {
                         //提取规则
                         //如果字段为空且规则不是校验空值，执行下次循环
-                        if ((arr[i].el === '' || arr[i].el === null) && arr[i].rules[j].rule !== 'isNoNull') {
-                            continue;
-                        }
                         _rules = arr[i].rules[j].rule.split(",");
-                        for (let n = 0; n < _rules.length; i++) {
+                        for (let n = 0; n < _rules.length; n++) {
                             checkRule = _rules[n].split(":");
+                            if ((arr[i].el === '' || arr[i].el === null) && arr[i].rules[j].rule !== 'isNoNull') {
+                                continue;
+                            }
                             _rule = checkRule.shift();
                             checkRule.unshift(arr[i].el);
                             checkRule.push(arr[i].rules[j].msg);
@@ -1106,6 +1109,7 @@ let ecDo = {
                             ruleMsg = ruleData[_rule].apply(null, checkRule);
                             if (!ruleMsg) {
                                 ruleMsg = '';
+                                break;
                             }
                         }
                         if (ruleMsg) {
@@ -1115,7 +1119,6 @@ let ecDo = {
                                 rules: _rule,
                                 msg: ruleMsg
                             }
-                            return;
                         }
                     }
                 }

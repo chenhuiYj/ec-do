@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .m-from-box {
+            margin: 100px auto;
+            border: 1px solid #ccc;
+            width: 400px;
+            height: 200px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .u-input-text {
+            border: 1px solid #ccc;
+            height: 30px;
+            width: 300px;
+            outline: none;
+            padding-left: 10px;
+        }
+
+        .u-btn-submit {
+            width: 100px;
+            height: 30px;
+            border: none;
+            background: #09f;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="m-from-box" id="form-box">
+    <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="userName"></p>
+    <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="userContact"></p>
+    <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit"></p>
+</div>
+</body>
+<script src="../src/vue.min.js"></script>
+<script src="../src/ec-validate.js"></script>
+<script>
+    new Vue({
+        el: '#form-box',
+        data: {
+            userName: '',
+            userContact: ''
+        },
+        methods:{
+            handleSubmit(){
+
+            }
+        }
+    })
+</script>
+</html>
