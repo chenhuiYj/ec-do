@@ -149,6 +149,7 @@
             },
             handleSubmit2(){
                 let _this = this;
+                //在校验数组里面加上alias字段，保存错误信息。该字段要保证值唯一性，并且要么全部加上，要么全部不加，不然可能会造成页面错误
                 ecVaildate.check([
                     {
                         //校验的数据
@@ -178,6 +179,7 @@
 
             handleSubmit3(){
                 let _this = this;
+                //checkAll校验全部的函数，必须要加上alias字段。
                 ecVaildate.checkAll([
                     {
                         //校验的数据
