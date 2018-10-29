@@ -237,9 +237,6 @@ let ecVaildate=(function () {
             }
         },
     }
-    function handleCheck(arr) {
-
-    }
     return {
         /**
          * @description 查询接口
