@@ -81,12 +81,12 @@
     <!--单个输入，实时校验-->
     <div class="m-from-box">
         <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo4.userName"
-                  :class="{'err':demo4.tips.userName}"></p>
-        <p class="u-tips" v-if="demo4.tipsVal.userName">查找不到结果：{{demo4.tipsVal.userName.el}}</p>
+                  :class="{'err':demo4.tips.userName}" @input="handleInput4"></p>
+        <p class="u-tips" v-if="demo4.tips.userName">{{demo4.tips.userName}}</p>
         <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo4.userContact"
-                  :class="{'err':demo4.tips.contact}"></p>
-        <p class="u-tips" v-if="demo4.tipsVal.contact.msg">查找不到结果：{{demo4.tipsVal.contact.el}}</p>
-        <p class="u-tips success" v-if="demo4.tips==='success'">提交成功</p>
+                  :class="{'err':demo4.tips.contact}"  @input="handleInput4"></p>
+        <p class="u-tips" v-if="demo4.tips.contact">{{demo4.tips.contact}}</p>
+        <p class="u-tips success" v-if="demo4.tips.contact==='success'">提交成功</p>
         <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit4"></p>
     </div>
 </div>
@@ -113,12 +113,15 @@
                 userContact: '',
                 tips: {}
             },
-//            demo4: {
-//                userName: '',
-//                userContact: '',
-//                tips: {},
-//                tipsVal:{}
-//            }
+            demo4: {
+                userName: '',
+                userContact: '',
+                tips: {
+                    userName: '',
+                    userContact: ''
+                },
+                tipsVal: {}
+            }
 
         },
         methods: {
@@ -205,35 +208,50 @@
                     this.demo3.tips = err
                 });
             },
-//            handleSubmit4(){
-//                let _this = this;
-//                ecVaildate.checkAll([
-//                    {
-//                        //校验的数据
-//                        el: _this.demo4.userName,
-//                        alias: 'userName',
-//                        //校验的规则
-//                        rules: [
-//                            {rule: 'isNoNull', msg: '姓名不能为空'}
-//                        ],
-//                    },
-//                    {
-//                        //校验的数据
-//                        el: _this.demo4.userContact,
-//                        alias: 'contact',
-//                        //校验的规则
-//                        rules: [
-//                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
-//                        ]
-//                    }
-//                ]).then(info => {
-//                    this.demo4.tips = info
-//                }).catch(err => {
-//                    debugger;
-//                    this.demo4.tips = err;
-//                    this.demo4.tipsVal = errVal;
-//                });
-//            }
+            handleSubmit4(){
+                let _this = this;
+                ecVaildate.checkAll([
+                    {
+                        //校验的数据
+                        el: _this.demo4.userName,
+                        alias: 'userName',
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '姓名不能为空'}
+                        ],
+                    },
+                    {
+                        //校验的数据
+                        el: _this.demo4.userContact,
+                        alias: 'contact',
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                        ]
+                    }
+                ]).then(info => {
+                    this.demo4.tips = info
+                }).catch(err => {
+                    this.demo4.tips = err;
+                });
+            },
+            handleInput4(){
+                let _this = this;
+                ecVaildate.check([
+                    {
+                        //校验的数据
+                        el: _this.demo4.userContact,
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                        ]
+                    },
+                ]).then(info => {
+                    this.demo4.tips.contact = ''
+                }).catch(err => {
+                    this.demo4.tips.contact = err;
+                });
+            }
         }
     })
 </script>
