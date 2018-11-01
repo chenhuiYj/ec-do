@@ -1,5 +1,55 @@
-let ecVaildate=(function () {
+let ecValidate=(function () {
+    let isType=function(o, type) {
+        if (!type) {
+            return Object.prototype.toString.call(o)
+        }
+        switch (type.toLowerCase()) {
+            case 'string':
+                return Object.prototype.toString.call(o) === '[object String]';
+            case 'number':
+                return Object.prototype.toString.call(o) === '[object Number]';
+            case 'boolean':
+                return Object.prototype.toString.call(o) === '[object Boolean]';
+            case 'undefined':
+                return Object.prototype.toString.call(o) === '[object Undefined]';
+            case 'null':
+                return Object.prototype.toString.call(o) === '[object Null]';
+            case 'function':
+                return Object.prototype.toString.call(o) === '[object Function]';
+            case 'array':
+                return Object.prototype.toString.call(o) === '[object Array]';
+            case 'object':
+                return Object.prototype.toString.call(o) === '[object Object]';
+            case 'nan':
+                return isNaN(o);
+            case 'elements':
+                return Object.prototype.toString.call(o).indexOf('HTML') !== -1;
+        }
+    }
     let ruleData = {
+        /**
+         * @description 数据类型
+         * @param val
+         * @param type
+         * @param msg
+         * @return {*}
+         */
+        isType(val,type,msg){
+            if(!isType(val,type)){
+                return msg;
+            }
+        },
+        /**
+         * @description 数据类型
+         * @param val
+         * @param type
+         * @param msg
+         */
+        noType(val,type,msg){
+            if(isType(val,type)){
+                return msg;
+            }
+        },
         /**
          * @description 不能为空
          * @param val
