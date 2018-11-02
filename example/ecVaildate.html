@@ -84,7 +84,7 @@
                   :class="{'err':demo4.tips.userName}" @input="handleInput4"></p>
         <p class="u-tips" v-if="demo4.tips.userName">{{demo4.tips.userName}}</p>
         <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo4.userContact"
-                  :class="{'err':demo4.tips.contact}"  @blur="handleInput4"></p>
+                  :class="{'err':demo4.tips.contact}"  @input="handleInput4"></p>
         <p class="u-tips">{{demo4.tips.userContact}}</p>
         <p class="u-tips success" v-if="demo4.tips.contact==='success'">提交成功</p>
         <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit4"></p>

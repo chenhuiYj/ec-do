@@ -769,23 +769,19 @@ let ecDo = {
         if (!type) {
             return Object.prototype.toString.call(o)
         }
+        let typeObj={
+            'string':'[object String]',
+            'number':'[object Number]',
+            'boolean':'[object Boolean]',
+            'null':'[object Null]',
+            'function':'[object Function]',
+            'array':'[object Array]',
+            'object':'[object Object]'
+        }
+        if(typeObj[type.toLowerCase()]){
+            return Object.prototype.toString.call(o) === typeObj[type.toLowerCase()];
+        }
         switch (type.toLowerCase()) {
-            case 'string':
-                return Object.prototype.toString.call(o) === '[object String]';
-            case 'number':
-                return Object.prototype.toString.call(o) === '[object Number]';
-            case 'boolean':
-                return Object.prototype.toString.call(o) === '[object Boolean]';
-            case 'undefined':
-                return Object.prototype.toString.call(o) === '[object Undefined]';
-            case 'null':
-                return Object.prototype.toString.call(o) === '[object Null]';
-            case 'function':
-                return Object.prototype.toString.call(o) === '[object Function]';
-            case 'array':
-                return Object.prototype.toString.call(o) === '[object Array]';
-            case 'object':
-                return Object.prototype.toString.call(o) === '[object Object]';
             case 'nan':
                 return isNaN(o);
             case 'elements':
