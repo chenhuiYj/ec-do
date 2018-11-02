@@ -987,28 +987,7 @@ param **{String}** type-类型字符串
     result：'[object Array]'
 
 
-### 55.validateForm
-
-##### description
-
-    ecDo.validateForm.check(arr).then(info => {
-        console.log(info)
-    }).catch(err => {
-        console.log(err)
-    });
-
-    ecDo.validateForm.checkAll(arr).then(info => {
-        console.log(info)
-     }).catch(err => {
-       console.log(err)
-     });
-
-description-表单验证
-
-##### demo
-参考example/validateForm.html
-
-### 56.getBrowserInfo
+### 55.getBrowserInfo
 
 ##### description
 
@@ -1025,7 +1004,7 @@ result：是安卓就返回true，否则就false
     ecDo.getBrowserInfo()
 result：返回手机浏览器的信息
 
-### 57.delayFn
+### 56.delayFn
 
 ##### description
 
@@ -1048,7 +1027,7 @@ param **{Number}** mustDelay-最大间隔时间
 
 参考：example/delayFn.html
 
-### 58.setCookie
+### 57.setCookie
 
 ##### description
 
@@ -1064,7 +1043,7 @@ param **{Int}** iDay-时间（天数）
 
     ecDo.setCookie('test', 'testcookie', 2)
 
-### 59.getCookie
+### 58.getCookie
 
 ##### description
 
@@ -1078,7 +1057,7 @@ param **{String}** name-cookie名
 
     ecDo.getCookie('test')
 
-### 60.removeCookie
+### 59.removeCookie
 
 ##### description
 
@@ -1092,7 +1071,7 @@ param **{String}** name-cookie名
 
     ecDo.removeCookie('test')
 
-### 61.cookie
+### 60.cookie
 
 ##### description
 
@@ -1111,7 +1090,7 @@ param **{Int}** iDay-时间（天数）
     ecDo.cookie('test', 'testcookie', -1)//删除，中间的值已经没有意义，只要天数设置-1，只要无效
 
 
-### 62.hasClass
+### 61.hasClass
 
 ##### description
 
@@ -1127,7 +1106,7 @@ param **{String}** classStr-class名
     ecDo.hasClass(obj,'test')
 result:true|false
 
-### 63.addClass
+### 62.addClass
 
 ##### description
 
@@ -1142,7 +1121,7 @@ param **{String}** classStr-class名
 
     ecDo.addClass(obj,'test')
 
-### 64.removeClass
+### 63.removeClass
 
 ##### description
 
@@ -1157,7 +1136,7 @@ param **{String}** classStr-class名
 
     ecDo.removeClass(obj,'test')
 
-### 65.replaceClass
+### 64.replaceClass
 
 ##### description
 
@@ -1173,7 +1152,7 @@ param **{String}** oldName-替换的类名
 
     ecDo.replaceClass(obj,'test','afterClass')
 
-### 66.siblings
+### 65.siblings
 
 ##### description
 
@@ -1190,7 +1169,7 @@ param **{String}** opt-过滤条件
     result：符合条件的Dom对象
 
 
-### 67.css
+### 66.css
 
 ##### description
 
@@ -1205,7 +1184,7 @@ param **{Object}** json-样式名
 
     ecDo.css(obj,{'width':'300px','height':'300px'})
 
-### 68.html
+### 67.html
 
 ##### description
 
@@ -1224,7 +1203,7 @@ param **{String}** str-html内容
 
     ecDo.html(obj,'<div>1111</div>')
 
-### 69.text
+### 68.text
 
 ##### description
 
@@ -1243,7 +1222,7 @@ param **{String}** str-内容(html标签将会被过滤)
 
     ecDo.text(obj,'1230.312asd')
 
-### 70.show
+### 69.show
 
 ##### description
 
@@ -1257,7 +1236,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.show(obj)
 
-### 71.hide
+### 70.hide
 
 ##### description
 
@@ -1271,7 +1250,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.hide(obj)
 
-### 72.ajax
+### 71.ajax
 
 ##### description
 
@@ -1301,7 +1280,7 @@ param **{Object}** 对象参数
       	}
     })
 
-### 73.aftLoadImg
+### 72.aftLoadImg
 
 ##### description
 
@@ -1319,7 +1298,7 @@ param **{Function}** cb-回调函数,参数为obj
     ecDo.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, _errorUrl,function(o){console.log(o)});
 
 
-### 74.loadImg
+### 73.loadImg
 
 ##### description
 
@@ -1352,7 +1331,7 @@ param **{String}** errorUrl-出错的图片的url
 
 参考example/loadImg.html
 
-### 75.findKey
+### 74.findKey
 
 ##### description
 
