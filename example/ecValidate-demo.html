@@ -9,8 +9,9 @@
 <script>
     let testData = {
         name: 'aaa',
-        phone: '18819622663Z@qq.com',
-        pw: 'asd9962213a'
+        phone: 18819622663,
+        pw: 'asd9962213a',
+        money:'36.33'
     }
     //校验函数调用
 //    ecDo.validateForm.check([
@@ -49,7 +50,16 @@
             alias: 'mobile',
             //校验的规则
             rules: [
-                {rule: 'isNoNull', msg: '电话不能为空'}, {rule: 'isMobile,isEmail', msg: '手机号码格式不正确'},
+                {rule: 'isNoNull', msg: '电话不能为空'}, {rule: 'isMobile,isEmail', msg: '手机号码格式不正确'}
+            ]
+        },
+        {
+            //校验的数据
+            el: testData.money,
+            alias: 'money',
+            //校验的规则
+            rules: [
+                {rule: 'isNoNull', msg: '金额不能为空'},{rule: 'isType:number', msg: '金额必须是数字'},
             ]
         },
         {
