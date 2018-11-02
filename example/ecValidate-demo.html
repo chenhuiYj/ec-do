@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script src="../src/ec-validate.js"></script>
 <script>
     let testData = {
         name: 'aaa',
@@ -36,13 +36,13 @@
 //        console.log(err)
 //    });
     //扩展-添加日期范围校验
-    ecDo.validateForm.addRule('isDateRank', function (val, msg) {
+    ecValidate.addRule('isDateRank', function (val, msg) {
         if (new Date(val[0]).getTime() >= new Date(val[1]).getTime()) {
             return msg;
         }
     });
     //校验函数调用
-    ecDo.validateForm.checkAll([
+    ecValidate.checkAll([
         {
             //校验的数据
             el: testData.phone,
