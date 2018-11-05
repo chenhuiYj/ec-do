@@ -279,6 +279,25 @@ let ecValidate=(function () {
                 return msg
             }
         },
+        /**
+         * @description 密码强度
+         * @param val
+         * @return {*}
+         */
+        pwdLv(val){
+            let nowLv = 0;
+            if (val.length < 6) {
+                return nowLv
+            }
+            //nowLv=str.replace(/[0-9]/,' ').replace(/[A-Z]/,' ').replace(/[a-z]/,' ').replace(/[_.\-]/,' ').replace(/[^\s]/g,'').length;
+            let rules = [/[0-9]/, /[a-z]/, /[A-Z]/, /[\.|-|_]/];
+            for (let i = 0; i < rules.length; i++) {
+                if (rules[i].test(val)) {
+                    nowLv++;
+                }
+            }
+            return nowLv;
+        },
     }
     return {
         /**

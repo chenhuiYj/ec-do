@@ -40,6 +40,18 @@
             color: #f00;
             text-align: left;
         }
+        .u-tips.lv1{
+            color: #f00;
+        }
+        .u-tips.lv2{
+            color: #333;
+        }
+        .u-tips.lv3{
+            color: #f90;
+        }
+        .u-tips.lv4{
+            color: #40b943;
+        }
 
         .u-tips.success {
             color: #4cb94c;
@@ -87,10 +99,8 @@
     </div>
     <!--单个输入，实时校验-密码强度-->
     <div class="m-from-box">
-        <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo5.pwd"
-                  :class="{'err':demo5.tips}"  @blur="handleInput5"></p>
-        <p class="u-tips">{{demo5.tips}}</p>
-        <p class="u-tips success" v-if="demo5.pwd==='success'">提交成功</p>
+        <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo5.pwd"  @input="handleInput5"></p>
+        <p class="u-tips" :class="'lv'+demo5.tips" v-show="demo5.tips">密码强度：{{demo5.tips}}</p>
     </div>
 </div>
 
@@ -259,14 +269,11 @@
                         el: _this.demo5.pwd,
                         //校验的规则
                         rules: [
-                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                            {rule: 'pwdLv'}
                         ]
                     },
                 ])
-
-                if(_tips!=='success'){
-                    this.demo5.pwd = _tips;
-                }
+                this.demo5.tips = +_tips;
             }
         }
     })
