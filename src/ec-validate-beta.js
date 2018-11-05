@@ -386,7 +386,7 @@ let ecValidate = (function () {
                     }
                 }
             }
-                return msgObj.length>0?msgObj:'success';
+            return Object.keys(msgObj).length>0?msgObj:'success';
         },
         /**
          * @description 添加规则接口
