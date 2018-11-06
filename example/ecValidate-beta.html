@@ -108,6 +108,16 @@
 <script src="../src/vue.min.js"></script>
 <script src="../src/ec-validate-beta.js"></script>
 <script>
+
+    let tips=ecValidate.check([
+        {
+            el:[1,2,3,4,5],
+            rules:[{rule:'isType:array',msg:'传进去的数组不是数组'}]
+        }
+    ])
+
+    console.log(tips)
+
     new Vue({
         el: '#form-box',
         data: {

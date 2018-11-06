@@ -7,7 +7,8 @@ let ecValidate=(function () {
             'null':'[object Null]',
             'function':'[object Function]',
             'array':'[object Array]',
-            'object':'[object Object]'
+            'object':'[object Object]',
+            'symbol': '[object Symbol]'
         }
         if(typeObj[type.toLowerCase()]){
             return Object.prototype.toString.call(o) === typeObj[type.toLowerCase()];
