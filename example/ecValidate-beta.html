@@ -143,7 +143,6 @@
                 pwd:'',
                 tips: '',
             }
-
         },
         methods: {
             handleSubmit1(){
@@ -166,9 +165,7 @@
                         ]
                     }
                 ])
-                if(_tips!=='success'){
-                    this.demo1.tips = _tips;
-                }
+                this.demo1.tips = _tips;
             },
             handleSubmit2(){
                 let _this = this;
