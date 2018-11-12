@@ -114,7 +114,8 @@
     <!--单个输入，实时校验-密码强度-->
     <div class="m-from-box">
         <p><input type="text" class="u-input-text" placeholder="请输入密码" v-model="demo7.pwd"  @input="handleInput7"></p>
-        <p class="u-tips" :class="'lv'+demo7.tips" v-show="demo7.tips">密码强度：{{demo7.tips}}</p>
+        <p class="u-tips" :class="'lv'+demo7.tips" v-if="demo7.tips.constructor===Number">密码强度：{{demo7.tips}}</p>
+        <p class="u-tips" :class="'lv'+demo7.tips" v-else>{{demo7.tips}}</p>
     </div>
 </div>
 
@@ -298,12 +299,16 @@
                         //校验的数据
                         el: _this.demo7.pwd,
                         //校验的规则
+                        //由于检查密码强度规则 pwdLv 是实时返回密码强度，并非报错信息。所以该规则要放置在最后
                         rules: [
+                            {rule: 'minLength:6', msg: '密码长度不能小于6'},
+                            {rule: 'maxLength:16', msg: '密码长度不能大于16'},
                             {rule: 'pwdLv'}
                         ]
                     },
                 ])
-                this.demo7.tips = +_tips;
+                //判断 _tips 是否是数字
+                this.demo7.tips = _tips.constructor===Number?+_tips:_tips;
             }
         },
         mounted:function () {
