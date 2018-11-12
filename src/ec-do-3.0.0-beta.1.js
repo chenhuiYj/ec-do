@@ -784,7 +784,7 @@ let ecDo = {
         }
         switch (type.toLowerCase()) {
             case 'nan':
-                return isNaN(o);
+                return Number.isNaN(o);
             case 'elements':
                 return Object.prototype.toString.call(o).indexOf('HTML') !== -1;
         }
