@@ -1146,7 +1146,7 @@ let ecDo = {
      * @param num 距离多少的时候开始加载 默认 0
      * @param errorUrl 出错时候的图片
      */
-    loadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
+    lazyLoadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
         let oImgLoad = document.getElementsByClassName(className), _this = this,_src='';
         for (let i = 0, len = oImgLoad.length; i < len; i++) {
             //如果图片已经滚动到指定的高度
