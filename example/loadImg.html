@@ -65,9 +65,10 @@
 <script src="../src/ec-do-3.0.0-beta.1.js"></script>
 <script>
     window.onload = function () {
-        ecDo.loadImg('load-img', 100, 'error.jpg');
+        //根据load-img 这个 class 遍历，距离 页面底部 100像素的时候就开始加载，加载错误就显示error.jpg
+        ecDo.delayFn(ecDo.loadImg('load-img', 100, 'error.jpg'),100,200);
         window.onscroll = function () {
-            ecDo.loadImg('load-img', 100, 'error.jpg');
+            ecDo.delayFn(ecDo.loadImg('load-img', 100, 'error.jpg'),100,200);
         }
     }
 </script>

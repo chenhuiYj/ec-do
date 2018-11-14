@@ -1155,13 +1155,14 @@ let ecDo = {
                 oImgLoad[i].isLoad = true;
                 //设置过渡，当图片下来的时候有一个图片透明度变化
                 oImgLoad[i].style.cssText = "transition: ''; opacity: 0;";
+                oImgLoad[i].style.transition = "";
+                oImgLoad[i].style.opacity = "0";
                 _src=oImgLoad[i].dataset?oImgLoad[i].dataset.src:oImgLoad[i].getAttribute("data-src");
                 this.aftLoadImg(oImgLoad[i], _src, errorUrl, function (o) {
-                    //添加定时器，确保图片已经加载完了，一秒后再把图片指定的的class，清掉，避免重复遍历
+                    //添加定时器，确保图片已经加载完了，一秒后再把图片指定的的class，css样式清掉，避免重复遍历
                     setTimeout(() => {
                         if (o.isLoad) {
-                            _this.removeClass(o, className);
-                            o.style.cssText = "";
+                            o.style.transition = "";
                         }
                     }, 1000)
                 });
