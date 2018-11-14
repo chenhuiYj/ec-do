@@ -1147,7 +1147,7 @@ let ecDo = {
      * @param errorUrl 出错时候的图片
      */
     loadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
-        let oImgLoad = document.getElementsByClassName(className), _this = this;
+        let oImgLoad = document.getElementsByClassName(className), _this = this,_src='';
         for (let i = 0, len = oImgLoad.length; i < len; i++) {
             //如果图片已经滚动到指定的高度
             if (document.documentElement.clientHeight + document.documentElement.scrollTop > oImgLoad[i].offsetTop - num && !oImgLoad[i].isLoad) {
@@ -1155,27 +1155,17 @@ let ecDo = {
                 oImgLoad[i].isLoad = true;
                 //设置过渡，当图片下来的时候有一个图片透明度变化
                 oImgLoad[i].style.cssText = "transition: ''; opacity: 0;";
-                if (oImgLoad[i].dataset) {
-                    this.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, errorUrl, function (o) {
-                        //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
-                        setTimeout(() => {
-                            if (o.isLoad) {
-                                _this.removeClass(o, className);
-                                o.style.cssText = "";
-                            }
-                        }, 1000)
-                    });
-                } else {
-                    this.aftLoadImg(oImgLoad[i], oImgLoad[i].getAttribute("data-src"), errorUrl, function (o) {
-                        //添加定时器，确保图片已经加载完了，再把图片指定的的class，清掉，避免重复编辑
-                        setTimeout(() => {
-                            if (o.isLoad) {
-                                _this.removeClass(o, className);
-                                o.style.cssText = "";
-                            }
-                        }, 1000)
-                    });
-                }
+                _src=oImgLoad[i].dataset?oImgLoad[i].dataset.src:oImgLoad[i].getAttribute("data-src");
+                this.aftLoadImg(oImgLoad[i], _src, errorUrl, function (o) {
+                    //添加定时器，确保图片已经加载完了，一秒后再把图片指定的的class，清掉，避免重复遍历
+                    setTimeout(() => {
+                        if (o.isLoad) {
+                            _this.removeClass(o, className);
+                            o.style.cssText = "";
+                        }
+                    }, 1000)
+                });
+                //加上动画，透明度样式
                 (function (i) {
                     setTimeout(() => {
                         oImgLoad[i].style.cssText = "transition:all 1s; opacity: 1;";
