@@ -1175,6 +1175,28 @@ let ecDo = {
             }
         }
     },
+    loadImg(dom,cb){
+        let oImg = new Image(), _this = this;
+
+        let _dom=[...dom];
+        for(let i=0;i<_dom.length;i++){
+            oImg.src = url;
+        }
+        oImg.onload = function () {
+            obj.src = oImg.src;
+            if (cb && _this.isType(cb, 'function')) {
+                cb(obj);
+            }
+        };
+        oImg.onerror = function () {
+            obj.src = errorUrl;
+            if (cb && _this.isType(cb, 'function')) {
+                cb(obj);
+            }
+        }
+    },
+
+
     /**
      * @description 关键词加标签（多个关键词用空格隔开）
      * @param str

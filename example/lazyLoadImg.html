@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+<p><img data-src="lawyerOtherImg1.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+<p><img data-src="lawyerOtherImg.jpg" class="load-img" width='528' height='304'/></p>
+</body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+    window.onload = function () {
+        //根据load-img 这个 class 遍历，距离 页面底部 100像素的时候就开始加载，加载错误就显示error.jpg
+        ecDo.delayFn(ecDo.lazyLoadImg('load-img', 100, 'error.jpg'),100,200);
+        window.onscroll = function () {
+            ecDo.delayFn(ecDo.lazyLoadImg('load-img', 100, 'error.jpg'),100,200);
+        }
+    }
+</script>
+
+</html>
+
+</body>
+</html>

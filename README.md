@@ -1298,11 +1298,11 @@ param **{Function}** cb-回调函数,参数为obj
     ecDo.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, _errorUrl,function(o){console.log(o)});
 
 
-### 73.loadImg
+### 73.lazyLoadImg
 
 ##### description
 
-    ecDo.loadImg(className, num, errorUrl)
+    ecDo.lazyLoadImg(className, num, errorUrl)
 
 description-图片滚动懒加载
 
@@ -1329,7 +1329,7 @@ param **{String}** errorUrl-出错的图片的url
             }
         }
 
-参考example/loadImg.html
+参考example/lazyLoadImg.html
 
 ### 74.findKey
 
