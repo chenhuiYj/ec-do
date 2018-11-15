@@ -1175,25 +1175,27 @@ let ecDo = {
             }
         }
     },
-    loadImg(dom,cb){
-        let oImg = new Image(), _this = this;
-
-        let _dom=[...dom];
-        for(let i=0;i<_dom.length;i++){
-            oImg.src = url;
-        }
-        oImg.onload = function () {
-            obj.src = oImg.src;
-            if (cb && _this.isType(cb, 'function')) {
-                cb(obj);
+    /**
+     * @description 加载图片
+     * @param className
+     * @param cb
+     */
+    loadImg(className,cb){
+        let _dom=[...document.querySelectorAll('.'+className)],now=0,len=_dom.length;
+        function handleLoad(dom) {
+            dom.src = dom.dataset?dom.dataset.src:dom.getAttribute("data-src");
+            dom.onload=function () {
+                now++
+                console.log(now,len)
+                if(_dom.length>0){
+                    handleLoad(_dom.shift());
+                }
+                else{
+                    cb&&cb();
+                }
             }
-        };
-        oImg.onerror = function () {
-            obj.src = errorUrl;
-            if (cb && _this.isType(cb, 'function')) {
-                cb(obj);
-            }
         }
+        handleLoad(_dom.shift());
     },
 
 
