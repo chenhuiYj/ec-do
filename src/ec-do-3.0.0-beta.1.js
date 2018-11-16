@@ -1222,4 +1222,3 @@ let ecDo = {
     },
 //***************DOM模块END*******************************/
 };
-//ecDo.checkType=ecDo.checkType();
