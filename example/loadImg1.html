@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            display: none;
+        }
+    </style>
+</head>
+<body><!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+<p id="p">显示预加载进行中</p>
+<div id="div">
+    <img data-src="https://materialdb.zhaoyl.com/201809/106796.jpg" class="load-img" width="100" height="100"/><img
+        data-src="https://materialdb.zhaoyl.com/201809/105567.jpg" class="load-img" width="100" height="100"/><img
+        data-src="https://materialdb.zhaoyl.com/201809/103097.jpg" class="load-img" width="100" height="100"/><img
+        data-src="https://materialdb.zhaoyl.com/201809/10205.jpg" class="load-img" width="100" height="100"/><img
+        data-src="https://materialdb.zhaoyl.com/201809/001.jpg" class="load-img" width="100" height="100"/>
+</div>
+</body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+    let oP1=document.getElementById('p');
+    let oDiv=document.getElementById('div');
+    //测试请先清空缓存
+    window.onload = function () {
+        ecDo.loadImg('load-img', function () {
+            oDiv.style.display='block';
+            oP1.style.display='none';
+        });
+    }
+</script>
+
+</html>
+
+</body>
+</html>
