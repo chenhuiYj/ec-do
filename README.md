@@ -1331,7 +1331,22 @@ param **{String}** errorUrl-出错的图片的url
 
 参考example/lazyLoadImg.html
 
-### 74.findKey
+### 74.loadImg
+
+##### description
+
+    ecDo.loadImg(className, cb)
+
+description-图片加载（预加载）
+
+param **{string}** className-遍历Dom带有的类名
+param **{function}** cb-加载完毕的回调函数
+
+##### demo
+
+参考example/loadImg.html,example/loadImg1.html
+
+### 75.findKey
 
 ##### description
 
