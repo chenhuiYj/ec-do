@@ -1317,8 +1317,7 @@ param **{Function}** obj.fn-回调函数,参数为obj.dom
 
 ##### demo
 
-    ecDo.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, _errorUrl,function(o){console.log(o)});
-
+参考example/aftLoadImg.html
 
 ### 74.lazyLoadImg
 

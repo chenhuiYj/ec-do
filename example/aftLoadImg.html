@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+<p><img src="error.jpg" data-src="https://materialdb.zhaoyl.com/201809/105567.jpg" width='528' height='304'/></p>
+<p><img src="error.jpg" data-src="https://materialdb.zhaoyl.com/201809/106796.jpg" width='528' height='304'/></p>
+</body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+    window.onload = function () {
+        let oImg=document.getElementsByTagName('img');
+        for(let i=0;i<oImg.length;i++){
+            ecDo.aftLoadImg({
+                dom:oImg[i],
+                url:oImg[i].dataset.src
+            })
+        }
+    }
+</script>
+
+</html>
+
+</body>
+</html>
