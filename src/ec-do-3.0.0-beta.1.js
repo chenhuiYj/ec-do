@@ -845,8 +845,7 @@ let ecDo = {
         // }
         // //鼠标移动事件触发，如果在300毫秒内连续触发事件，一直快速移动（时间间隔小于300毫秒），等到移动的时间间隔大于300毫秒的时候再执行。
         // document.onmousemove=ecDo.debounce(fn1,300)
-        debounce(fn, delay)
-        {
+        debounce(fn, delay){
             return function (args) {
                 let _this = this
                 let _args = args
@@ -861,8 +860,7 @@ let ecDo = {
         /**
          * @description 设置cookie
          */
-        setCookie(name, value, iDay)
-        {
+        setCookie(name, value, iDay){
             let oDate = new Date();
             oDate.setDate(oDate.getDate() + iDay);
             document.cookie = name + '=' + value + ';expires=' + oDate;
@@ -871,8 +869,7 @@ let ecDo = {
         /**
          * @description 获取cookie
          */
-        getCookie(name)
-        {
+        getCookie(name){
             let arr = document.cookie.split('; '), arr2;
             for (let i = 0; i < arr.length; i++) {
                 arr2 = arr[i].split('=');
@@ -886,16 +883,14 @@ let ecDo = {
         /**
          * @description 删除cookie
          */
-        removeCookie(name)
-        {
+        removeCookie(name){
             this.setCookie(name, 1, -1);
         }
         ,
         /**
          * @description 操作cookie
          */
-        cookie(name, value, iDay)
-        {
+        cookie(name, value, iDay){
             if (arguments.length === 1) {
                 return this.getCookie(name);
             }
@@ -913,8 +908,7 @@ let ecDo = {
          * @param classStr
          * @return {boolean}
          */
-        hasClass(obj, classStr)
-        {
+        hasClass(obj, classStr){
             return obj.className.split(/\s+/).indexOf(classStr) === -1 ? false : true;
         }
         ,
@@ -924,8 +918,7 @@ let ecDo = {
          * @param classStr
          * @return {ecDo}
          */
-        addClass(obj, classStr)
-        {
+        addClass(obj, classStr){
             if ((this.isType(obj, 'array') || this.isType(obj, 'elements')) && obj.length >= 1) {
                 for (let i = 0, len = obj.length; i < len; i++) {
                     if (!this.hasClass(obj[i], classStr)) {
@@ -947,8 +940,7 @@ let ecDo = {
          * @param classStr
          * @return {ecDo}
          */
-        removeClass(obj, classStr)
-        {
+        removeClass(obj, classStr){
             let reg;
             if ((this.isType(obj, 'array') || this.isType(obj, 'elements')) && obj.length > 1) {
                 for (let i = 0, len = obj.length; i < len; i++) {
@@ -974,8 +966,7 @@ let ecDo = {
          * @param oldName
          * @return {ecDo}
          */
-        replaceClass(obj, newName, oldName)
-        {
+        replaceClass(obj, newName, oldName){
             this.removeClass(obj, oldName);
             this.addClass(obj, newName);
             return this;
@@ -987,8 +978,7 @@ let ecDo = {
          * @param opt
          * @return {Array}
          */
-        siblings(obj, opt)
-        {
+        siblings(obj, opt){
             let a = []; //定义一个数组，用来存obj的兄弟元素
             let p = obj.previousSibling;
             while (p) { //先取obj的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling
@@ -1028,8 +1018,7 @@ let ecDo = {
          * @param json
          * @return {ecDo}
          */
-        css(dom, json)
-        {
+        css(dom, json){
             if (dom.length) {
                 for (let i = 0; i < dom.length; i++) {
                     for (let attr in json) {
@@ -1050,8 +1039,7 @@ let ecDo = {
          * @param obj
          * @return {*}
          */
-        html(obj)
-        {
+        html(obj){
             if (arguments.length === 1) {
                 return obj.innerHTML;
             } else if (arguments.length === 2) {
@@ -1065,8 +1053,7 @@ let ecDo = {
          * @param obj
          * @return {*}
          */
-        text(obj)
-        {
+        text(obj){
             if (arguments.length === 1) {
                 return obj.innerHTML;
             } else if (arguments.length === 2) {
@@ -1080,8 +1067,7 @@ let ecDo = {
          * @param obj
          * @return {ecDo}
          */
-        show(obj)
-        {
+        show(obj){
             let blockArr = ['div', 'li', 'ul', 'ol', 'dl', 'table', 'article', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'hr', 'header', 'footer', 'details', 'summary', 'section', 'aside', '']
             if (blockArr.indexOf(obj.tagName.toLocaleLowerCase()) === -1) {
                 obj.style.display = 'inline';
@@ -1097,8 +1083,7 @@ let ecDo = {
          * @param obj
          * @return {ecDo}
          */
-        hide(obj)
-        {
+        hide(obj){
             obj.style.display = "none";
             return this;
         }
@@ -1121,8 +1106,7 @@ let ecDo = {
 //  		console.log(res)
 //  	}
 //  })
-        ajax(obj)
-        {
+        ajax(obj){
             obj = Object.assign({
                 type: 'POST',
                 url: '',
@@ -1169,8 +1153,7 @@ let ecDo = {
          * @param errorUrl
          * @param cb
          */
-        aftLoadImg(obj, url, errorUrl, cb)
-        {
+        aftLoadImg(obj, url, errorUrl, cb){
             let oImg = new Image(), _this = this;
             oImg.src = url;
             oImg.onload = function () {
@@ -1193,8 +1176,7 @@ let ecDo = {
          * @param num 距离多少的时候开始加载 默认 0
          * @param errorUrl 出错时候的图片
          */
-        lazyLoadImg(className = 'ec-load-img', num = 0, errorUrl = null)
-        {
+        lazyLoadImg(className = 'ec-load-img', num = 0, errorUrl = null){
             let oImgLoad = document.getElementsByClassName(className), _this = this, _src = '';
             for (let i = 0, len = oImgLoad.length; i < len; i++) {
                 //如果图片已经滚动到指定的高度
@@ -1229,8 +1211,7 @@ let ecDo = {
          * @param className
          * @param cb
          */
-        loadImg(className, cb)
-        {
+        loadImg(className, cb){
             let _dom = [...document.querySelectorAll('.' + className)], now = 0, len = _dom.length;
 
             function handleLoad(dom) {
@@ -1259,8 +1240,7 @@ let ecDo = {
          * @param el
          * @return {XML|string|void|*}
          */
-        findKey(str, key, el = 'span')
-        {
+        findKey(str, key, el = 'span'){
             let arr = null, regStr = null, content = null, Reg = null;
             //alert(regStr); //    如：(前端|过来)
             regStr = "(" + key.split(/\s+/).join('|') + ")";
