@@ -365,7 +365,6 @@ let ecDo = {
      * @return {[*]}
      */
     unique(arr) {
-        //es6
         return [...new Set(arr)]
     },
     /**
@@ -374,9 +373,6 @@ let ecDo = {
      * @return {Array.<T>}
      */
     upsetArr(arr) {
-        // return arr.sort(() => {
-        //     return Math.random() - 0.5
-        // });
         let j, _item;
         for (let i = 0; i < arr.length; i++) {
             j = Math.floor(Math.random() * i);
@@ -386,7 +382,6 @@ let ecDo = {
         }
         return arr;
     },
-
     /**
      * @description 数组最大值（数值数组）
      * @param arr
@@ -438,8 +433,6 @@ let ecDo = {
         }
         return num;
     },
-
-    //返回数组（字符串）出现最多的几次元素和出现次数
     /**
      * @description 降序返回数组（字符串）每个元素的出现次数
      * @param arr
