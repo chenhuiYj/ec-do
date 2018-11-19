@@ -1004,11 +1004,11 @@ result：是安卓就返回true，否则就false
     ecDo.getBrowserInfo()
 result：返回手机浏览器的信息
 
-### 56.delayFn
+### 56.throttle
 
 ##### description
 
-    ecDo.delayFn(fn, delay, mustDelay)
+    ecDo.throttle(fn, delay, mustDelay)
 
 description-函数节流
 param **{String}** fn-执行的函数
@@ -1025,9 +1025,31 @@ param **{Number}** mustDelay-最大间隔时间
      //每100ms连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
      document.onmousemove=delayFn(fn1,100,200)
 
+参考：example/throttle.html
+
+### 57.debounce
+
+##### description
+
+    ecDo.debounce(fn, delay)
+
+description-函数节流
+param **{String}** fn-执行的函数
+param **{Number}** delay-间隔时间
+
+##### demo
+
+     var count=0;
+     function fn1(){
+         count++;
+         console.log(count)
+     }
+     //鼠标移动事件触发，如果在300毫秒内连续触发事件，一直快速移动（时间间隔小于300毫秒），等到移动的时间间隔大于300毫秒的时候再执行。
+     document.onmousemove=debounce(fn1,100,200)
+
 参考：example/delayFn.html
 
-### 57.setCookie
+### 58.setCookie
 
 ##### description
 
@@ -1043,7 +1065,7 @@ param **{Int}** iDay-时间（天数）
 
     ecDo.setCookie('test', 'testcookie', 2)
 
-### 58.getCookie
+### 59.getCookie
 
 ##### description
 
@@ -1057,7 +1079,7 @@ param **{String}** name-cookie名
 
     ecDo.getCookie('test')
 
-### 59.removeCookie
+### 60.removeCookie
 
 ##### description
 
@@ -1071,7 +1093,7 @@ param **{String}** name-cookie名
 
     ecDo.removeCookie('test')
 
-### 60.cookie
+### 61.cookie
 
 ##### description
 
@@ -1090,7 +1112,7 @@ param **{Int}** iDay-时间（天数）
     ecDo.cookie('test', 'testcookie', -1)//删除，中间的值已经没有意义，只要天数设置-1，只要无效
 
 
-### 61.hasClass
+### 62.hasClass
 
 ##### description
 
@@ -1106,7 +1128,7 @@ param **{String}** classStr-class名
     ecDo.hasClass(obj,'test')
 result:true|false
 
-### 62.addClass
+### 63.addClass
 
 ##### description
 
@@ -1121,7 +1143,7 @@ param **{String}** classStr-class名
 
     ecDo.addClass(obj,'test')
 
-### 63.removeClass
+### 64.removeClass
 
 ##### description
 
@@ -1136,7 +1158,7 @@ param **{String}** classStr-class名
 
     ecDo.removeClass(obj,'test')
 
-### 64.replaceClass
+### 65.replaceClass
 
 ##### description
 
@@ -1152,7 +1174,7 @@ param **{String}** oldName-替换的类名
 
     ecDo.replaceClass(obj,'test','afterClass')
 
-### 65.siblings
+### 66.siblings
 
 ##### description
 
@@ -1169,7 +1191,7 @@ param **{String}** opt-过滤条件
     result：符合条件的Dom对象
 
 
-### 66.css
+### 67.css
 
 ##### description
 
@@ -1184,7 +1206,7 @@ param **{Object}** json-样式名
 
     ecDo.css(obj,{'width':'300px','height':'300px'})
 
-### 67.html
+### 68.html
 
 ##### description
 
@@ -1203,7 +1225,7 @@ param **{String}** str-html内容
 
     ecDo.html(obj,'<div>1111</div>')
 
-### 68.text
+### 69.text
 
 ##### description
 
@@ -1222,7 +1244,7 @@ param **{String}** str-内容(html标签将会被过滤)
 
     ecDo.text(obj,'1230.312asd')
 
-### 69.show
+### 70.show
 
 ##### description
 
@@ -1236,7 +1258,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.show(obj)
 
-### 70.hide
+### 71.hide
 
 ##### description
 
@@ -1250,7 +1272,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.hide(obj)
 
-### 71.ajax
+### 72.ajax
 
 ##### description
 
@@ -1280,7 +1302,7 @@ param **{Object}** 对象参数
       	}
     })
 
-### 72.aftLoadImg
+### 73.aftLoadImg
 
 ##### description
 
@@ -1298,7 +1320,7 @@ param **{Function}** cb-回调函数,参数为obj
     ecDo.aftLoadImg(oImgLoad[i], oImgLoad[i].dataset.src, _errorUrl,function(o){console.log(o)});
 
 
-### 73.lazyLoadImg
+### 74.lazyLoadImg
 
 ##### description
 
@@ -1331,7 +1353,7 @@ param **{String}** errorUrl-出错的图片的url
 
 参考example/lazyLoadImg.html
 
-### 74.loadImg
+### 75.loadImg
 
 ##### description
 
@@ -1346,7 +1368,7 @@ param **{function}** cb-加载完毕的回调函数
 
 参考example/loadImg.html,example/loadImg1.html
 
-### 75.findKey
+### 76.findKey
 
 ##### description
 

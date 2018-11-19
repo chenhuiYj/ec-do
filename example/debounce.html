@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../src/ec-do-3.0.0-beta.1.js"></script>
+<script>
+    let count=0;
+    function fn1(){
+        count++;
+        console.log(count)
+    }
+    //鼠标移动事件触发，如果在300毫秒内连续触发事件，一直快速移动（时间间隔小于300毫秒），等到移动的时间间隔大于300毫秒的时候再执行。
+    document.onmousemove=ecDo.debounce(fn1,300)
+</script>
+</body>
+</html>

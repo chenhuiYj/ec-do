@@ -13,7 +13,7 @@
          console.log(count)
      }
      //100ms内连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
-     document.onmousemove=ecDo.delayFn(fn1,100,200)
+     document.onmousemove=ecDo.throttle(fn1,100,200)
 </script>
 </body>
 </html>
