@@ -1306,14 +1306,14 @@ param **{Object}** 对象参数
 
 ##### description
 
-    ecDo.aftLoadImg(obj, url, errorUrl,cb)
+    ecDo.aftLoadImg({dom, url, errorUrl, fn})
 
 description-图片没加载出来时用一张图片代替
 
-param **{Object}** obj-Dom对象
-param **{String}** url-图片的url
-param **{String}** errorUrl-出错的图片的url
-param **{Function}** cb-回调函数,参数为obj
+param **{Object}** obj.dom-Dom对象
+param **{String}** obj.url-图片的url
+param **{String}** obj.errorUrl-出错的图片的url
+param **{Function}** obj.fn-回调函数,参数为obj.dom
 
 ##### demo
 

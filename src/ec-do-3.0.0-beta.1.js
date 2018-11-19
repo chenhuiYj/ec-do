@@ -1133,24 +1133,26 @@ let ecDo = {
     },
     /**
      * @description 图片没加载出来时用一张图片代替
-     * @param obj
-     * @param url
-     * @param errorUrl
-     * @param cb
+     * @param obj.dom
+     * @param obj.url
+     * @param obj.errorUrl
+     * @param obj.fn
      */
-    aftLoadImg(obj, url, errorUrl, cb){
+    aftLoadImg(obj){
         let oImg = new Image(), _this = this;
-        oImg.src = url;
+        oImg.src = obj.url;
         oImg.onload = function () {
-            obj.src = oImg.src;
-            if (cb && _this.isType(cb, 'function')) {
-                cb(obj);
+            obj.dom.src = oImg.src;
+            if (obj.fn && _this.isType(obj.fn, 'function')) {
+                obj.fn(obj.dom);
             }
         };
-        oImg.onerror = function () {
-            obj.src = errorUrl;
-            if (cb && _this.isType(cb, 'function')) {
-                cb(obj);
+        if(obj.errorUrl){
+            oImg.onerror = function () {
+                obj.src = obj.errorUrl;
+                if (obj.fn && _this.isType(obj.fn, 'function')) {
+                    obj.fn(obj.dom);
+                }
             }
         }
     },
@@ -1172,13 +1174,18 @@ let ecDo = {
                 oImgLoad[i].style.transition = "";
                 oImgLoad[i].style.opacity = "0";
                 _src = oImgLoad[i].dataset ? oImgLoad[i].dataset.src : oImgLoad[i].getAttribute("data-src");
-                this.aftLoadImg(oImgLoad[i], _src, errorUrl, function (o) {
-                    //添加定时器，确保图片已经加载完了，一秒后再把图片指定的的class，css样式清掉，避免重复遍历
-                    setTimeout(() => {
-                        if (o.isLoad) {
-                            o.style.transition = "";
-                        }
-                    }, 1000)
+                this.aftLoadImg({
+                    dom:oImgLoad[i],
+                    url:_src,
+                    errorUrl:errorUrl,
+                    fn:function (o) {
+                        //添加定时器，确保图片已经加载完了，一秒后再把图片指定的css样式清掉
+                        setTimeout(() => {
+                            if (o.isLoad) {
+                                o.style.transition = "";
+                            }
+                        }, 1000)
+                    }
                 });
                 //加上动画，透明度样式
                 (function (i) {
