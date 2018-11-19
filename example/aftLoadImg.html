@@ -13,8 +13,9 @@
 </head>
 
 <body>
-<p><img src="error.jpg" data-src="https://materialdb.zhaoyl.com/201809/105567.jpg" width='528' height='304'/></p>
-<p><img src="error.jpg" data-src="https://materialdb.zhaoyl.com/201809/106796.jpg" width='528' height='304'/></p>
+<p><img src="error.jpg" data-src="https://materialdb.zhaoyl.com/201809/105567.jpg" width="264"/></p>
+<p><img src="error.jpg" data-src="https://materialdb.zhaoyl.com/201809/106796.jpg" width='264'/></p>
+<p><img src="error.jpg" data-src="https://materialdb.zhaoyl.com/201809/1067961.jpg" width='264'/></p>
 </body>
 <script src="../src/ec-do-3.0.0-beta.1.js"></script>
 <script>
@@ -24,7 +25,8 @@
         for(let i=0;i<oImg.length;i++){
             ecDo.aftLoadImg({
                 dom:oImg[i],
-                url:oImg[i].dataset.src
+                url:oImg[i].dataset.src,
+                errorUrl:oImg[i].src
             })
         }
     }
