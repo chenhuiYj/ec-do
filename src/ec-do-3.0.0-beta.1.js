@@ -166,7 +166,6 @@ let ecDo = {
         if (str.length < 6) {
             return nowLv
         }
-        //nowLv=str.replace(/[0-9]/,' ').replace(/[A-Z]/,' ').replace(/[a-z]/,' ').replace(/[_.\-]/,' ').replace(/[^\s]/g,'').length;
         let rules = [/[0-9]/, /[a-z]/, /[A-Z]/, /[\.|-|_]/];
         for (let i = 0; i < rules.length; i++) {
             if (rules[i].test(str)) {
