@@ -151,14 +151,7 @@ let ecDo = {
         };
         return {
             check(str, type){
-                return new Promise(function (resolve, reject) {
-                    if (rules[type]) {
-                        resolve(rules[type](str));
-                    }
-                    else {
-                        reject(false);
-                    }
-                });
+                   return !!rules[type](str);
             },
             addRule(type, fn){
                 rules[type] = fn;

@@ -253,7 +253,7 @@ result：1881923****
 
 ##### description
 
-    ecDo.checkType(str, type).then(e=>{}).catch(info=>{})
+    ecDo.checkType(str, type)
 
 description-检测字符串
 
@@ -270,11 +270,7 @@ param **{String}** type-数据格式(email,phone,tel,number,english,text,chinese
         return /^[-a-zA-Z0-9._]+$/.test(str);
     })
 
-    ecDo.checkType.check('****asdasd654zxc', 'password').then(info => {
-        console.log(info)
-    }).catch(err => {
-        console.log(err)//false
-    });
+    ecDo.checkType.check('****asdasd654zxc', 'password')//false
 
 
 ### 15.checkPwdLevel
