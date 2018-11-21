@@ -136,24 +136,6 @@ param **{String}** str-待处理的字符串
     ecDo.firstWordLower('ASDSAD')
  result：'aSDSAD'
 
-
-### 8.repeatStr
-
-##### description
-
-    ecDo.repeatStr(str,count)
-
-description-字符串循环复制
-
-param **{String}** str-待复制的字符串
-
-param **{Int}** type-复制的次数
-
-##### demo
-
-    ecDo.repeatStr('123',3)
-    result：'123123123'
-
 ### 9.replaceAll
 
 ##### description

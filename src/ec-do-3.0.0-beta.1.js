@@ -59,12 +59,6 @@ let ecDo = {
         });
     },
     /**
-     * @description 字符串循环复制
-     */
-    repeatStr(str, count) {
-        return str.repeat(count);
-    },
-    /**
      * @description 字符串替换
      */
     replaceAll(str, AFindText, ARepText) {
