@@ -13,29 +13,6 @@
         pw: 'asd9962213a',
         money:'36.33'
     }
-    //校验函数调用
-//    ecDo.validateForm.check([
-//        {
-//            //校验的数据
-//            el: testData.phone,
-//            //校验的规则
-//            rules: [
-//                {rule: 'isNoNull', msg: '电话不能为空'},{rule:'isMobile,isEmail',msg:'电话格式错误'}
-//            ]
-//        },
-//        {
-//            //校验的数据
-//            el: testData.name,
-//            //校验的规则
-//            rules: [
-//                {rule: 'isNoNull', msg: '姓名不能为空'},{rule:'noChinese',msg:'格式错误'}
-//            ]
-//        }
-//    ]).then(info => {
-//        console.log(info)
-//    }).catch(err => {
-//        console.log(err)
-//    });
     //扩展-添加日期范围校验
     ecValidate.addRule('isDateRank', function (val, msg) {
         if (new Date(val[0]).getTime() >= new Date(val[1]).getTime()) {
