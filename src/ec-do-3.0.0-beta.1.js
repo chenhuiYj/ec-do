@@ -1080,7 +1080,7 @@ let ecDo = {
 //  })
     ajax(obj){
         obj = Object.assign({
-            type: 'POST',
+            type: 'GET',
             url: '',
             async: true,
             data: null,
@@ -1101,13 +1101,13 @@ let ecDo = {
             params.push(key + '=' + obj.data[key]);
         }
         let postData = params.join('&');
-        if (obj.type.toUpperCase() === 'POST') {
+        if (obj.type.toUpperCase() === 'GET') {
+            xmlHttp.open(obj.type, `${obj.url}?${postData}`, obj.async);
+            xmlHttp.send(null);
+        } else if (obj.type.toUpperCase() === 'POST') {
             xmlHttp.open(obj.type, obj.url, obj.async);
             xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
             xmlHttp.send(postData);
-        } else if (obj.type.toUpperCase() === 'GET') {
-            xmlHttp.open(obj.type, `${obj.url}?${postData}`, obj.async);
-            xmlHttp.send(null);
         }
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
