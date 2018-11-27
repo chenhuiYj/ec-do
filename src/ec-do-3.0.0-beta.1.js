@@ -582,9 +582,7 @@ let ecDo = {
      * @return {{d: number, h: number, m: number, s: number}}
      */
     getEndTime(endTime) {
-        let startDate = new Date(); //开始时间，当前时间
-        let endDate = new Date(endTime); //结束时间，需传入时间参数
-        let t = endDate.getTime() - startDate.getTime(); //时间差的毫秒数
+        let t = +new Date(endTime) - +new Date(); //时间差的毫秒数
         let d = 0,
             h = 0,
             m = 0,
