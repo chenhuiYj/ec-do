@@ -450,7 +450,7 @@ let ecDo = {
      * @param arr
      * @param n1
      * @param n2
-     * @return {string|Array.<T>|Blob|ArrayBuffer}
+     * @return {Array}
      */
     getArrayNum(arr, n1, n2) {
         return arr.slice(n1, n2);
@@ -459,7 +459,7 @@ let ecDo = {
      * @description 删除值为'val'的数组元素
      * @param arr
      * @param val
-     * @return {Array.<T>|*}
+     * @return {Array}
      */
     removeArrayForValue(arr, val) {
         return arr.filter(item => item !== val)
@@ -468,7 +468,7 @@ let ecDo = {
      * @description 删除值含有'val'的数组元素
      * @param arr
      * @param val
-     * @return {Array.<T>|*}
+     * @return {Array}
      */
     removeArrayForLike(arr, val) {
         return arr.filter(item => item.indexOf(val) === -1);
