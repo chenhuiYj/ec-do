@@ -1079,7 +1079,7 @@ let ecDo = {
 //  	}
 //  })
     ajax(obj){
-        obj = Object.assign({
+        let _options = Object.assign({
             type: 'GET',
             url: '',
             async: true,
@@ -1089,7 +1089,7 @@ let ecDo = {
             error() {
             }
         }, obj);
-        obj.type = obj.type.toUpperCase();
+        _options.type = _options.type.toUpperCase();
         let xmlHttp = null;
         if (XMLHttpRequest) {
             xmlHttp = new XMLHttpRequest();
@@ -1097,23 +1097,23 @@ let ecDo = {
             xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
         }
         let params = [];
-        for (let key in obj.data) {
-            params.push(key + '=' + obj.data[key]);
+        for (let key in _options.data) {
+            params.push(key + '=' + _options.data[key]);
         }
         let postData = params.join('&');
-        if (obj.type.toUpperCase() === 'GET') {
-            xmlHttp.open(obj.type, `${obj.url}?${postData}`, obj.async);
+        if (_options.type.toUpperCase() === 'GET') {
+            xmlHttp.open(_options.type, `${_options.url}?${postData}`, _options.async);
             xmlHttp.send(null);
-        } else if (obj.type.toUpperCase() === 'POST') {
-            xmlHttp.open(obj.type, obj.url, obj.async);
+        } else if (_options.type.toUpperCase() === 'POST') {
+            xmlHttp.open(_options.type, _options.url, _options.async);
             xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
             xmlHttp.send(postData);
         }
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-                obj.success(xmlHttp.responseText);
+                _options.success(xmlHttp.responseText);
             } else {
-                obj.error(xmlHttp.responseText);
+                _options.error(xmlHttp.responseText);
             }
         };
     },
