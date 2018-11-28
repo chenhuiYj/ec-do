@@ -673,7 +673,7 @@ let ecDo = {
     /**
      * @description 获取url参数
      * @param url
-     * @return {{}}
+     * @return {Object}
      */
     getUrlParam(url) {
         url = url ? url : window.location.href;
