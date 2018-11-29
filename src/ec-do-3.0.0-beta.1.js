@@ -1030,7 +1030,7 @@ let ecDo = {
         if (arguments.length === 1) {
             return obj.innerHTML;
         } else if (arguments.length === 2) {
-            obj.innerHTML = this.filterStr(arguments[1], 'html');
+            obj.innerHTML = this.filterStr.handle('html',arguments[1]);
         }
         return this;
     },
