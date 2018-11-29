@@ -682,7 +682,7 @@ let ecDo = {
             _rs = {};
         for (let i = 0, _len = _paramItem.length; i < _len; i++) {
             let pos = _paramItem[i].indexOf('=');
-            if (pos == -1) {
+            if (pos === -1) {
                 continue;
             }
             let name = _paramItem[i].substring(0, pos),
