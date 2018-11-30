@@ -10,14 +10,19 @@ let ecValidate = (function () {
             'object': '[object Object]',
             'symbol': '[object Symbol]'
         }
+        let typeFn={
+            nan(){
+                return Number.isNaN(o);
+            },
+            elements(){
+                return Object.prototype.toString.call(o).indexOf('HTML') !== -1;
+            }
+        }
         if (typeObj[type.toLowerCase()]) {
             return Object.prototype.toString.call(o) === typeObj[type.toLowerCase()];
         }
-        switch (type.toLowerCase()) {
-            case 'nan':
-                return Number.isNaN(o);
-            case 'elements':
-                return Object.prototype.toString.call(o).indexOf('HTML') !== -1;
+        else{
+            return typeFn[type.toLowerCase()]();
         }
     }
     let ruleData = {
