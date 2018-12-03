@@ -747,7 +747,7 @@ let ecDo = {
         if (!type) {
             return Object.prototype.toString.call(o)
         }
-        let _type=type;
+        let _type=type.toLowerCase();
         let typeObj = {
             'string': '[object String]',
             'number': '[object Number]',

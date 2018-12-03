@@ -1,6 +1,6 @@
 let ecValidate = (function () {
     let isType = function (o, type) {
-        let _type=type;
+        let _type=type.toLowerCase();
         let typeObj = {
             'string': '[object String]',
             'number': '[object Number]',
