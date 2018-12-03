@@ -189,7 +189,6 @@ let ecDo = {
                 debugger;
                 let arr = Array.prototype.slice.call(arguments);
                 let fnName='filter'+ecDo.firstWordUpper(type);
-                console.log('filterSpecialStr'===fnName,fnName,'filterSpecialStr');
                 arr.splice(0, 1);
                 return ecDo[fnName] ? ecDo[fnName].apply(null, arr) : false;
             },

@@ -118,8 +118,8 @@ param **{String}** str-待处理的字符串
 
 ##### demo
 
-    ecDo.firstWordUpper('shouhou')
- result：'Shouhou'
+    ecDo.firstWordUpper('shouHou')
+ result：'ShouHou'
 
 ### 7.firstWordLower
 
@@ -133,8 +133,8 @@ param **{String}** str-待处理的字符串
 
 ##### demo
 
-    ecDo.firstWordLower('ASDSAD')
- result：'aSDSAD'
+    ecDo.firstWordLower('ASDsAD')
+ result：'aSDsAD'
 
 ### 9.replaceAll
 
