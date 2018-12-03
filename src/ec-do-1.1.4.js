@@ -154,9 +154,6 @@ var ecDo = {
     //result：3(强度等级为3)
     checkPwd: function (str) {
         var nowLv = 0;
-        if (str.length < 6) {
-            return nowLv
-        }
         if (/[0-9]/.test(str)) {
             nowLv++
         }
