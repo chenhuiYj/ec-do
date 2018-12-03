@@ -1,5 +1,6 @@
 let ecValidate = (function () {
     let isType = function (o, type) {
+        let _type=type;
         let typeObj = {
             'string': '[object String]',
             'number': '[object Number]',
@@ -18,11 +19,11 @@ let ecValidate = (function () {
                 return Object.prototype.toString.call(o).indexOf('HTML') !== -1;
             }
         }
-        if (typeObj[type.toLowerCase()]) {
-            return Object.prototype.toString.call(o) === typeObj[type.toLowerCase()];
+        if (typeObj[_type]) {
+            return Object.prototype.toString.call(o) === typeObj[_type];
         }
         else{
-            return typeFn[type.toLowerCase()]();
+            return typeFn[_type]();
         }
     }
     let ruleData = {
