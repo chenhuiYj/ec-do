@@ -46,7 +46,7 @@ let ecDo = {
      */
     firstWordUpper(str){
         return str.replace(/\b\w+\b/g, function (word) {
-            return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+            return word.substring(0, 1).toUpperCase() + word.substring(1);
 
         });
     },
@@ -55,7 +55,7 @@ let ecDo = {
      */
     firstWordLower(str){
         return str.replace(/\b\w+\b/g, function (word) {
-            return word.substring(0, 1).toLowerCase() + word.substring(1).toUpperCase();
+            return word.substring(0, 1).toLowerCase() + word.substring(1);
         });
     },
     /**
@@ -184,56 +184,19 @@ let ecDo = {
      * @description 过滤特定类型字符串
      */
     filterStr: (function () {
-        let typeFn = {
-            html(str, replaceStr = ''){
-                return str.replace(/<\/?[^>]*>/g, replaceStr);
-            },
-            emjoy(str, replaceStr = ''){
-                return str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, replaceStr);
-            },
-            WORD(str, replaceStr = ''){
-                return str.replace(/[A-Z]/g, replaceStr);
-            },
-            word(str, replaceStr = ''){
-                return str.replace(/[a-z]/g, replaceStr);
-            },
-            number(str, replaceStr = ''){
-                return str.replace(/[1-9]/g, replaceStr);
-            },
-            chinese(str, replaceStr = ''){
-                return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
-            },
-            specialStr(str, replaceStr = '', spstr){
-                let regText = '$()[]{}?\|^*+./\"\'+', pattern;
-                //是否有哪些特殊符号需要保留
-                if (spstr) {
-                    let _spstr = spstr.split(""), _regText = "[^0-9A-Za-z\\s";
-                    for (let j = 0, len1 = _spstr.length; j < len1; j++) {
-                        if (regText.indexOf(_spstr[j]) === -1) {
-                            _regText += _spstr[j];
-                        }
-                        else {
-                            _regText += '\\' + _spstr[j];
-                        }
-                    }
-                    _regText += ']'
-                    pattern = new RegExp(_regText, 'g');
-                }
-                else {
-                    pattern = new RegExp("[^0-9A-Za-z\\s]", 'g')
-                }
-                return str = str.replace(pattern, replaceStr);
-            }
-        }
         return {
             handle(type, str){
+                debugger;
                 let arr = Array.prototype.slice.call(arguments);
+                let fnName='filter'+ecDo.firstWordUpper(type);
+                console.log('filterSpecialStr'===fnName,fnName,'filterSpecialStr');
                 arr.splice(0, 1);
-                return typeFn[type] ? typeFn[type].apply(null, arr) : false;
+                return ecDo[fnName] ? ecDo[fnName].apply(null, arr) : false;
             },
             addType(type, fn){
-                if (!typeFn[type]) {
-                    typeFn[type] = fn;
+                let fnName='filter'+ecDo.firstWordUpper(type);
+                if (!ecDo[fnName]) {
+                    ecDo[fnName] = fn;
                 }
             }
         }
