@@ -186,7 +186,6 @@ let ecDo = {
     filterStr: (function () {
         return {
             handle(type, str){
-                debugger;
                 let arr = Array.prototype.slice.call(arguments);
                 let fnName='filter'+ecDo.firstWordUpper(type);
                 arr.splice(0, 1);
