@@ -721,13 +721,6 @@ let ecDo = {
      * @param delay 延迟的时间
      * @param mustDelay 最大间隔时间
      */
-    // let count=0;
-    // function fn1(){
-    //     count++;
-    //     console.log(count)
-    // }
-    // //100ms内连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
-    // document.onmousemove=ecDo.throttle(fn1,100,200)
     throttle(fn, delay, mustDelay) {
         let timer = null;
         let t_start;
@@ -757,13 +750,6 @@ let ecDo = {
      * @param fn 执行函数
      * @param delay 间隔时间
      */
-    //let count=0;
-    // function fn1(){
-    //     count++;
-    //     console.log(count)
-    // }
-    // //鼠标移动事件触发，如果在300毫秒内连续触发事件，一直快速移动（时间间隔小于300毫秒），等到移动的时间间隔大于300毫秒的时候再执行。
-    // document.onmousemove=ecDo.debounce(fn1,300)
     debounce(fn, delay){
         return function (args) {
             let _this = this
