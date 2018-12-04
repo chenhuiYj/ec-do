@@ -267,11 +267,6 @@ let ecDo = {
         let reg = new RegExp(regText, 'g');
         return str.replace(reg, delimiter);
     },
-    //找出最长单词 (Find the Longest word in a String)
-    //longestWord('Find the Longest word in a String')
-    //result：7
-    //longestWord('Find|the|Longest|word|in|a|String','|')
-    //result：7
     /**
      * @description 找出最长单词
      * @param str
@@ -440,28 +435,28 @@ let ecDo = {
      * @param keys
      * @return {*}
      */
-    getOptionArray(arr, keys) {
-        let newArr = [];
-        if (!keys) {
-            return arr
-        }
-        let _keys = keys.split(','), newArrOne = {};
-        //是否只是需要获取某一项的值
-        if (_keys.length === 1) {
-            for (let i = 0, len = arr.length; i < len; i++) {
-                newArr.push(arr[i][keys])
-            }
-            return newArr;
-        }
-        for (let i = 0, len = arr.length; i < len; i++) {
-            newArrOne = {};
-            for (let j = 0, len1 = _keys.length; j < len1; j++) {
-                newArrOne[_keys[j]] = arr[i][_keys[j]]
-            }
-            newArr.push(newArrOne);
-        }
-        return newArr
-    },
+    // getOptionArray(arr, keys) {
+    //     let newArr = [];
+    //     if (!keys) {
+    //         return arr
+    //     }
+    //     let _keys = keys.split(','), newArrOne = {};
+    //     //是否只是需要获取某一项的值
+    //     if (_keys.length === 1) {
+    //         for (let i = 0, len = arr.length; i < len; i++) {
+    //             newArr.push(arr[i][keys])
+    //         }
+    //         return newArr;
+    //     }
+    //     for (let i = 0, len = arr.length; i < len; i++) {
+    //         newArrOne = {};
+    //         for (let j = 0, len1 = _keys.length; j < len1; j++) {
+    //             newArrOne[_keys[j]] = arr[i][_keys[j]]
+    //         }
+    //         newArr.push(newArrOne);
+    //     }
+    //     return newArr
+    // },
     /**
      * @description 排除数组某些项
      * @param arr
