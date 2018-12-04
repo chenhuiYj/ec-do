@@ -1131,10 +1131,10 @@ let ecDo = {
      * @description 关键词加标签（多个关键词用空格隔开）
      * @param str
      * @param key
-     * @param el
+     * @param tag
      * @return {XML|string|void|*}
      */
-    findKey(str, key, el = 'span'){
+    findKey(str, key, tag = 'span'){
         let arr = null, regStr = null, content = null, Reg = null;
         //alert(regStr); //    如：(前端|过来)
         regStr = "(" + key.split(/\s+/).join('|') + ")";
@@ -1144,7 +1144,7 @@ let ecDo = {
         Reg = new RegExp(regStr, "g");
         //过滤html标签 替换标签，往关键字前后加上标签
         content = content.replace(/<\/?[^>]*>/g, '')
-        return content.replace(Reg, "<" + el + ">$1</" + el + ">");
+        return content.replace(Reg, "<" + tag + ">$1</" + tag + ">");
     },
 //***************DOM模块END*******************************/
 };
