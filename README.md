@@ -713,7 +713,7 @@ param **{Sting}** val-要匹配的字符
 result：["aaa"]
 
 
-### 41.getOptionArray
+### 41.getOptionArray（已废除，可以使用 map 代替）
 
 ##### description
 
