@@ -430,34 +430,6 @@ let ecDo = {
         return arr.filter(item => item.indexOf(val) === -1);
     },
     /**
-     * @description 获取对象数组某些项
-     * @param arr
-     * @param keys
-     * @return {*}
-     */
-    // getOptionArray(arr, keys) {
-    //     let newArr = [];
-    //     if (!keys) {
-    //         return arr
-    //     }
-    //     let _keys = keys.split(','), newArrOne = {};
-    //     //是否只是需要获取某一项的值
-    //     if (_keys.length === 1) {
-    //         for (let i = 0, len = arr.length; i < len; i++) {
-    //             newArr.push(arr[i][keys])
-    //         }
-    //         return newArr;
-    //     }
-    //     for (let i = 0, len = arr.length; i < len; i++) {
-    //         newArrOne = {};
-    //         for (let j = 0, len1 = _keys.length; j < len1; j++) {
-    //             newArrOne[_keys[j]] = arr[i][_keys[j]]
-    //         }
-    //         newArr.push(newArrOne);
-    //     }
-    //     return newArr
-    // },
-    /**
      * @description 排除数组某些项
      * @param arr
      * @param keys
@@ -479,12 +451,12 @@ let ecDo = {
         return newArr;
     },
     /**
-     * @description 对象数组的排序
+     * @description 对象数组排序
      * @param arr
      * @param sortText
      * @return {*}
      */
-    arraySort(arr, sortText) {
+    sortByForKeys(arr, sortText) {
         if (!sortText) {
             return arr
         }
