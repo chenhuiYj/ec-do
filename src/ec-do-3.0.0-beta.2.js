@@ -1,6 +1,6 @@
 /*3.0.0-beta2*/
 let ecDoExtend={
-    checkTypeRule:{
+    checkType:{
         rules:{
             email(str){
                 return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
@@ -34,9 +34,14 @@ let ecDoExtend={
             this.rules[type] = fn;
         }
     },
-    filterStrType:{
-
-    }
+    filterStr:{
+        fn(type, fn){
+            let fnName = 'filter' + ecDo.firstWordUpper(type);
+            if (!ecDo[fnName]) {
+                ecDo[fnName] = fn;
+            }
+        }
+    },
 }
 let ecDo = {
 //***************字符串模块**************************/
@@ -153,7 +158,7 @@ let ecDo = {
      * @description 检测字符串
      */
     checkType(str,type){
-        return !!ecDoExtend.checkTypeRule.rules[type](str);
+        return !!ecDoExtend.checkType.rules[type](str);
     },
     /**
      * @description 检测密码强度
@@ -186,22 +191,12 @@ let ecDo = {
     /**
      * @description 过滤特定类型字符串
      */
-    filterStr: (function () {
-        return {
-            handle(type, str){
-                let arr = Array.prototype.slice.call(arguments);
-                let fnName = 'filter' + ecDo.firstWordUpper(type);
-                arr.splice(0, 1);
-                return ecDo[fnName] ? ecDo[fnName].apply(null, arr) : false;
-            },
-            addType(type, fn){
-                let fnName = 'filter' + ecDo.firstWordUpper(type);
-                if (!ecDo[fnName]) {
-                    ecDo[fnName] = fn;
-                }
-            }
-        }
-    })(),
+    filterStr(str,type){
+        let arr = Array.prototype.slice.call(arguments);
+        let fnName = 'filter' + this.firstWordUpper(type);
+        arr.splice(1, 1);
+        return this[fnName] ? this[fnName].apply(null, arr) : false;
+    },
     /**
      * @description 过滤字符串的特殊符号
      */
