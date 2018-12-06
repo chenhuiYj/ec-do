@@ -189,7 +189,7 @@ let ecDo = {
     /**
      * @description 过滤特定类型字符串
      */
-    filterStr(str, type){
+    filterStr(str, type, replaceStr = ''){
         let arr = Array.prototype.slice.call(arguments);
         let fnName = 'filter' + this.firstWordUpper(type);
         arr.splice(1, 1);
