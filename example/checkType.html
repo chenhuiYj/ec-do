@@ -18,7 +18,7 @@
 <script src="../src/ec-do-3.0.0-beta.2.js"></script>
 <script>
     console.log(ecDo.checkType('185226236', 'mobile'))
-    ecDoExtend.checkType.fn('password', function (str) {
+    ecDo.extend.checkType('password', function (str) {
         return /^[-a-zA-Z0-9._]+$/.test(str);
     })
     console.log(ecDo.checkType('asdasd654zxc', 'password'))
