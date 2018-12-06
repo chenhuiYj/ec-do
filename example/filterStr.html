@@ -7,11 +7,11 @@
 <body>
 <!--<script src="../src/ec-do-3.0.0-beta.1.js"></script>-->
 <!--<script>-->
-    <!--console.log(`过滤字符|${ecDo.filterStr.handle('specialStr','sadasdasdzxc4512235%$@^&^@*!(4613zxc','','@')}|`);-->
+    <!--console.log(`过滤字符|${ecDo.filterStr.handle('sadasdasdzxc4512235%$@^&^@*!(4613zxc','specialStr','','@')}|`);-->
     <!--ecDo.filterStr.addType('english',function (str,replaceStr='') {-->
         <!--return str.replace(/[a-zA-Z]/g, replaceStr);-->
     <!--});-->
-    <!--console.log(ecDo.filterStr.handle('english','asdasd46撒打算的','.',''));-->
+    <!--console.log(ecDo.filterStr.handle('asdasd46撒打算的','english','.',''));-->
     <!--console.log(ecDo.filterSpecialStr('sadasdasdzxc4512235%$@^&^@*!(4613zxcasdasd46撒打算的','','@'));-->
     <!--console.log(ecDo.filterHtml('<title>Title</title>'));-->
     <!--console.log(ecDo.filterWordUpper('asdasdWECASasd'));-->
@@ -25,7 +25,6 @@
 <script>
     console.log(`过滤字符|${ecDo.filterStr('sadasdasdzxc4512235%$@^&^@*!(4613zxc','specialStr','','@')}|`);
     ecDoExtend.filterStr.fn('english',function (str,replaceStr='') {
-        debugger;
         return str.replace(/[a-zA-Z]/g, replaceStr);
     });
     console.log(ecDo.filterStr('asdasd46撒打算的','english','.',''));

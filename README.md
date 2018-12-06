@@ -235,7 +235,11 @@ result：1881923****
 
 ##### description
 
+    //beta1
+    ecDo.checkType.check(str, type)
+    //beta2
     ecDo.checkType(str, type)
+
 
 description-检测字符串
 
@@ -244,7 +248,7 @@ param **{String}** str-待处理的字符串
 param **{String}** type-数据格式(email,phone,tel,number,english,text,chinese,lower,upper) 可根据需要进行扩展
 
 ##### demo
-
+beta1 版本
     console.log(ecDo.checkType.check('18819663362','mobile'));
     //true
     //添加扩展
@@ -254,6 +258,15 @@ param **{String}** type-数据格式(email,phone,tel,number,english,text,chinese
 
     ecDo.checkType.check('****asdasd654zxc', 'password')//false
 
+beta2 版本
+
+    console.log(ecDo.checkType('18819663362','mobile'));
+    //true
+    //添加扩展
+    ecDoExtend.checkType.fn('password', function (str) {
+       return /^[-a-zA-Z0-9._]+$/.test(str);
+   })
+    ecDo.checkType('****asdasd654zxc', 'password')//false
 
 ### 14.checkPwdLevel
 
@@ -314,7 +327,10 @@ param **{String}** strSplit-待检测的字符串
 
 ##### description
 
+     //beta1
      ecDo.filterStr.handle(type,str,restr,restr)
+     //beta2
+     ecDo.filterStr(type,str,restr,restr)
 
 description-过滤字符串
 
@@ -324,17 +340,29 @@ param **{String}** str-待处理的字符串
 
 param **{String}** restr-替换成的字符，默认''
 
-param **{String}** spstr-保留的特殊字符
+param **{String}** spstr-保留的特殊字符（specialStr 时起效）
 
 ##### demo
 
-    console.log(`过滤字符|${ecDo.filterStr.handle('specialStr','sadasdasdzxc4512235%$@^&^@*!(4613zxc','','@')}|`);//除了@，其他特殊字符全部被过滤
+beta1 版本
+
+    console.log(`过滤字符|${ecDo.filterStr.handle('sadasdasdzxc4512235%$@^&^@*!(4613zxc','specialStr','','@')}|`);//除了@，其他特殊字符全部被过滤
     //添加扩展
     ecDo.filterStr.addType('english',function (str,replaceStr='') {
         return str.replace(/[a-zA-Z]/g, replaceStr);
     });
     //过滤英文字母
-     console.log(ecDo.filterStr.handle('english','asdasd46撒打算的','.',''));
+     console.log(ecDo.filterStr.handle('asdasd46撒打算的','english','.',''));
+
+beta2 版本
+
+    console.log(`过滤字符|${ecDo.filterStr('sadasdasdzxc4512235%$@^&^@*!(4613zxc','specialStr','','@')}|`);//除了@，其他特殊字符全部被过滤
+    //添加扩展
+    ecDoExtend.filterStr.fn('english',function (str,replaceStr='') {
+        return str.replace(/[a-zA-Z]/g, replaceStr);
+    });
+    //过滤英文字母
+     console.log(ecDo.filterStr('asdasd46撒打算的','english','.',''));
 
 ### 18.filterSpecialStr
 

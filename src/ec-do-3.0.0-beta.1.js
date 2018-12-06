@@ -145,7 +145,7 @@ let ecDo = {
         };
         return {
             check(str, type){
-                   return !!rules[type](str);
+                return !!rules[type](str);
             },
             addRule(type, fn){
                 rules[type] = fn;
@@ -185,14 +185,14 @@ let ecDo = {
      */
     filterStr: (function () {
         return {
-            handle(type, str){
+            handle(str, type){
                 let arr = Array.prototype.slice.call(arguments);
-                let fnName='filter'+ecDo.firstWordUpper(type);
-                arr.splice(0, 1);
+                let fnName = 'filter' + ecDo.firstWordUpper(type);
+                arr.splice(1, 1);
                 return ecDo[fnName] ? ecDo[fnName].apply(null, arr) : false;
             },
             addType(type, fn){
-                let fnName='filter'+ecDo.firstWordUpper(type);
+                let fnName = 'filter' + ecDo.firstWordUpper(type);
                 if (!ecDo[fnName]) {
                     ecDo[fnName] = fn;
                 }
@@ -593,7 +593,7 @@ let ecDo = {
     setUrlParam(url, obj) {
         let _rs = [];
         for (let p in obj) {
-            if (obj[p] !== null && obj[p] !== ''&& obj[p] !== undefined) {
+            if (obj[p] !== null && obj[p] !== '' && obj[p] !== undefined) {
                 _rs.push(p + '=' + obj[p])
             }
         }
@@ -675,7 +675,7 @@ let ecDo = {
         if (!type) {
             return Object.prototype.toString.call(o)
         }
-        let _type=type.toLowerCase();
+        let _type = type.toLowerCase();
         let typeObj = {
             'string': '[object String]',
             'number': '[object Number]',
@@ -686,7 +686,7 @@ let ecDo = {
             'object': '[object Object]',
             'symbol': '[object Symbol]'
         }
-        let typeFn={
+        let typeFn = {
             nan(){
                 return Number.isNaN(o);
             },
@@ -697,7 +697,7 @@ let ecDo = {
         if (typeObj[_type]) {
             return Object.prototype.toString.call(o) === typeObj[_type];
         }
-        else{
+        else {
             return typeFn[_type]();
         }
     },
@@ -951,7 +951,7 @@ let ecDo = {
         if (arguments.length === 1) {
             return obj.innerHTML;
         } else if (arguments.length === 2) {
-            obj.innerHTML = this.filterStr.handle('html',arguments[1]);
+            obj.innerHTML = this.filterStr.handle('html', arguments[1]);
         }
         return this;
     },
@@ -1052,7 +1052,7 @@ let ecDo = {
                 obj.fn(obj.dom);
             }
         };
-        if(obj.errorUrl){
+        if (obj.errorUrl) {
             oImg.onerror = function () {
                 obj.src = obj.errorUrl;
                 if (obj.fn && _this.isType(obj.fn, 'function')) {
@@ -1080,10 +1080,10 @@ let ecDo = {
                 oImgLoad[i].style.opacity = "0";
                 _src = oImgLoad[i].dataset ? oImgLoad[i].dataset.src : oImgLoad[i].getAttribute("data-src");
                 this.aftLoadImg({
-                    dom:oImgLoad[i],
-                    url:_src,
-                    errorUrl:errorUrl,
-                    fn:function (o) {
+                    dom: oImgLoad[i],
+                    url: _src,
+                    errorUrl: errorUrl,
+                    fn: function (o) {
                         //添加定时器，确保图片已经加载完了，一秒后再把图片指定的css样式清掉
                         setTimeout(() => {
                             if (o.isLoad) {
