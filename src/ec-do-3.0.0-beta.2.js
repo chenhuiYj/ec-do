@@ -311,7 +311,7 @@ let ecDo = (function () {
          * @param arr
          * @return {Array.<T>}
          */
-        upsetArr(arr) {
+        upset(arr) {
             let j, _item;
             for (let i = 0; i < arr.length; i++) {
                 j = Math.floor(Math.random() * i);

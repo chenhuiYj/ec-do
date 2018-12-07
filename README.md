@@ -569,18 +569,18 @@ param **{Array}** arr-待去重数组
 
 result:  [1, 2, 3, 4, 5]
 
-### 29.upsetArr
+### 29.upset
 
 ##### description
 
-    ecDo.upsetArr(arr)
+    ecDo.upset(arr)
 
 description-数组顺序打乱
 
 param **{Array}** arr-待打乱数组
 
 ##### demo
-    ecDo.upsetArr([1,2,3,4,5,6,7,8,9,0])
+    ecDo.upset([1,2,3,4,5,6,7,8,9,0])
     result:  [7, 1, 3, 2, 4, 6, 8, 9, 0, 5]
 
 ### 30.maxArr
