@@ -8,7 +8,7 @@ let uglify = require('gulp-uglify');
  */
 gulp.task('es6-js', function () {
     //pages下面的业务代码进行babel处理
-    gulp.src(['./src/ec-do-2.0.0.js','./src/ec-do-3.0.0-beta.1.js','./test-es6.js'])
+    gulp.src(['./src/ec-do-2.0.0.js','./src/ec-do-3.0.0-beta.1.js','./test-es6.js','./src/ec-do-3.0.0-beta.2.js'])
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -18,14 +18,14 @@ gulp.task('es6-js', function () {
  * 压缩js
  */
 gulp.task('minify-js',()=>{
-    return gulp.src(['./dist/ec-do-3.0.0-beta.1.js','./dist/ec-do-2.0.0.js','./src/ec-do-1.1.4.js'])
+    return gulp.src(['./dist/ec-do-3.0.0-beta.1.js','./dist/ec-do-3.0.0-beta.2.js','./dist/ec-do-2.0.0.js','./src/ec-do-1.1.4.js'])
         .pipe(uglify({
             compress:false,
             mangle:{
                 reserved:['$super', '$', 'exports', 'require', 'define', 'module']
             }
         }))
-        .pipe(gulp.dest('./src/min'));
+        .pipe(gulp.dest('./dist/min'));
 });
 /**
  * 运行任务
