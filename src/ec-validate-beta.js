@@ -400,7 +400,7 @@ let ecValidate = (function () {
          * @param type
          * @param fn
          */
-        addRule: function (type, fn) {
+        extend: function (type, fn) {
             ruleData[type] = fn;
         }
     }
