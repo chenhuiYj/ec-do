@@ -453,7 +453,7 @@ let ecDo = (function () {
          * @param sortText
          * @return {*}
          */
-        sortByForKeys(arr, sortText) {
+        sortBy(arr, sortText) {
             if (!sortText) {
                 return arr
             }

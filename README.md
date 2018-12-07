@@ -782,11 +782,11 @@ param **{Sting}** keys-要过滤的值的属性，多个属性用','分割
     ecDo.filterOptionArray(arr,'a,c')
 result：[{b: 2},{b: 3},{b: 9},{b: 2},{b: 5}]
 
-### 42.sortByForKeys
+### 42.sortBy
 
 ##### description
 
-    ecDo.sortByForKeys(arr, sortText)
+    ecDo.sortBy(arr, sortText)
 
 description-对象数组的排序
 
@@ -797,7 +797,7 @@ param **{Sting}** sortText-排序字段，多个字段用','分割
 
     var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
     //a是第一排序条件，b是第二排序条件
-    ecDo.sortByForKeys(arr,'a,b')
+    ecDo.sortBy(arr,'a,b')
 result：[{"a":1,"b":2,"c":9},{"a":2,"b":3,"c":5},{"a":4,"b":2,"c":5},{"a":4,"b":5,"c":7},{"a":5,"b":9}]
 
 ### 43.steamroller
