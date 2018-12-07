@@ -157,7 +157,7 @@ let ecDo = (function () {
          * @description 检测字符串
          */
         checkType(str, type){
-            return !!this.ruleData.checkType[type](str);
+            return !!ruleData.checkType[type](str);
         },
         /**
          * @description 检测密码强度
@@ -325,59 +325,85 @@ let ecDo = (function () {
          * @description 数组最大值（数值数组）
          * @param arr
          */
-        maxArr(arr) {
+        max(arr) {
             return Math.max(...arr);
         },
         /**
          * @description 数组最小值（数值数组）
          * @param arr
          */
-        minArr(arr) {
+        min(arr) {
             return Math.min(...arr);
         },
         /**
          * @description 数组求和（数值数组）
          * @param arr
          */
-        sumArr(arr) {
+        sum(arr) {
             return arr.reduce((pre, cur) => pre + cur)
         },
         /**
          * @description 数组平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活了（数值数组）
          * @param arr
          */
-        covArr(arr) {
-            return this.sumArr(arr) / arr.length;
+        average(arr) {
+            return this.sum(arr) / arr.length;
+        },
+        /**
+         * @description 深拷贝
+         * @param obj
+         */
+        clone(obj){
+            if(!obj&& typeof obj!== 'object'){
+                return;
+            }
+            let newObj= obj.constructor === Array ? [] : {};
+            for(let key in obj){
+                if(obj[key]){
+                    if(obj[key] && typeof obj[key] === 'object'){
+                        newObj[key] = obj[key].constructor === Array ? [] : {};
+                        //递归
+                        newObj[key] = this.clone(obj[key]);
+                    }else{
+                        newObj[key] = obj[key];
+                    }
+                }
+            }
+            return newObj;
         },
         /**
          * @description 从数组中随机获取元素
          * @param arr
+         * @param num
          * @return {*}
          */
-        randomOne(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        },
-        /**
-         * @description 返回数组（字符串）一个元素出现的次数
-         * @param obj
-         * @param ele
-         * @return {number}
-         */
-        getEleCount(obj, ele) {
-            let num = 0;
-            for (let i = 0, len = obj.length; i < len; i++) {
-                if (ele === obj[i]) {
-                    num++;
-                }
+        getRandom(arr,num=1) {
+            let _arr=this.clone(arr),nowIndex,result=[];
+            for(let i=0;i<num;i++){
+                nowIndex=Math.floor(Math.random() * _arr.length);
+                result.push(_arr[nowIndex]);
+                _arr.splice(nowIndex,1);
             }
-            return num;
+            return num>1?result:result[0];
+
         },
         /**
          * @description 降序返回数组（字符串）每个元素的出现次数
          * @param arr
-         * @return {Array}
+         * @param item
+         * @return {Array|Number}
          */
-        getCount(arr) {
+        count(arr,item) {
+            //是否只返回一个元素的次数
+            if(item){
+                let num = 0;
+                for (let i = 0, len = obj.length; i < len; i++) {
+                    if (item === obj[i]) {
+                        num++;
+                    }
+                }
+                return num;
+            }
             let obj = {}, k, arr1 = []
             //记录每一元素出现的次数
             for (let i = 0, len = arr.length; i < len; i++) {
@@ -399,16 +425,6 @@ let ecDo = (function () {
             return arr1;
         },
         /**
-         * @description 得到n1-n2下标的数组
-         * @param arr
-         * @param n1
-         * @param n2
-         * @return {Array}
-         */
-        getArrayNum(arr, n1, n2) {
-            return arr.slice(n1, n2);
-        },
-        /**
          * @description 删除值为'val'的数组元素
          * @param arr
          * @param val
@@ -427,7 +443,7 @@ let ecDo = (function () {
             return arr.filter(item => item.indexOf(val) === -1);
         },
         /**
-         * @description 排除数组某些项
+         * @description 排除对象数组某些项
          * @param arr
          * @param keys
          * @return {Array}
