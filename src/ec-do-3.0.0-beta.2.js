@@ -88,18 +88,13 @@ let ecDo = (function () {
          * @description 首字母大写
          */
         firstWordUpper(str){
-            return str.replace(/\b\w+\b/g, function (word) {
-                return word.substring(0, 1).toUpperCase() + word.substring(1);
-
-            });
+            return str.replace(/\b\w+\b/g, word=>word.substring(0, 1).toUpperCase() + word.substring(1));
         },
         /**
          * @description 首字母小写
          */
         firstWordLower(str){
-            return str.replace(/\b\w+\b/g, function (word) {
-                return word.substring(0, 1).toLowerCase() + word.substring(1);
-            });
+            return str.replace(/\b\w+\b/g, word=>word.substring(0, 1).toLowerCase() + word.substring(1));
         },
         /**
          * @description 字符串替换
