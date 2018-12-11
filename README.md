@@ -15,9 +15,9 @@ ecDo.trim(' xx x x',1);
 
 //大小写转换
 
-ecDo.changeCase('asdXaaaXHwwHwwad',3)
+ecDo.trim(' asdXaaaXHwwHwwad  ')
 
-//"ASDxAAAxhWWhWWAD"
+//"asdXaaaXHwwHwwad"
 
 具体使用方式在ec-do.js里面有说明
 
