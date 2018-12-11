@@ -1,6 +1,6 @@
 /*3.0.0-beta2*/
 let ecDo = (function () {
-    let ruleData={
+    let ruleData = {
         checkType: {
             email(str){
                 return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
@@ -88,13 +88,13 @@ let ecDo = (function () {
          * @description 首字母大写
          */
         firstWordUpper(str){
-            return str.replace(/\b\w+\b/g, word=>word.substring(0, 1).toUpperCase() + word.substring(1));
+            return str.replace(/\b\w+\b/g, word => word.substring(0, 1).toUpperCase() + word.substring(1));
         },
         /**
          * @description 首字母小写
          */
         firstWordLower(str){
-            return str.replace(/\b\w+\b/g, word=>word.substring(0, 1).toLowerCase() + word.substring(1));
+            return str.replace(/\b\w+\b/g, word => word.substring(0, 1).toLowerCase() + word.substring(1));
         },
         /**
          * @description 字符串替换
@@ -349,17 +349,17 @@ let ecDo = (function () {
          * @param obj
          */
         clone(obj){
-            if(!obj&& typeof obj!== 'object'){
+            if (!obj && typeof obj !== 'object') {
                 return;
             }
-            let newObj= obj.constructor === Array ? [] : {};
-            for(let key in obj){
-                if(obj[key]){
-                    if(obj[key] && typeof obj[key] === 'object'){
+            let newObj = obj.constructor === Array ? [] : {};
+            for (let key in obj) {
+                if (obj[key]) {
+                    if (obj[key] && typeof obj[key] === 'object') {
                         newObj[key] = obj[key].constructor === Array ? [] : {};
                         //递归
                         newObj[key] = this.clone(obj[key]);
-                    }else{
+                    } else {
                         newObj[key] = obj[key];
                     }
                 }
@@ -372,14 +372,14 @@ let ecDo = (function () {
          * @param num
          * @return {*}
          */
-        getRandom(arr,num=1) {
-            let _arr=this.clone(arr),nowIndex,result=[];
-            for(let i=0;i<num;i++){
-                nowIndex=Math.floor(Math.random() * _arr.length);
+        getRandom(arr, num = 1) {
+            let _arr = this.clone(arr), nowIndex, result = [];
+            for (let i = 0; i < num; i++) {
+                nowIndex = Math.floor(Math.random() * _arr.length);
                 result.push(_arr[nowIndex]);
-                _arr.splice(nowIndex,1);
+                _arr.splice(nowIndex, 1);
             }
-            return num>1?result:result[0];
+            return num > 1 ? result : result[0];
 
         },
         /**
@@ -388,9 +388,9 @@ let ecDo = (function () {
          * @param item
          * @return {Array|Number}
          */
-        count(arr,item) {
+        count(arr, item) {
             //是否只返回一个元素的次数
-            if(item){
+            if (item) {
                 let num = 0;
                 for (let i = 0, len = obj.length; i < len; i++) {
                     if (item === obj[i]) {
