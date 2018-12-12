@@ -77,7 +77,7 @@ var ecDo = {
     //ecDo.replaceAll('这里是上海，中国第三大城市，广东省省会，简称穗，','上海','广州')
     //result："这里是广州，中国第三大城市，广东省省会，简称穗，"
     replaceAll: function (str, AFindText, ARepText) {
-        raRegExp = new RegExp(AFindText, "g");
+        let raRegExp = new RegExp(AFindText, "g");
         return str.replace(raRegExp, ARepText);
     },
     //字符替换*
