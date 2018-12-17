@@ -601,10 +601,9 @@ let ecDo = (function () {
                 _rs = {},pos;
             for (let i = 0, _len = _param.length; i < _len; i++) {
                 pos= _param[i].split('=');
-                if (pos.length === 1) {
-                    continue;
+                if (pos.length === 2) {
+                    _rs[pos[0]] = pos[1];
                 }
-                _rs[pos[0]] = pos[1];
             }
             return _rs;
         },
