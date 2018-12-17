@@ -570,20 +570,10 @@ let ecDo = (function () {
          * @return {number}
          */
         randomNumber(n1, n2) {
-            //randomNumber(5,10)
-            //返回5-10的随机整数，包括5，10
-            if (arguments.length === 2) {
-                return Math.round(n1 + Math.random() * (n2 - n1));
-            }
-            //randomNumber(10)
-            //返回0-10的随机整数，包括0，10
-            else if (arguments.length === 1) {
-                return Math.round(Math.random() * n1)
-            }
-            //randomNumber()
-            //返回0-100000000的随机整数，包括0，100000000
-            else {
-                return Math.round(Math.random() * 100000000)
+            switch (arguments.length){
+                case 2:return Math.round(n1 + Math.random() * (n2 - n1));
+                case 1:return Math.round(Math.random() * n1);
+                default:return Math.round(Math.random() * 100000000);
             }
         },
         /**
