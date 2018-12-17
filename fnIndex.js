@@ -25,8 +25,8 @@ fs.readFile('./README.md', (err, data) => {
         let _data=data.toString().split('\r\n');
         let i=1;
         _data.forEach((item,index)=>{
-            if(/%%/.test(item)){
-                _data[index]=item.replace('%%',i+'.');
+            if(/#{3}\s([0-9]+)/.test(item)){
+                _data[index]=item.replace(/#{3}\s([0-9]+)/,'### '+i);
                 i++;
             }
         })
