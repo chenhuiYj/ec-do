@@ -101,14 +101,14 @@ let ecDo = (function () {
          * @description 加密字符串
          */
         encryptStr(str, regIndex, ARepText = '*') {
-            let regtext = '',
+            let regText = '',
                 Reg = null,
                 _regIndex = regIndex.split(','),
                 replaceText = ARepText;
             //repeatStr是在上面定义过的（字符串循环复制），大家注意哦
             _regIndex = _regIndex.map(item => +item);
-            regtext = '(\\w{' + _regIndex[0] + '})\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '}';
-            Reg = new RegExp(regtext);
+            regText = '(\\w{' + _regIndex[0] + '})\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '}';
+            Reg = new RegExp(regText);
             let replaceCount = this.repeatStr(replaceText, (1 + _regIndex[1] - _regIndex[0]));
             return str.replace(Reg, '$1' + replaceCount);
         },
@@ -116,13 +116,13 @@ let ecDo = (function () {
          * @description 不加密字符串
          */
         encryptUnStr(str, regIndex, ARepText = '*') {
-            let regtext = '',
+            let regText = '',
                 Reg = null,
                 _regIndex = regIndex.split(','),
                 replaceText = ARepText;
             _regIndex = _regIndex.map(item => +item);
-            regtext = '(\\w{' + _regIndex[0] + '})(\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '})(\\w{' + (str.length - _regIndex[1] - 1) + '})';
-            Reg = new RegExp(regtext);
+            regText = '(\\w{' + _regIndex[0] + '})(\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '})(\\w{' + (str.length - _regIndex[1] - 1) + '})';
+            Reg = new RegExp(regText);
             let replaceCount1 = this.repeatStr(replaceText, _regIndex[0]);
             let replaceCount2 = this.repeatStr(replaceText, str.length - _regIndex[1] - 1);
             return str.replace(Reg, replaceCount1 + '$2' + replaceCount2);
@@ -131,8 +131,8 @@ let ecDo = (function () {
          * @description 字符串开始位置加密
          */
         encryptStartStr(str, length, replaceText = '*'){
-            let regtext = '(\\w{' + length + '})';
-            let Reg = new RegExp(regtext);
+            let regText = '(\\w{' + length + '})';
+            let Reg = new RegExp(regText);
             let replaceCount = this.repeatStr(replaceText, length);
             return str.replace(Reg, replaceCount);
         },
