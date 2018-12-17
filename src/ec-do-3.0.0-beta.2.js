@@ -98,13 +98,6 @@ let ecDo = (function () {
             return str.replace(/\b\w+\b/g, word => word.substring(0, 1).toLowerCase() + word.substring(1));
         },
         /**
-         * @description 字符串替换
-         */
-        replaceAll(str, AFindText, ARepText) {
-            let raRegExp = new RegExp(AFindText, "g");
-            return str.replace(raRegExp, ARepText);
-        },
-        /**
          * @description 加密字符串
          */
         encryptStr(str, regIndex, ARepText = '*') {

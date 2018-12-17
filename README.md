@@ -136,26 +136,7 @@ param **{String}** str-待处理的字符串
     ecDo.firstWordLower('ASDsAD')
  result：'aSDsAD'
 
-### 8.replaceAll
-
-##### description
-
-    ecDo.replaceAll(str, AFindText, ARepText)
-
-description-字符串替换
-
-param **{String}** str-待处理的字符串
-
-param **{String}** AFindText-要替换的字符或者正则表达式（不要写g）
-
-param **{String}** ARepText-替换成什么
-
-##### demo
-
-    ecDo.replaceAll('这里是上海，中国第三大城市，广东省省会，简称穗，','上海','广州')
-    result："这里是广州，中国第三大城市，广东省省会，简称穗，"
-
-### 9.encryptStr
+### 8.encryptStr
 
 ##### description
 
@@ -174,7 +155,7 @@ param **{String}** ARepText-加密显示的字符，默认是‘*’
     ecDo.encryptStr('18819233362','3,7','+')//位置3-7的统一被替换成+
 result：188+++++362
 
-### 10.encryptUnStr
+### 9.encryptUnStr
 
 ##### description
 
@@ -193,7 +174,7 @@ param **{String}** ARepText-加密显示的字符，默认是‘*’
     ecDo.encryptUnStr('18819233362','3,7','+')//位置3-7的之外的字符全部替换成+
 result：188+++++362
 
-### 11.encryptStartStr
+### 10.encryptStartStr
 
 ##### description
 
@@ -212,7 +193,7 @@ param **{String}** ARepText-加密显示的字符，默认是‘*’
     ecDo.encryptStartStr('18819233362','4')//从开始位置计算，前4位加密
 result：****9233362
 
-### 12.encryptEndStr
+### 11.encryptEndStr
 
 ##### description
 
@@ -231,7 +212,7 @@ param **{String}** ARepText-加密显示的字符，默认是‘*’
     ecDo.encryptEndStr('18819233362','4')//从结尾位置计算，后4位加密
 result：1881923****
 
-### 13.checkType
+### 12.checkType
 
 ##### description
 
@@ -268,7 +249,7 @@ beta2 版本
    })
     ecDo.checkType('****asdasd654zxc', 'password')//false
 
-### 14.checkPwdLevel
+### 13.checkPwdLevel
 
 ##### description
 
@@ -283,7 +264,7 @@ param **{String}** str-待检测的字符串
     ecDo.checkPwdLevel('12asdASAD')
     result：result：3(强度等级为3，大写+1，小写+1，数字+1，'-','.','_'任意一字符+1，长度小于6等级为0)
 
-### 15.randomWord
+### 14.randomWord
 
 ##### description
 
@@ -305,7 +286,7 @@ param **{int}** count-取值范围2-36
     result："83vhdx10rmjkyb9"
 
 
-### 16.countStr
+### 15.countStr
 
 ##### description
 
@@ -323,7 +304,7 @@ param **{String}** strSplit-待检测的字符串
     ecDo.countStr(strTest,'blog')
     result：6
 
-### 17.filterStr
+### 16.filterStr
 
 ##### description
 
@@ -364,7 +345,7 @@ beta2 版本
     //过滤英文字母
      console.log(ecDo.filterStr('asdasd46撒打算的','english','.',''));
 
-### 18.filterSpecialStr
+### 17.filterSpecialStr
 
 ##### description
 
@@ -383,7 +364,7 @@ param **{String}** spstr-保留的特殊字符
     console.log(`${ecDo.filterSpecialStr('sadasdasdzxc4512235%$@^&^@*!(4613zxcasdasd46撒打算的','','@')}`);//除了@，其他特殊字符全部被替换成空格
 result:sadasdasdzxc4512235@@4613zxcasdasd46
 
-### 19.filterHtml
+### 18.filterHtml
 
 ##### description
 
@@ -400,7 +381,7 @@ param **{String}** restr-替换成的字符，默认''
     console.log(ecDo.filterHtml('<title>Title</title>'));
 result:Title
 
-### 20.filterEmjoy
+### 19.filterEmjoy
 
 ##### description
 
@@ -418,7 +399,7 @@ param **{String}** restr-替换成的字符，默认''
 result:— asdasdWECASasd
 
 
-### 21.filterWordUpper
+### 20.filterWordUpper
 
 ##### description
 
@@ -435,7 +416,7 @@ param **{String}** restr-替换成的字符，默认''
     console.log(ecDo.filterWordUpper('asdasdWECASasd'));
 result:asdasdasd
 
-### 22.filterWordLower
+### 21.filterWordLower
 
 ##### description
 
@@ -452,7 +433,7 @@ param **{String}** restr-替换成的字符，默认''
     console.log(ecDo.filterWordLower('asdasdWECASasd'));
 result:WECAS
 
-### 23.filterNumber
+### 22.filterNumber
 
 ##### description
 
@@ -469,7 +450,7 @@ param **{String}** restr-替换成的字符，默认''
     console.log(ecDo.filterNumber('asdasd67w9e41z5xc'));
 result:asdasdwezxc
 
-### 24.filterChinese
+### 23.filterChinese
 
 ##### description
 
@@ -487,7 +468,7 @@ param **{String}** restr-替换成的字符，默认''
 result:8963325asd1
 
 
-### 25.formatText
+### 24.formatText
 
 ##### description
 
@@ -512,7 +493,7 @@ param **{String}** delimiter-间隔符，默认','
     ecDo.formatText('1234asda567asd890',4,'-')
     result："1-234a-sda5-67as-d890"
 
-### 26.longestWord
+### 25.longestWord
 
 ##### description
 
@@ -532,7 +513,7 @@ param **{splitType}** size-间隔符，默认' '
     ecDo.longestWord('Find|the|Longest|word|in|a|String','|')
     result: {el: "Longest", max: 7}
 
-### 27.titleCaseUp
+### 26.titleCaseUp
 
 ##### description
 
@@ -553,7 +534,7 @@ result: "This Is A Title"
 result: "This Is A Title"
 
 
-### 28.unique
+### 27.unique
 
 ##### description
 
@@ -569,7 +550,7 @@ param **{Array}** arr-待去重数组
 
 result:  [1, 2, 3, 4, 5]
 
-### 29.upset
+### 28.upset
 
 ##### description
 
@@ -583,7 +564,7 @@ param **{Array}** arr-待打乱数组
     ecDo.upset([1,2,3,4,5,6,7,8,9,0])
     result:  [7, 1, 3, 2, 4, 6, 8, 9, 0, 5]
 
-### 30.maxArr
+### 29.maxArr
 
 ##### description
 
@@ -596,7 +577,7 @@ param **{Array}** arr-待处理数组
 ##### demo
     ecDo.maxArr([1,2,3,4,5,6,7,8,9,0])
     result:  9
-### 31.minArr
+### 30.minArr
 
 ##### description
 
@@ -610,7 +591,7 @@ param **{Array}** arr-待处理数组
     ecDo.minArr([1,2,3,4,5,6,7,8,9,0])
     result:  0
 
-### 32.sumArr
+### 31.sumArr
 
 ##### description
 
@@ -623,7 +604,7 @@ param **{Array}** arr-待处理数组
 ##### demo
     ecDo.sumArr([1,2,3,4,5,6,7,8,9,0])
     result:  45
-### 33.covArr
+### 32.covArr
 
 ##### description
 
@@ -638,7 +619,7 @@ param **{Array}** arr-待处理数组
     ecDo.covArr([1,2,3,4,5,6,7,8,9,0])
     result:  4.5
 
-### 34.randomOne
+### 33.randomOne
 
 ##### description
 
@@ -653,7 +634,7 @@ param **{Array}** arr-待处理数组
 result:  "c"
 
 
-### 35.getEleCount
+### 34.getEleCount
 
 ##### description
 
@@ -671,7 +652,7 @@ param **{String}** ele-要匹配的元素
     ecDo.getEleCount([1,2,3,4,5,66,77,22,55,22],22)
     result：2
 
-### 36.getCount
+### 35.getCount
 
 ##### description
 
@@ -688,7 +669,7 @@ param **{Array  String}** obj-待处理数组（字符串）
 
 result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
 
-### 37.getArrayNum
+### 36.getArrayNum
 
 ##### description
 
@@ -708,7 +689,7 @@ result：[5, 6, 7, 8, 9]
     //不传第二个参数,默认返回从n1到数组结束的元素
 result：[2, 3, 4, 5, 6, 7, 8, 9]
 
-### 38.removeArrayForValue
+### 37.removeArrayForValue
 
 ##### description
 
@@ -724,7 +705,7 @@ param **{Sting}** val-要匹配的字符
     ecDo.removeArrayForValue(['test','test1','test2','test','aaa'],'test')
 result：["test1", "test2", "aaa"]
 
-### 39.removeArrayForLike
+### 38.removeArrayForLike
 
 ##### description
 
@@ -741,7 +722,7 @@ param **{Sting}** val-要匹配的字符
 result：["aaa"]
 
 
-### 40.getOptionArray（已废除，可以使用 map 代替）
+### 39.getOptionArray（已废除，可以使用 map 代替）
 
 ##### description
 
@@ -761,7 +742,7 @@ result： [1, 2, 5, 4, 4]
     ecDo.getOptionArray(arr,'a,c')
 result：[{a: 1, c: 9},{a: 2, c: 5},{a: 5, c: undefined},{a: 4, c: 5},{a: 4, c: 7}]
 
-### 41.filterOptionArray
+### 40.filterOptionArray
 
 ##### description
 
@@ -782,7 +763,7 @@ param **{Sting}** keys-要过滤的值的属性，多个属性用','分割
     ecDo.filterOptionArray(arr,'a,c')
 result：[{b: 2},{b: 3},{b: 9},{b: 2},{b: 5}]
 
-### 42.sortBy
+### 41.sortBy
 
 ##### description
 
@@ -800,7 +781,7 @@ param **{Sting}** sortText-排序字段，多个字段用','分割
     ecDo.sortBy(arr,'a,b')
 result：[{"a":1,"b":2,"c":9},{"a":2,"b":3,"c":5},{"a":4,"b":2,"c":5},{"a":4,"b":5,"c":7},{"a":5,"b":9}]
 
-### 43.steamroller
+### 42.steamroller
 
 ##### description
 
@@ -815,7 +796,7 @@ param **{Array}** arr-待处理数组
     ecDo.steamroller([1,2,[4,5,[1,23]]])
 result：[1, 2, 4, 5, 1, 23]
 
-### 44.getFontSize
+### 43.getFontSize
 
 ##### description
 
@@ -829,7 +810,7 @@ param **{Int}** _client-设计图宽度
 
     ecDo.getFontSize(750)
 
-### 45.getEndTime
+### 44.getEndTime
 
 ##### description
 
@@ -850,7 +831,7 @@ result：{
         s:43
     }
 
-### 46.formatDate
+### 45.formatDate
 
 ##### description
 
@@ -865,7 +846,7 @@ param **{String}** fmt-时间格式
     console.log(ecDo.formatDate(1526071153233));
 result：2018-05-12 04:39:13
 
-### 47.randomColor
+### 46.randomColor
 
 ##### description
 
@@ -880,7 +861,7 @@ result:#0d4814
     console.log(ecDo.randomColor());
 result:rgb(118,235,151)
 
-### 48.randomNumber
+### 47.randomNumber
 
 ##### description
 
@@ -902,7 +883,7 @@ result：7
     //返回0-100000000的随机整数，包括0，10
  ecDo.randomNumber()
 
-### 49.setUrlPrmt
+### 48.setUrlPrmt
 
 ##### description
 
@@ -919,7 +900,7 @@ param **{Object}** obj-需要设置的参数
     console.log(ecDo.setUrlParam('http://sss.com',{'a':1,'b':2}));
 result：http://sss.com?a=1&b=2
 
-### 50.getUrlPrmt
+### 49.getUrlPrmt
 
 ##### description
 
@@ -934,7 +915,7 @@ param **{String}** url-超链接
     ecDo.getUrlPrmt('github.com?draftId=122000011938')
 result：{draftId: "122000011938"}
 
-### 51.getUrlPrmt
+### 50.getUrlPrmt
 
 ##### description
 
@@ -958,7 +939,7 @@ result："人民币壹仟陆佰捌拾贰元整"
     ecDo/upDigit(-1693)
 result："欠人民币壹仟陆佰玖拾叁元整"
 
-### 52.filterParams
+### 51.filterParams
 
 ##### description
 
@@ -973,7 +954,7 @@ param **{Object}** obj-待处理对象
     ecDo.filterParams({a:"",b:null,c:"010",d:123})
     result：{c: "010", d: 123}
 
-### 53.isType
+### 52.isType
 
 ##### description
 
@@ -993,7 +974,7 @@ param **{String}** type-类型字符串
     result：'[object Array]'
 
 
-### 54.getBrowserInfo
+### 53.getBrowserInfo
 
 ##### description
 
@@ -1010,7 +991,7 @@ result：是安卓就返回true，否则就false
     ecDo.getBrowserInfo()
 result：返回手机浏览器的信息
 
-### 55.throttle
+### 54.throttle
 
 ##### description
 
@@ -1033,7 +1014,7 @@ param **{Number}** mustDelay-最大间隔时间
 
 参考：example/throttle.html
 
-### 56.debounce
+### 55.debounce
 
 ##### description
 
@@ -1055,7 +1036,7 @@ param **{Number}** delay-间隔时间
 
 参考：example/delayFn.html
 
-### 57.setCookie
+### 56.setCookie
 
 ##### description
 
@@ -1071,7 +1052,7 @@ param **{Int}** iDay-时间（天数）
 
     ecDo.setCookie('test', 'testcookie', 2)
 
-### 58.getCookie
+### 57.getCookie
 
 ##### description
 
@@ -1085,7 +1066,7 @@ param **{String}** name-cookie名
 
     ecDo.getCookie('test')
 
-### 59.removeCookie
+### 58.removeCookie
 
 ##### description
 
@@ -1099,7 +1080,7 @@ param **{String}** name-cookie名
 
     ecDo.removeCookie('test')
 
-### 60.cookie
+### 59.cookie
 
 ##### description
 
@@ -1118,7 +1099,7 @@ param **{Int}** iDay-时间（天数）
     ecDo.cookie('test', 'testcookie', -1)//删除，中间的值已经没有意义，只要天数设置-1，cookie就会无效
 
 
-### 61.hasClass
+### 60.hasClass
 
 ##### description
 
@@ -1134,7 +1115,7 @@ param **{String}** classStr-class名
     ecDo.hasClass(obj,'test')
 result:true|false
 
-### 62.addClass
+### 61.addClass
 
 ##### description
 
@@ -1149,7 +1130,7 @@ param **{String}** classStr-class名
 
     ecDo.addClass(obj,'test')
 
-### 63.removeClass
+### 62.removeClass
 
 ##### description
 
@@ -1164,7 +1145,7 @@ param **{String}** classStr-class名
 
     ecDo.removeClass(obj,'test')
 
-### 64.replaceClass
+### 63.replaceClass
 
 ##### description
 
@@ -1180,7 +1161,7 @@ param **{String}** oldName-替换的类名
 
     ecDo.replaceClass(obj,'test','afterClass')
 
-### 65.siblings
+### 64.siblings
 
 ##### description
 
@@ -1197,7 +1178,7 @@ param **{String}** opt-过滤条件
     result：符合条件的Dom对象
 
 
-### 66.css
+### 65.css
 
 ##### description
 
@@ -1212,7 +1193,7 @@ param **{Object}** json-样式名
 
     ecDo.css(obj,{'width':'300px','height':'300px'})
 
-### 67.html
+### 66.html
 
 ##### description
 
@@ -1231,7 +1212,7 @@ param **{String}** str-html内容
 
     ecDo.html(obj,'<div>1111</div>')
 
-### 68.text
+### 67.text
 
 ##### description
 
@@ -1250,7 +1231,7 @@ param **{String}** str-内容(html标签将会被过滤)
 
     ecDo.text(obj,'1230.312asd')
 
-### 69.show
+### 68.show
 
 ##### description
 
@@ -1264,7 +1245,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.show(obj)
 
-### 70.hide
+### 69.hide
 
 ##### description
 
@@ -1278,7 +1259,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.hide(obj)
 
-### 71.ajax
+### 70.ajax
 
 ##### description
 
@@ -1308,7 +1289,7 @@ param **{Object}** 对象参数
       	}
     })
 
-### 72.aftLoadImg
+### 71.aftLoadImg
 
 ##### description
 
@@ -1325,7 +1306,7 @@ param **{Function}** obj.fn-回调函数,参数为obj.dom
 
 参考example/aftLoadImg.html
 
-### 73.lazyLoadImg
+### 72.lazyLoadImg
 
 ##### description
 
@@ -1358,7 +1339,7 @@ param **{String}** errorUrl-出错的图片的url
 
 参考example/lazyLoadImg.html
 
-### 74.loadImg
+### 73.loadImg
 
 ##### description
 
@@ -1373,7 +1354,7 @@ param **{function}** cb-加载完毕的回调函数
 
 参考example/loadImg.html,example/loadImg1.html
 
-### 75.findKey
+### 74.findKey
 
 ##### description
 
