@@ -596,19 +596,15 @@ let ecDo = (function () {
          * @param url
          * @return {Object}
          */
-        getUrlParam(url) {
-            url = url ? url : window.location.href;
-            let _param = url.substring(url.indexOf('?') + 1),
-                _paramItem = _param.split('&'),
-                _rs = {};
-            for (let i = 0, _len = _paramItem.length; i < _len; i++) {
-                let pos = _paramItem[i].indexOf('=');
-                if (pos === -1) {
+        getUrlParam(url=window.location.href) {
+            let _param = url.substring(url.indexOf('?') + 1).split('&'),
+                _rs = {},pos;
+            for (let i = 0, _len = _param.length; i < _len; i++) {
+                pos= _param[i].split('=');
+                if (pos.length === 1) {
                     continue;
                 }
-                let name = _paramItem[i].substring(0, pos),
-                    value = window.decodeURIComponent(_paramItem[i].substring(pos + 1));
-                _rs[name] = value;
+                _rs[pos[0]] = pos[1];
             }
             return _rs;
         },
