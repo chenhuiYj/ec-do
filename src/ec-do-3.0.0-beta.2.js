@@ -189,17 +189,15 @@ let ecDo = (function () {
          * @description 过滤字符串的特殊符号
          */
         filterSpecialStr(str, replaceStr = '', spStr){
-            let regText = '$()[]{}?\|^*+./\"\'+', pattern,_regText;
+            let regText = '$()[]{}?\|^*+./\"\'+', pattern,_regText= "[^0-9A-Za-z\\s",nowStr;
             //是否有哪些特殊符号需要保留
             if (spStr) {
-                _regText = "[^0-9A-Za-z\\s";
-                for (let j = 0, len1 = spStr.length; j < len1; j++) {
+                for (let j = 0, len = spStr.length; j < len; j++) {
+                    nowStr='';
                     if (regText.indexOf(spStr[j]) === -1) {
-                        _regText += spStr[j];
+                        nowStr ='\\';
                     }
-                    else {
-                        _regText += '\\' + spStr[j];
-                    }
+                    _regText +=nowStr+spStr[j];
                 }
                 _regText += ']';
             }
