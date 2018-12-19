@@ -188,25 +188,25 @@ let ecDo = (function () {
         /**
          * @description 过滤字符串的特殊符号
          */
-        filterSpecialStr(str, replaceStr = '', spstr){
-            let regText = '$()[]{}?\|^*+./\"\'+', pattern;
+        filterSpecialStr(str, replaceStr = '', spStr){
+            let regText = '$()[]{}?\|^*+./\"\'+', pattern,_regText;
             //是否有哪些特殊符号需要保留
-            if (spstr) {
-                let _spstr = spstr.split(""), _regText = "[^0-9A-Za-z\\s";
-                for (let j = 0, len1 = _spstr.length; j < len1; j++) {
-                    if (regText.indexOf(_spstr[j]) === -1) {
-                        _regText += _spstr[j];
+            if (spStr) {
+                _regText = "[^0-9A-Za-z\\s";
+                for (let j = 0, len1 = spStr.length; j < len1; j++) {
+                    if (regText.indexOf(spStr[j]) === -1) {
+                        _regText += spStr[j];
                     }
                     else {
-                        _regText += '\\' + _spstr[j];
+                        _regText += '\\' + spStr[j];
                     }
                 }
-                _regText += ']'
-                pattern = new RegExp(_regText, 'g');
+                _regText += ']';
             }
             else {
-                pattern = new RegExp("[^0-9A-Za-z\\s]", 'g')
+                _regText="[^0-9A-Za-z\\s]";
             }
+            pattern = new RegExp(_regText, 'g');
             return str = str.replace(pattern, replaceStr);
         },
         /**
