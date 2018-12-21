@@ -642,7 +642,30 @@ let ecDo = (function () {
          * @param keepValues
          * @return {{}}
          */
-        filterParams(obj,keepValues=[0,false]) {
+        filterKeys(obj,keepValues=[0,false]) {
+            keepValues.forEach((item,index)=>{keepValues[index]=Number.isNaN(item)?'NaN':item});
+            function _checkFalse(val) {
+                let _val=val;
+                if(Number.isNaN(val)){
+                    _val='NaN'
+                }
+                return keepValues.indexOf(_val)!==-1;
+            }
+            let _newPar = {};
+            for (let key in obj) {
+                if ( _checkFalse(obj[key])|| (obj[key]&&obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '')) {
+                    _newPar[key] = obj[key];
+                }
+            }
+            return _newPar;
+        },
+        /**
+         * @description 设置对象中值为空的属性的默认值
+         * @param obj
+         * @param keepValues
+         * @return {{}}
+         */
+        setKeys(obj,keepValues=[0,false]) {
             keepValues.forEach((item,index)=>{keepValues[index]=Number.isNaN(item)?'NaN':item});
             function _checkFalse(val) {
                 let _val=val;

@@ -939,11 +939,11 @@ result："人民币壹仟陆佰捌拾贰元整"
     ecDo/upDigit(-1693)
 result："欠人民币壹仟陆佰玖拾叁元整"
 
-### 51.filterParams
+### 51.filterKeys
 
 ##### description
 
-    ecDo.filterParams(obj)
+    ecDo.filterKeys(obj)
 
 description-过滤对象里面值为null或者underfind的的属性underfind的属性
 
@@ -951,7 +951,7 @@ param **{Object}** obj-待处理对象
 
 ##### demo
 
-    ecDo.filterParams({a:"",b:null,c:"010",d:123})
+    ecDo.filterKeys({a:"",b:null,c:"010",d:123})
     result：{c: "010", d: 123}
 
 ### 52.isType
