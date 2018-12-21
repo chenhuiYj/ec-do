@@ -725,7 +725,7 @@ let ecDo = (function () {
         getBrowserInfo(type) {
             let typeObj = {
                 android: 'android',
-                iphone: 'android',
+                iphone: 'iphone',
                 ipad: 'ipad',
                 weixin: 'micromessenger'
             }
