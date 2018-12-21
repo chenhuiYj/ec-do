@@ -7,8 +7,10 @@
 <body>
 <script src="../src/ec-do-3.0.0-beta.2.js"></script>
 <script>
-    console.log(ecDo.isType([]));
-    console.log(ecDo.isType([],'array'));
+    console.log(ecDo.filterParams({a:'',b:0,c:11}));
+    console.log(ecDo.filterParams({a:'',b:0,c:11},[]));
+    console.log(ecDo.filterParams({a:'',b:0,c:11,d:false},[0,'']));
+    console.log(ecDo.filterParams({a:NaN,d:2},[NaN]));
 </script>
 </body>
 </html>
