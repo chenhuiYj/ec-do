@@ -954,11 +954,11 @@ param **{Object}** obj-待处理对象
     ecDo.filterKeys({a:"",b:null,c:"010",d:123})
     result：{c: "010", d: 123}
 
-### 52.setKeys
+### 52.fillKeys
 
 ##### description
 
-    ecDo.setKeys(obj)
+    ecDo.fillKeys(obj)
 
 description-设置对象里面值为null或者underfind的的属性underfind的属性
 
@@ -966,7 +966,7 @@ param **{Object}** obj-待处理对象
 
 ##### demo
 
-    ecDo.setKeys({a:"",b:null,c:"010",d:123})
+    ecDo.fillKeys({a:"",b:null,c:"010",d:123})
     result：{a:"--",b:'--',c:"010",d:123}
 
 ### 53.isType

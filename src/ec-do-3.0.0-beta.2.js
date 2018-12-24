@@ -666,7 +666,7 @@ let ecDo = (function () {
          * @param val
          * @return {{}}
          */
-        setKeys(obj,keepValues=[null,undefined,''],val='--') {
+        fillKeys(obj,keepValues=[null,undefined,''],val='--') {
             keepValues.forEach((item,index)=>{keepValues[index]=Number.isNaN(item)?'NaN':item});
             function _checkFalse(val) {
                 let _val=val;
