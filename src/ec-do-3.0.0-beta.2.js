@@ -691,7 +691,7 @@ let ecDo = (function () {
             if (!type) {
                 return Object.prototype.toString.call(o)
             }
-            let _type = type.toLowerCase();
+            let _types = type.toLowerCase().split(',');
             let typeObj = {
                 'string': '[object String]',
                 'number': '[object Number]',
@@ -710,12 +710,19 @@ let ecDo = (function () {
                     return Object.prototype.toString.call(o).indexOf('HTML') !== -1;
                 }
             }
-            if (typeObj[_type]) {
-                return Object.prototype.toString.call(o) === typeObj[_type];
+            let _result;
+            for(let item of _types){
+                if (typeObj[item]) {
+                    _result=Object.prototype.toString.call(o) === typeObj[item];
+                }
+                else {
+                    _result=typeFn[item]();
+                }
+                if(_result){
+                    return _result;
+                }
             }
-            else {
-                return typeFn[_type]();
-            }
+            return false;
         },
         /**
          * @description 手机类型判断

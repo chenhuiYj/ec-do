@@ -988,6 +988,13 @@ param **{String}** type-类型字符串
     ecDo.istype([])
     result：'[object Array]'
 
+    ecDo.isType('123','array,number')
+    result：false
+
+    ecDo.isType('123','array,string')
+    result：true
+
+
 
 ### 54.getBrowserInfo
 
