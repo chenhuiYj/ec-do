@@ -682,7 +682,7 @@ let ecDo = (function () {
          */
         isType(o, type) {
             if (!type) {
-                return Object.prototype.toString.call(o)
+                return Object.prototype.toString.call(o).split(/\s/)[1].replace(']','')
             }
             let _types = type.toLowerCase().split(',');
             let typeObj = {

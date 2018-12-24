@@ -986,7 +986,7 @@ param **{String}** type-类型字符串
     result：true
 
     ecDo.istype([])
-    result：'[object Array]'
+    result：'Array'
 
     ecDo.isType('123','array,number')
     result：false
