@@ -642,7 +642,7 @@ let ecDo = (function () {
          * @param keepValues
          * @return {{}}
          */
-        filterKeys(obj,keepValues=[0,false]) {
+        clearKeys(obj,keepValues=[0,false]) {
             keepValues.forEach((item,index)=>{keepValues[index]=Number.isNaN(item)?'NaN':item});
             function _checkFalse(val) {
                 let _val=val;
