@@ -32,6 +32,13 @@ let ecDo = (function () {
             }
         }
     }
+    function checkValue(val,vals) {
+        let _val=val;
+        if(Number.isNaN(val)){
+            _val='NaN'
+        }
+        return vals.indexOf(_val)!==-1;
+    }
     return {
         extend: {
             checkType(type, fn){
@@ -644,16 +651,9 @@ let ecDo = (function () {
          */
         clearKeys(obj,keepValues=[0,false]) {
             keepValues.forEach((item,index)=>{keepValues[index]=Number.isNaN(item)?'NaN':item});
-            function _checkFalse(val) {
-                let _val=val;
-                if(Number.isNaN(val)){
-                    _val='NaN'
-                }
-                return keepValues.indexOf(_val)!==-1;
-            }
             let _newPar = {};
             for (let key in obj) {
-                if ( _checkFalse(obj[key])|| (obj[key]&&obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '')) {
+                if ( checkValue(obj[key],keepValues)|| (obj[key]&&obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '')) {
                     _newPar[key] = obj[key];
                 }
             }
@@ -668,16 +668,9 @@ let ecDo = (function () {
          */
         fillKeys(obj,keepValues=[null,undefined,''],val='--') {
             keepValues.forEach((item,index)=>{keepValues[index]=Number.isNaN(item)?'NaN':item});
-            function _checkFalse(val) {
-                let _val=val;
-                if(Number.isNaN(val)){
-                    _val='NaN'
-                }
-                return keepValues.indexOf(_val)!==-1;
-            }
             let _newPar = {};
             for (let key in obj) {
-                _newPar[key]=_checkFalse(obj[key])?val:obj[key];
+                _newPar[key]=checkValue(obj[key],keepValues)?val:obj[key];
             }
             return _newPar;
         },
