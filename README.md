@@ -669,27 +669,7 @@ param **{Array  String}** obj-待处理数组（字符串）
 
 result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
 
-### 36.getArrayNum（已废弃，可用 slice 代替）
-
-##### description
-
-    ecDo.getEleCount(obj, ele)
-
-description-得到n1-n2下标的数组
-
-param **{Array}** obj-待处理数组
-param **{int}** n1-开始下标
-param **{int}** n2-结束下标（不能比n1小）
-
-##### demo
-
-    ecDo.getArrayNum([0,1,2,3,4,5,6,7,8,9],5,9)
-result：[5, 6, 7, 8, 9]
-    ecDo.getArrayNum([0,1,2,3,4,5,6,7,8,9],2)
-    //不传第二个参数,默认返回从n1到数组结束的元素
-result：[2, 3, 4, 5, 6, 7, 8, 9]
-
-### 37.removeArrayForValue
+### 36.removeArrayForValue
 
 ##### description
 
@@ -705,7 +685,7 @@ param **{Sting}** val-要匹配的字符
     ecDo.removeArrayForValue(['test','test1','test2','test','aaa'],'test')
 result：["test1", "test2", "aaa"]
 
-### 38.removeArrayForLike
+### 37.removeArrayForLike
 
 ##### description
 
@@ -722,7 +702,7 @@ param **{Sting}** val-要匹配的字符
 result：["aaa"]
 
 
-### 39.getOptionArray（已废除，可以使用 map 代替）
+### 38.getOptionArray（已废除，可以使用 map 代替）
 
 ##### description
 
@@ -742,7 +722,7 @@ result： [1, 2, 5, 4, 4]
     ecDo.getOptionArray(arr,'a,c')
 result：[{a: 1, c: 9},{a: 2, c: 5},{a: 5, c: undefined},{a: 4, c: 5},{a: 4, c: 7}]
 
-### 40.filterKeys
+### 39.filterKeys
 
 ##### description
 
@@ -768,7 +748,7 @@ param **{Sting}** keys-要过滤的值的属性，多个属性用','分割
 
 
 
-### 41.sortBy
+### 40.sortBy
 
 ##### description
 
@@ -786,7 +766,7 @@ param **{Sting}** sortText-排序字段，多个字段用','分割
     ecDo.sortBy(arr,'a,b')
 result：[{"a":1,"b":2,"c":9},{"a":2,"b":3,"c":5},{"a":4,"b":2,"c":5},{"a":4,"b":5,"c":7},{"a":5,"b":9}]
 
-### 42.steamroller
+### 41.steamroller
 
 ##### description
 
@@ -801,7 +781,7 @@ param **{Array}** arr-待处理数组
     ecDo.steamroller([1,2,[4,5,[1,23]]])
 result：[1, 2, 4, 5, 1, 23]
 
-### 43.getFontSize
+### 42.getFontSize
 
 ##### description
 
@@ -815,7 +795,7 @@ param **{Int}** _client-设计图宽度
 
     ecDo.getFontSize(750)
 
-### 44.getEndTime
+### 43.getEndTime
 
 ##### description
 
@@ -836,7 +816,7 @@ result：{
         s:43
     }
 
-### 45.formatDate
+### 44.formatDate
 
 ##### description
 
@@ -851,7 +831,7 @@ param **{String}** fmt-时间格式
     console.log(ecDo.formatDate(1526071153233));
 result：2018-05-12 04:39:13
 
-### 46.randomColor
+### 45.randomColor
 
 ##### description
 
@@ -866,7 +846,7 @@ result:#0d4814
     console.log(ecDo.randomColor());
 result:rgb(118,235,151)
 
-### 47.randomNumber
+### 46.randomNumber
 
 ##### description
 
@@ -888,7 +868,7 @@ result：7
     //返回0-100000000的随机整数，包括0，10
  ecDo.randomNumber()
 
-### 48.setUrlPrmt
+### 47.setUrlPrmt
 
 ##### description
 
@@ -905,7 +885,7 @@ param **{Object}** obj-需要设置的参数
     console.log(ecDo.setUrlParam('http://sss.com',{'a':1,'b':2}));
 result：http://sss.com?a=1&b=2
 
-### 49.getUrlParam
+### 48.getUrlParam
 
 ##### description
 
@@ -920,7 +900,7 @@ param **{String}** url-超链接
     ecDo.getUrlParam('github.com?draftId=122000011938')
 result：{draftId: "122000011938"}
 
-### 50.upDigit
+### 49.upDigit
 
 ##### description
 
@@ -944,7 +924,7 @@ result："人民币壹仟陆佰捌拾贰元整"
     ecDo.upDigit(-1693)
 result："欠人民币壹仟陆佰玖拾叁元整"
 
-### 51.clearKeys
+### 50.clearKeys
 
 ##### description
 
@@ -959,7 +939,7 @@ param **{Object}** obj-待处理对象
     ecDo.clearKeys({a:"",b:null,c:"010",d:123})
     result：{c: "010", d: 123}
 
-### 52.fillKeys
+### 51.fillKeys
 
 ##### description
 
@@ -974,7 +954,7 @@ param **{Object}** obj-待处理对象
     ecDo.fillKeys({a:"",b:null,c:"010",d:123})
     result：{a:"--",b:'--',c:"010",d:123}
 
-### 53.isType
+### 52.isType
 
 ##### description
 
@@ -1001,7 +981,7 @@ param **{String}** type-类型字符串
 
 
 
-### 54.getBrowserInfo
+### 53.getBrowserInfo
 
 ##### description
 
@@ -1018,7 +998,7 @@ result：是安卓就返回true，否则就false
     ecDo.getBrowserInfo()
 result：返回手机浏览器的信息
 
-### 55.throttle
+### 54.throttle
 
 ##### description
 
@@ -1041,7 +1021,7 @@ param **{Number}** mustDelay-最大间隔时间
 
 参考：example/throttle.html
 
-### 56.debounce
+### 55.debounce
 
 ##### description
 
@@ -1063,7 +1043,7 @@ param **{Number}** delay-间隔时间
 
 参考：example/delayFn.html
 
-### 57.setCookie
+### 56.setCookie
 
 ##### description
 
@@ -1079,7 +1059,7 @@ param **{Int}** iDay-时间（天数）
 
     ecDo.setCookie('test', 'testcookie', 2)
 
-### 58.getCookie
+### 57.getCookie
 
 ##### description
 
@@ -1093,7 +1073,7 @@ param **{String}** name-cookie名
 
     ecDo.getCookie('test')
 
-### 59.removeCookie
+### 58.removeCookie
 
 ##### description
 
@@ -1107,7 +1087,7 @@ param **{String}** name-cookie名
 
     ecDo.removeCookie('test')
 
-### 60.cookie
+### 59.cookie
 
 ##### description
 
@@ -1126,7 +1106,7 @@ param **{Int}** iDay-时间（天数）
     ecDo.cookie('test', 'testcookie', -1)//删除，中间的值已经没有意义，只要天数设置-1，cookie就会无效
 
 
-### 61.hasClass
+### 60.hasClass
 
 ##### description
 
@@ -1142,7 +1122,7 @@ param **{String}** classStr-class名
     ecDo.hasClass(obj,'test')
 result:true|false
 
-### 62.addClass
+### 61.addClass
 
 ##### description
 
@@ -1157,7 +1137,7 @@ param **{String}** classStr-class名
 
     ecDo.addClass(obj,'test')
 
-### 63.removeClass
+### 62.removeClass
 
 ##### description
 
@@ -1172,7 +1152,7 @@ param **{String}** classStr-class名
 
     ecDo.removeClass(obj,'test')
 
-### 64.replaceClass
+### 63.replaceClass
 
 ##### description
 
@@ -1188,7 +1168,7 @@ param **{String}** oldName-替换的类名
 
     ecDo.replaceClass(obj,'test','afterClass')
 
-### 65.siblings
+### 64.siblings
 
 ##### description
 
@@ -1205,7 +1185,7 @@ param **{String}** opt-过滤条件
     result：符合条件的Dom对象
 
 
-### 66.css
+### 65.css
 
 ##### description
 
@@ -1220,7 +1200,7 @@ param **{Object}** json-样式名
 
     ecDo.css(obj,{'width':'300px','height':'300px'})
 
-### 67.html
+### 66.html
 
 ##### description
 
@@ -1239,7 +1219,7 @@ param **{String}** str-html内容
 
     ecDo.html(obj,'<div>1111</div>')
 
-### 68.text
+### 67.text
 
 ##### description
 
@@ -1258,7 +1238,7 @@ param **{String}** str-内容(html标签将会被过滤)
 
     ecDo.text(obj,'1230.312asd')
 
-### 69.show
+### 68.show
 
 ##### description
 
@@ -1272,7 +1252,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.show(obj)
 
-### 70.hide
+### 69.hide
 
 ##### description
 
@@ -1286,7 +1266,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.hide(obj)
 
-### 71.ajax
+### 70.ajax
 
 ##### description
 
@@ -1316,7 +1296,7 @@ param **{Object}** 对象参数
       	}
     })
 
-### 72.aftLoadImg
+### 71.aftLoadImg
 
 ##### description
 
@@ -1333,7 +1313,7 @@ param **{Function}** obj.fn-回调函数,参数为obj.dom
 
 参考example/aftLoadImg.html
 
-### 73.lazyLoadImg
+### 72.lazyLoadImg
 
 ##### description
 
@@ -1366,7 +1346,7 @@ param **{String}** errorUrl-出错的图片的url
 
 参考example/lazyLoadImg.html
 
-### 74.loadImg
+### 73.loadImg
 
 ##### description
 
@@ -1381,7 +1361,7 @@ param **{function}** cb-加载完毕的回调函数
 
 参考example/loadImg.html,example/loadImg1.html
 
-### 75.findKeyword
+### 74.findKeyword
 
 ##### description
 

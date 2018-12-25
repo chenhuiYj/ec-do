@@ -1126,7 +1126,6 @@ let ecDo = (function () {
          */
         loadImg(className, cb){
             let _dom = [...document.querySelectorAll('.' + className)], now = 0, len = _dom.length;
-
             function handleLoad(dom) {
                 dom.src = dom.dataset ? dom.dataset.src : dom.getAttribute("data-src");
                 dom.onerror = dom.onload = function () {
