@@ -1152,7 +1152,7 @@ let ecDo = (function () {
          * @param tag
          * @return {XML|string|void|*}
          */
-        findKey(str, key, tag = 'span'){
+        findKeyword(str, key, tag = 'span'){
             let arr = null, regStr = null, content = null, Reg = null;
             //alert(regStr); //    如：(前端|过来)
             regStr = "(" + key.split(/\s+/).join('|') + ")";

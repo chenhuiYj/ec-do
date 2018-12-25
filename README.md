@@ -1381,11 +1381,11 @@ param **{function}** cb-加载完毕的回调函数
 
 参考example/loadImg.html,example/loadImg1.html
 
-### 75.findKey
+### 75.findKeyword
 
 ##### description
 
-     ecDo.findKey(str, key, el)
+     ecDo.findKeyword(str, key, el)
 
 description-关键字加标签（高亮）
 
@@ -1395,10 +1395,10 @@ param **{String}** el-要添加的元素，html标签元素  默认span
 
 ##### demo
 
-    ecDo.findKey('守侯我oaks接到了来自下次你离开快乐吉祥留在开城侯','守侯 开')
+    ecDo.findKeyword('守侯我oaks接到了来自下次你离开快乐吉祥留在开城侯','守侯 开')
 result："<span>守侯</span>我oaks接到了来自下次你离<span>开</span>快乐吉祥留在<span>开</span>城侯"
 
-    ecDo.findKey('守侯我oaks接到了来自下次你离开快乐吉祥留在开城侯','守侯 开','i')
+    ecDo.findKeyword('守侯我oaks接到了来自下次你离开快乐吉祥留在开城侯','守侯 开','i')
 result："<i>守侯</i>我oaks接到了来自下次你离<i>开</i>快乐吉祥留在<i>开</i>城侯"
 
 ## LICENSE
