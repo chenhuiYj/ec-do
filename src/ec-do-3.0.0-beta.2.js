@@ -437,20 +437,21 @@ let ecDo = (function () {
             return arr.filter(item => item.indexOf(val) === -1);
         },
         /**
-         * @description 排除对象数组某些项
-         * @param arr
+         * @description 排除对象某些项
+         * @param obj
          * @param keys
          * @return {Array}
          */
-        filterOptionArray(arr, keys) {
+        filterKeys(obj, keys) {
             let newArr = [];
             let _keys = keys.split(','), newArrOne = {};
-            for (let i = 0, len = arr.length; i < len; i++) {
+            let _arr=[].concat(obj);
+            for (let i = 0, len = _arr.length; i < len; i++) {
                 newArrOne = {};
-                for (let key in arr[i]) {
+                for (let key in _arr[i]) {
                     //如果key不存在排除keys里面,添加数据
                     if (_keys.indexOf(key) === -1) {
-                        newArrOne[key] = arr[i][key];
+                        newArrOne[key] = _arr[i][key];
                     }
                 }
                 newArr.push(newArrOne);
@@ -682,7 +683,8 @@ let ecDo = (function () {
          */
         isType(o, type) {
             if (!type) {
-                return Object.prototype.toString.call(o).split(/\s/)[1].replace(']','')
+                //return Object.prototype.toString.call(o).split(/\s/)[1].replace(']','')
+                return Object.prototype.toString.call(o).match(/\s(.*)]/)[1]
             }
             let _types = type.toLowerCase().split(',');
             let typeObj = {

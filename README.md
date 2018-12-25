@@ -669,7 +669,7 @@ param **{Array  String}** obj-待处理数组（字符串）
 
 result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
 
-### 36.getArrayNum
+### 36.getArrayNum（已废弃，可用 slice 代替）
 
 ##### description
 
@@ -742,11 +742,11 @@ result： [1, 2, 5, 4, 4]
     ecDo.getOptionArray(arr,'a,c')
 result：[{a: 1, c: 9},{a: 2, c: 5},{a: 5, c: undefined},{a: 4, c: 5},{a: 4, c: 7}]
 
-### 40.filterOptionArray
+### 40.filterKeys
 
 ##### description
 
-    ecDo.filterOptionArray(arr, keys)
+    ecDo.filterKeys(arr, keys)
 
 description-过滤对象数组某些项
 
@@ -757,11 +757,16 @@ param **{Sting}** keys-要过滤的值的属性，多个属性用','分割
 
     var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
 
-    ecDo.filterOptionArray(arr,'a')
-    result： [1, 2, 5, 4, 4]
+    ecDo.filterKeys(arr,'a')
+    //result： [1, 2, 5, 4, 4]
 
-    ecDo.filterOptionArray(arr,'a,c')
-result：[{b: 2},{b: 3},{b: 9},{b: 2},{b: 5}]
+    ecDo.filterKeys(arr,'a,c')
+    //result：[{b: 2},{b: 3},{b: 9},{b: 2},{b: 5}]
+
+    ecDo.filterKeys({a:1,b:2,c:9},'a')
+    //result：{b:2,c:9}
+
+
 
 ### 41.sortBy
 
@@ -900,11 +905,11 @@ param **{Object}** obj-需要设置的参数
     console.log(ecDo.setUrlParam('http://sss.com',{'a':1,'b':2}));
 result：http://sss.com?a=1&b=2
 
-### 49.getUrlPrmt
+### 49.getUrlParam
 
 ##### description
 
-    ecDo.getUrlPrmt(url)
+    ecDo.getUrlParam(url)
 
 description-获取url参数
 
@@ -912,10 +917,10 @@ param **{String}** url-超链接
 
 ##### demo
 
-    ecDo.getUrlPrmt('github.com?draftId=122000011938')
+    ecDo.getUrlParam('github.com?draftId=122000011938')
 result：{draftId: "122000011938"}
 
-### 50.getUrlPrmt
+### 50.upDigit
 
 ##### description
 
@@ -933,10 +938,10 @@ result："人民币壹拾元伍角"
     ecDo.upDigit(168752632)
 result："人民币壹亿陆仟捌佰柒拾伍万贰仟陆佰叁拾贰元整"
 
-    ecDoupDigit(1682)
+    ecDo.upDigit(1682)
 result："人民币壹仟陆佰捌拾贰元整"
 
-    ecDo/upDigit(-1693)
+    ecDo.upDigit(-1693)
 result："欠人民币壹仟陆佰玖拾叁元整"
 
 ### 51.clearKeys
