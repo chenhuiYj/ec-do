@@ -36,7 +36,7 @@ function checkValue(val, vals) {
     }
     return vals.indexOf(_val) !== -1;
 }
-let extend={
+let ecDoExtend={
     checkType(type, fn){
         ruleData.checkType[type] = fn;
     },
@@ -112,7 +112,7 @@ function encryptStr(str, regIndex, ARepText = '*') {
     _regIndex = _regIndex.map(item => +item);
     regText = '(\\w{' + _regIndex[0] + '})\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '}';
     Reg = new RegExp(regText);
-    let replaceCount = this.repeatStr(replaceText, (1 + _regIndex[1] - _regIndex[0]));
+    let replaceCount = repeatStr(replaceText, (1 + _regIndex[1] - _regIndex[0]));
     return str.replace(Reg, '$1' + replaceCount);
 }
 /**
@@ -126,8 +126,8 @@ function encryptUnStr(str, regIndex, ARepText = '*') {
     _regIndex = _regIndex.map(item => +item);
     regText = '(\\w{' + _regIndex[0] + '})(\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '})(\\w{' + (str.length - _regIndex[1] - 1) + '})';
     Reg = new RegExp(regText);
-    let replaceCount1 = this.repeatStr(replaceText, _regIndex[0]);
-    let replaceCount2 = this.repeatStr(replaceText, str.length - _regIndex[1] - 1);
+    let replaceCount1 = repeatStr(replaceText, _regIndex[0]);
+    let replaceCount2 = repeatStr(replaceText, str.length - _regIndex[1] - 1);
     return str.replace(Reg, replaceCount1 + '$2' + replaceCount2);
 }
 /**
@@ -136,14 +136,14 @@ function encryptUnStr(str, regIndex, ARepText = '*') {
 function encryptStartStr(str, length, replaceText = '*') {
     let regText = '(\\w{' + length + '})';
     let Reg = new RegExp(regText);
-    let replaceCount = this.repeatStr(replaceText, length);
+    let replaceCount = repeatStr(replaceText, length);
     return str.replace(Reg, replaceCount);
 }
 /**
  * @description 字符串结束位置加密
  */
 function encryptEndStr(str, length, replaceText = '*') {
-    return this.encryptStartStr(str.split('').reverse().join(''), length, replaceText).split('').reverse().join('');
+    return encryptStartStr(str.split('').reverse().join(''), length, replaceText).split('').reverse().join('');
 }
 /**
  * @description 检测字符串
@@ -184,7 +184,7 @@ function countStr(str, strSplit) {
  */
 function filterStr(str, type, replaceStr = '') {
     let arr = Array.prototype.slice.call(arguments);
-    let fnName = 'filter' + this.firstWordUpper(type);
+    let fnName = 'filter' + firstWordUpper(type);
     arr.splice(1, 1);
     return this[fnName] ? this[fnName].apply(null, arr) : false;
 }
@@ -282,9 +282,9 @@ function titleCaseUp(str, splitType = /\s+/g) {
     let strArr = str.split(splitType),
         result = "";
     strArr.forEach(item => {
-        result += this.firstWordUpper(item, 1) + ' ';
+        result += firstWordUpper(item, 1) + ' ';
     });
-    return this.trimRight(result)
+    return trimRight(result)
 }
 //***************字符串模块End**************************/
 //***************数组模块**************************/
@@ -337,7 +337,7 @@ function sum(arr) {
  * @param arr
  */
 function average(arr) {
-    return this.sum(arr) / arr.length;
+    return sum(arr) / arr.length;
 }
 /**
  * @description 深拷贝
@@ -353,7 +353,7 @@ function clone(obj) {
             if (obj[key] && typeof obj[key] === 'object') {
                 newObj[key] = obj[key].constructor === Array ? [] : {};
                 //递归
-                newObj[key] = this.clone(obj[key]);
+                newObj[key] = clone(obj[key]);
             } else {
                 newObj[key] = obj[key];
             }
@@ -368,7 +368,7 @@ function clone(obj) {
  * @return {*}
  */
 function getRandom(arr, num = 1) {
-    let _arr = this.clone(arr), nowIndex, result = [];
+    let _arr = clone(arr), nowIndex, result = [];
     for (let i = 0; i < num; i++) {
         nowIndex = Math.floor(Math.random() * _arr.length);
         result.push(_arr[nowIndex]);
@@ -479,7 +479,7 @@ function sortBy(arr, sortText) {
  */
 function steamroller(arr) {
     let flattened = [].concat(...arr);
-    return flattened.some(item => Array.isArray(item)) ? this.steamroller(flattened) : flattened;
+    return flattened.some(item => Array.isArray(item)) ? steamroller(flattened) : flattened;
 }
 //***************数组模块END**************************/
 
@@ -562,7 +562,7 @@ function randomColor(sum) {
         return '#' + Math.random().toString(16).substring(2).substr(0, 6);
     }
     else {
-        return 'rgb(' + this.randomNumber(255) + ',' + this.randomNumber(255) + ',' + this.randomNumber(255) + ')';
+        return 'rgb(' + randomNumber(255) + ',' + randomNumber(255) + ',' + randomNumber(255) + ')';
     }
 }
 /**
@@ -808,17 +808,17 @@ function getCookie(name) {
  * @description 删除cookie
  */
 function removeCookie(name) {
-    this.setCookie(name, 1, -1);
+    setCookie(name, 1, -1);
 }
 /**
  * @description 操作cookie
  */
 function cookie(name, value, iDay) {
     if (arguments.length === 1) {
-        return this.getCookie(name);
+        return getCookie(name);
     }
     else {
-        this.setCookie(name, value, iDay);
+        setCookie(name, value, iDay);
     }
 }
 //***************cookie模块END*******************************/
@@ -840,15 +840,15 @@ function hasClass(obj, classStr) {
  * @return {ecDo}
  */
 function addClass(obj, classStr) {
-    if ((this.isType(obj, 'array') || this.isType(obj, 'elements')) && obj.length >= 1) {
+    if ((isType(obj, 'array') || isType(obj, 'elements')) && obj.length >= 1) {
         for (let i = 0, len = obj.length; i < len; i++) {
-            if (!this.hasClass(obj[i], classStr)) {
+            if (!hasClass(obj[i], classStr)) {
                 obj[i].className += " " + classStr;
             }
         }
     }
     else {
-        if (!this.hasClass(obj, classStr)) {
+        if (!hasClass(obj, classStr)) {
             obj.className += " " + classStr;
         }
     }
@@ -862,16 +862,16 @@ function addClass(obj, classStr) {
  */
 function removeClass(obj, classStr) {
     let reg;
-    if ((this.isType(obj, 'array') || this.isType(obj, 'elements')) && obj.length > 1) {
+    if ((isType(obj, 'array') || isType(obj, 'elements')) && obj.length > 1) {
         for (let i = 0, len = obj.length; i < len; i++) {
-            if (this.hasClass(obj[i], classStr)) {
+            if (hasClass(obj[i], classStr)) {
                 reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
                 obj[i].className = obj[i].className.replace(reg, '');
             }
         }
     }
     else {
-        if (this.hasClass(obj, classStr)) {
+        if (hasClass(obj, classStr)) {
             reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
             obj.className = obj.className.replace(reg, '');
         }
@@ -886,8 +886,8 @@ function removeClass(obj, classStr) {
  * @return {ecDo}
  */
 function replaceClass(obj, newName, oldName) {
-    this.removeClass(obj, oldName);
-    this.addClass(obj, newName);
+    removeClass(obj, oldName);
+    addClass(obj, newName);
     return this;
 }
 /**
@@ -972,7 +972,7 @@ function text(obj) {
     if (arguments.length === 1) {
         return obj.innerHTML;
     } else if (arguments.length === 2) {
-        obj.innerHTML = this.filterStr.handle('html', arguments[1]);
+        obj.innerHTML = filterStr.handle('html', arguments[1]);
     }
     return this;
 }
@@ -1069,14 +1069,14 @@ function aftLoadImg(obj) {
     oImg.src = obj.url;
     oImg.onload = function () {
         obj.dom.src = oImg.src;
-        if (obj.fn && _this.isType(obj.fn, 'function')) {
+        if (obj.fn && isType(obj.fn, 'function')) {
             obj.fn(obj.dom);
         }
     };
     if (obj.errorUrl) {
         oImg.onerror = function () {
             obj.src = obj.errorUrl;
-            if (obj.fn && _this.isType(obj.fn, 'function')) {
+            if (obj.fn && isType(obj.fn, 'function')) {
                 obj.fn(obj.dom);
             }
         }
@@ -1100,7 +1100,7 @@ function lazyLoadImg(className = 'ec-load-img', num = 0, errorUrl = null) {
             oImgLoad[i].style.transition = "";
             oImgLoad[i].style.opacity = "0";
             _src = oImgLoad[i].dataset ? oImgLoad[i].dataset.src : oImgLoad[i].getAttribute("data-src");
-            this.aftLoadImg({
+            aftLoadImg({
                 dom: oImgLoad[i],
                 url: _src,
                 errorUrl: errorUrl,
@@ -1170,6 +1170,7 @@ function findKeyword(str, key, tag = 'span') {
 //***************DOM模块END*******************************/
 
 export {
+    ecDoExtend,
     trim,
     trimAll,
     trimLeft,
