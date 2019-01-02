@@ -112,11 +112,10 @@ let ecDo = (function () {
                 Reg = null,
                 _regIndex = regIndex.split(','),
                 replaceText = ARepText;
-            //repeatStr是在上面定义过的（字符串循环复制），大家注意哦
             _regIndex = _regIndex.map(item => +item);
             regText = '(\\w{' + _regIndex[0] + '})\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '}';
             Reg = new RegExp(regText);
-            let replaceCount = this.repeatStr(replaceText, (1 + _regIndex[1] - _regIndex[0]));
+            let replaceCount =replaceText.repeat((1 + _regIndex[1] - _regIndex[0]));
             return str.replace(Reg, '$1' + replaceCount);
         },
         /**
@@ -130,8 +129,8 @@ let ecDo = (function () {
             _regIndex = _regIndex.map(item => +item);
             regText = '(\\w{' + _regIndex[0] + '})(\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '})(\\w{' + (str.length - _regIndex[1] - 1) + '})';
             Reg = new RegExp(regText);
-            let replaceCount1 = this.repeatStr(replaceText, _regIndex[0]);
-            let replaceCount2 = this.repeatStr(replaceText, str.length - _regIndex[1] - 1);
+            let replaceCount1 =replaceText.repeat( _regIndex[0]);
+            let replaceCount2 =replaceText.repeat( str.length - _regIndex[1] - 1);
             return str.replace(Reg, replaceCount1 + '$2' + replaceCount2);
         },
         /**
@@ -140,7 +139,7 @@ let ecDo = (function () {
         encryptStartStr(str, length, replaceText = '*'){
             let regText = '(\\w{' + length + '})';
             let Reg = new RegExp(regText);
-            let replaceCount = this.repeatStr(replaceText, length);
+            let replaceCount =replaceText.repeat(length);
             return str.replace(Reg, replaceCount);
         },
         /**
