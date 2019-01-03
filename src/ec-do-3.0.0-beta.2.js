@@ -1,6 +1,5 @@
 /*3.0.0-beta2*/
 let ecDo = (function () {
-    let _value='';
     let ruleData = {
         checkType: {
             email(str){
