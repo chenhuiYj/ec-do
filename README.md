@@ -1002,12 +1002,12 @@ result：返回手机浏览器的信息
 
 ##### description
 
-    ecDo.throttle(fn, delay, mustDelay)
+    ecDo.throttle(fn, delay, option)
 
 description-函数节流
 param **{String}** fn-执行的函数
 param **{Number}** delay-间隔时间
-param **{Number}** mustDelay-最大间隔时间
+param **{Object}** option-配置项  default:{first:true,last:true}
 
 ##### demo
 
