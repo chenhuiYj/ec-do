@@ -1035,7 +1035,6 @@ param **{Object}** option-配置项  default:{first:true,last:true}
 description-函数节流
 param **{String}** fn-执行的函数
 param **{Number}** delay-间隔时间
-param **{Object}** option-配置项
 
 ##### demo
 
@@ -1045,7 +1044,7 @@ param **{Object}** option-配置项
          console.log(count)
      }
      //鼠标移动事件触发，如果在300毫秒内连续触发事件，一直快速移动（时间间隔小于300毫秒），等到移动的时间间隔大于300毫秒的时候再执行。
-     document.onmousemove=debounce(fn1,100,200)
+     document.onmousemove=debounce(fn1,300)
 
 参考：example/delayFn.html
 
