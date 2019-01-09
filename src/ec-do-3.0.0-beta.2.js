@@ -744,7 +744,7 @@ let ecDo = (function () {
          * @description 函数节流
          * @param fn 执行的函数
          * @param delay 延迟的时间
-         * @param option
+         * @param option 配置项 {first:true,last:true}
          */
         throttle(fn, delay, option={}) {
             option=Object.assign({first:true,last:true},option);
