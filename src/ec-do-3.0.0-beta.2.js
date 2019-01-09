@@ -741,7 +741,7 @@ let ecDo = (function () {
             let timer = null;
             let t_start;
             return function () {
-                let context = this, args = arguments, t_cur = +new Date();
+                let _this = this, args = arguments, t_cur = +new Date();
                 //先清理上一次的调用触发（上一次调用触发事件不执行）
                 clearTimeout(timer);
                 //如果不存触发时间，那么当前的时间就是触发时间
@@ -750,13 +750,13 @@ let ecDo = (function () {
                 }
                 //如果当前时间-触发时间大于最大的间隔时间（mustDelay），触发一次函数运行函数
                 if (t_cur - t_start >= mustDelay) {
-                    fn.apply(context, args);
+                    fn.apply(_this, args);
                     t_start = t_cur;
                 }
                 //否则延迟执行
                 else {
                     timer = setTimeout(() => {
-                        fn.apply(context, args);
+                        fn.apply(_this, args);
                     }, delay);
                 }
             };
@@ -767,14 +767,12 @@ let ecDo = (function () {
          * @param delay 间隔时间
          */
         debounce(fn, delay){
-            return function (args) {
-                let _this = this
-                let _args = args
-                clearTimeout(fn.id);
-                fn.id = setTimeout(function () {
-                    fn.call(_this, _args)
-                }, delay)
-            }
+            let _this = this
+            let _args = arguments;
+            clearTimeout(fn.id);
+            fn.id = setTimeout(function () {
+                fn.call(_this, _args)
+            }, delay)
         },
 //***************对象及其他模块END**************************/
 //***************cookie模块*******************************/
