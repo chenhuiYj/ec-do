@@ -1016,8 +1016,13 @@ param **{Number}** mustDelay-最大间隔时间
          count++;
          console.log(count)
      }
-     //每100ms连续触发的调用，后一个调用会把前一个调用的等待处理掉，但每隔200ms至少执行一次
-     document.onmousemove=delayFn(fn1,100,200)
+
+     //每100ms连续触发的调用，后一个调用会把前一个调用的等待处理掉
+     /屏蔽首次调用  {first:false}
+     //屏蔽最后一次调用  {last:false}
+
+     document.onmousemove=delayFn(fn1,1000)
+     //document.onmousemove=delayFn(fn1,1000,{first:false,last:false})
 
 参考：example/throttle.html
 
@@ -1030,6 +1035,7 @@ param **{Number}** mustDelay-最大间隔时间
 description-函数节流
 param **{String}** fn-执行的函数
 param **{Number}** delay-间隔时间
+param **{Object}** option-配置项
 
 ##### demo
 

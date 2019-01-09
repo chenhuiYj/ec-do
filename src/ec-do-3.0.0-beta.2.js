@@ -31,13 +31,15 @@ let ecDo = (function () {
             }
         }
     }
-    function checkValue(val,vals) {
-        let _val=val;
-        if(Number.isNaN(val)){
-            _val='NaN'
+
+    function checkValue(val, vals) {
+        let _val = val;
+        if (Number.isNaN(val)) {
+            _val = 'NaN'
         }
-        return vals.indexOf(_val)!==-1;
+        return vals.indexOf(_val) !== -1;
     }
+
     return {
         extend: {
             checkType(type, fn){
@@ -114,7 +116,7 @@ let ecDo = (function () {
             _regIndex = _regIndex.map(item => +item);
             regText = '(\\w{' + _regIndex[0] + '})\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '}';
             Reg = new RegExp(regText);
-            let replaceCount =replaceText.repeat((1 + _regIndex[1] - _regIndex[0]));
+            let replaceCount = replaceText.repeat((1 + _regIndex[1] - _regIndex[0]));
             return str.replace(Reg, '$1' + replaceCount);
         },
         /**
@@ -128,8 +130,8 @@ let ecDo = (function () {
             _regIndex = _regIndex.map(item => +item);
             regText = '(\\w{' + _regIndex[0] + '})(\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '})(\\w{' + (str.length - _regIndex[1] - 1) + '})';
             Reg = new RegExp(regText);
-            let replaceCount1 =replaceText.repeat( _regIndex[0]);
-            let replaceCount2 =replaceText.repeat( str.length - _regIndex[1] - 1);
+            let replaceCount1 = replaceText.repeat(_regIndex[0]);
+            let replaceCount2 = replaceText.repeat(str.length - _regIndex[1] - 1);
             return str.replace(Reg, replaceCount1 + '$2' + replaceCount2);
         },
         /**
@@ -138,7 +140,7 @@ let ecDo = (function () {
         encryptStartStr(str, length, replaceText = '*'){
             let regText = '(\\w{' + length + '})';
             let Reg = new RegExp(regText);
-            let replaceCount =replaceText.repeat(length);
+            let replaceCount = replaceText.repeat(length);
             return str.replace(Reg, replaceCount);
         },
         /**
@@ -194,20 +196,20 @@ let ecDo = (function () {
          * @description 过滤字符串的特殊符号
          */
         filterSpecialStr(str, replaceStr = '', spStr){
-            let regText = '$()[]{}?\|^*+./\"\'+', pattern,_regText= "[^0-9A-Za-z\\s",nowStr;
+            let regText = '$()[]{}?\|^*+./\"\'+', pattern, _regText = "[^0-9A-Za-z\\s", nowStr;
             //是否有哪些特殊符号需要保留
             if (spStr) {
                 for (let j = 0, len = spStr.length; j < len; j++) {
-                    nowStr='';
+                    nowStr = '';
                     if (regText.indexOf(spStr[j]) === -1) {
-                        nowStr ='\\';
+                        nowStr = '\\';
                     }
-                    _regText +=nowStr+spStr[j];
+                    _regText += nowStr + spStr[j];
                 }
                 _regText += ']';
             }
             else {
-                _regText="[^0-9A-Za-z\\s]";
+                _regText = "[^0-9A-Za-z\\s]";
             }
             pattern = new RegExp(_regText, 'g');
             return str = str.replace(pattern, replaceStr);
@@ -443,7 +445,7 @@ let ecDo = (function () {
         filterKeys(obj, keys) {
             let newArr = [];
             let _keys = keys.split(','), newArrOne = {};
-            let _arr=[].concat(obj);
+            let _arr = [].concat(obj);
             for (let i = 0, len = _arr.length; i < len; i++) {
                 newArrOne = {};
                 for (let key in _arr[i]) {
@@ -574,10 +576,13 @@ let ecDo = (function () {
          * @return {number}
          */
         randomNumber(n1, n2) {
-            switch (arguments.length){
-                case 2:return Math.round(n1 + Math.random() * (n2 - n1));
-                case 1:return Math.round(Math.random() * n1);
-                default:return Math.round(Math.random() * 100000000);
+            switch (arguments.length) {
+                case 2:
+                    return Math.round(n1 + Math.random() * (n2 - n1));
+                case 1:
+                    return Math.round(Math.random() * n1);
+                default:
+                    return Math.round(Math.random() * 100000000);
             }
         },
         /**
@@ -600,11 +605,11 @@ let ecDo = (function () {
          * @param url
          * @return {Object}
          */
-        getUrlParam(url=window.location.href) {
+        getUrlParam(url = window.location.href) {
             let _param = url.substring(url.indexOf('?') + 1).split('&'),
-                _rs = {},pos;
+                _rs = {}, pos;
             for (let i = 0, _len = _param.length; i < _len; i++) {
-                pos= _param[i].split('=');
+                pos = _param[i].split('=');
                 if (pos.length === 2) {
                     _rs[pos[0]] = pos[1];
                 }
@@ -648,11 +653,13 @@ let ecDo = (function () {
          * @param keepValues
          * @return {{}}
          */
-        clearKeys(obj,keepValues=[0,false]) {
-            keepValues.forEach((item,index)=>{keepValues[index]=Number.isNaN(item)?'NaN':item});
+        clearKeys(obj, keepValues = [0, false]) {
+            keepValues.forEach((item, index) => {
+                keepValues[index] = Number.isNaN(item) ? 'NaN' : item
+            });
             let _newPar = {};
             for (let key in obj) {
-                if ( checkValue(obj[key],keepValues)|| (obj[key]&&obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '')) {
+                if (checkValue(obj[key], keepValues) || (obj[key] && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '')) {
                     _newPar[key] = obj[key];
                 }
             }
@@ -665,11 +672,13 @@ let ecDo = (function () {
          * @param val
          * @return {{}}
          */
-        fillKeys(obj,keepValues=[null,undefined,''],val='--') {
-            keepValues.forEach((item,index)=>{keepValues[index]=Number.isNaN(item)?'NaN':item});
+        fillKeys(obj, keepValues = [null, undefined, ''], val = '--') {
+            keepValues.forEach((item, index) => {
+                keepValues[index] = Number.isNaN(item) ? 'NaN' : item
+            });
             let _newPar = {};
             for (let key in obj) {
-                _newPar[key]=checkValue(obj[key],keepValues)?val:obj[key];
+                _newPar[key] = checkValue(obj[key], keepValues) ? val : obj[key];
             }
             return _newPar;
         },
@@ -704,14 +713,14 @@ let ecDo = (function () {
                 }
             }
             let _result;
-            for(let item of _types){
+            for (let item of _types) {
                 if (typeObj[item]) {
-                    _result=Object.prototype.toString.call(o) === typeObj[item];
+                    _result = Object.prototype.toString.call(o) === typeObj[item];
                 }
                 else {
-                    _result=typeFn[item]();
+                    _result = typeFn[item]();
                 }
-                if(_result){
+                if (_result) {
                     return _result;
                 }
             }
@@ -735,28 +744,31 @@ let ecDo = (function () {
          * @description 函数节流
          * @param fn 执行的函数
          * @param delay 延迟的时间
-         * @param mustDelay 最大间隔时间
+         * @param option
          */
-        throttle(fn, delay, mustDelay) {
+        throttle(fn, delay, option={}) {
+            option=Object.assign({first:true,last:true},option);
             let timer = null;
-            let t_start;
+            let t_start=0;
             return function () {
                 let _this = this, args = arguments, t_cur = +new Date();
                 //先清理上一次的调用触发（上一次调用触发事件不执行）
                 clearTimeout(timer);
-                //如果不存触发时间，那么当前的时间就是触发时间
-                if (!t_start) {
+                //首次触发
+                if (!option.first&&t_start===0) {
+                    //fn.apply(_this, args);
                     t_start = t_cur;
                 }
-                //如果当前时间-触发时间大于最大的间隔时间（mustDelay），触发一次函数运行函数
-                if (t_cur - t_start >= mustDelay) {
+                //如果当前时间-触发时间大于等于的间隔时间（delay），触发一次函数运行函数
+                if (t_cur - t_start >= delay) {
                     fn.apply(_this, args);
                     t_start = t_cur;
                 }
-                //否则延迟执行
+                //最后一次
                 else {
                     timer = setTimeout(() => {
-                        fn.apply(_this, args);
+                        option.last&&fn.apply(_this, args);
+                        t_start=0;
                     }, delay);
                 }
             };
@@ -965,7 +977,7 @@ let ecDo = (function () {
             if (arguments.length === 1) {
                 return obj.innerHTML;
             } else if (arguments.length === 2) {
-                obj.innerHTML = this.filterStr(arguments[1],'html');
+                obj.innerHTML = this.filterStr(arguments[1], 'html');
             }
             return this;
         },
@@ -1122,6 +1134,7 @@ let ecDo = (function () {
          */
         loadImg(className, cb){
             let _dom = [...document.querySelectorAll('.' + className)], now = 0, len = _dom.length;
+
             function handleLoad(dom) {
                 dom.src = dom.dataset ? dom.dataset.src : dom.getAttribute("data-src");
                 dom.onerror = dom.onload = function () {
