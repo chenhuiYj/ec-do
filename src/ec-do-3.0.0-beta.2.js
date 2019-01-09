@@ -746,16 +746,16 @@ let ecDo = (function () {
          * @param delay 延迟的时间
          * @param option 配置项 {first:true,last:true}
          */
-        throttle(fn, delay, option={}) {
-            option=Object.assign({first:true,last:true},option);
+        throttle(fn, delay, option = {}) {
+            option = Object.assign({first: true, last: true}, option);
             let timer = null;
-            let t_start=0;
+            let t_start = 0;
             return function () {
                 let _this = this, args = arguments, t_cur = +new Date();
                 //先清理上一次的调用触发（上一次调用触发事件不执行）
                 clearTimeout(timer);
                 //首次触发
-                if (!option.first&&t_start===0) {
+                if (!option.first && t_start === 0) {
                     //fn.apply(_this, args);
                     t_start = t_cur;
                 }
@@ -767,8 +767,8 @@ let ecDo = (function () {
                 //最后一次
                 else {
                     timer = setTimeout(() => {
-                        option.last&&fn.apply(_this, args);
-                        t_start=0;
+                        option.last && fn.apply(_this, args);
+                        t_start = 0;
                     }, delay);
                 }
             };
@@ -777,14 +777,20 @@ let ecDo = (function () {
          * @description 函数防抖(在事件被触发n毫秒后再执行回调，如果在这n毫秒内又被触发，则重新计时)
          * @param fn 执行函数
          * @param delay 间隔时间
+         * @param first 间隔时间
          */
-        debounce(fn, delay){
-            let _this = this
-            let _args = arguments;
-            clearTimeout(fn.id);
-            fn.id = setTimeout(function () {
-                fn.call(_this, _args)
-            }, delay)
+        debounce(fn, delay ,first=false){
+            let _first=first;
+            return function () {
+                clearTimeout(fn.id);
+                if(_first){
+                    fn.call(this, arguments);
+                    _first=!_first;
+                }
+                fn.id = setTimeout(() => {
+                    fn.call(this, arguments)
+                }, delay)
+            }
         },
 //***************对象及其他模块END**************************/
 //***************cookie模块*******************************/
