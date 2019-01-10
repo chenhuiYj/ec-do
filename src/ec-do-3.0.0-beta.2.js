@@ -482,6 +482,24 @@ let ecDo = (function () {
             let flattened = [].concat(...arr);
             return flattened.some(item => Array.isArray(item)) ? this.steamroller(flattened) : flattened;
         },
+        /**
+         * @description 分割数组
+         * @param arr
+         * @param num
+         * @return {Array}
+         */
+        cut(arr, num){
+            let result = [], start = 0;
+            do {
+                result.push(arr.slice(start, num + start));
+                start += num;
+            }
+            while ((arr.length - start) > num)
+            {
+                result.push(arr.slice(start))
+            }
+            return result;
+        },
 //***************数组模块END**************************/
 
 
