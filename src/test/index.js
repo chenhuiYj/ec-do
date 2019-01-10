@@ -36,7 +36,7 @@ function checkValue(val, vals) {
     }
     return vals.indexOf(_val) !== -1;
 }
-let ecDoExtend={
+let ecDoExtend = {
     checkType(type, fn){
         ruleData.checkType[type] = fn;
     },
@@ -46,6 +46,186 @@ let ecDoExtend={
             filterObj[fnName] = fn;
         }
     },
+}
+let ecDoDom = {
+    //***************DOM模块*******************************/
+//测试用例参考example/dom.html
+    /**
+     * @description 检测对象是否有哪个类名
+     * @param obj
+     * @param classStr
+     * @return {boolean}
+     */
+    asClass(obj, classStr) {
+        return obj.className.split(/\s+/).indexOf(classStr) === -1 ? false : true;
+    },
+    /**
+     * @description 添加类名
+     * @param obj
+     * @param classStr
+     * @return {ecDo}
+     */
+    addClass(obj, classStr) {
+        if ((isType(obj, 'array') || isType(obj, 'elements')) && obj.length >= 1) {
+            for (let i = 0, len = obj.length; i < len; i++) {
+                if (!hasClass(obj[i], classStr)) {
+                    obj[i].className += " " + classStr;
+                }
+            }
+        }
+        else {
+            if (!hasClass(obj, classStr)) {
+                obj.className += " " + classStr;
+            }
+        }
+        return this;
+    },
+    /**
+     * @description 删除类名
+     * @param obj
+     * @param classStr
+     * @return {ecDo}
+     */
+    removeClass(obj, classStr) {
+        let reg;
+        if ((isType(obj, 'array') || isType(obj, 'elements')) && obj.length > 1) {
+            for (let i = 0, len = obj.length; i < len; i++) {
+                if (hasClass(obj[i], classStr)) {
+                    reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
+                    obj[i].className = obj[i].className.replace(reg, '');
+                }
+            }
+        }
+        else {
+            if (hasClass(obj, classStr)) {
+                reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
+                obj.className = obj.className.replace(reg, '');
+            }
+        }
+        return this;
+    },
+    /**
+     * @description 替换类名
+     * @param obj
+     * @param newName
+     * @param oldName
+     * @return {ecDo}
+     */
+    replaceClass(obj, newName, oldName) {
+        removeClass(obj, oldName);
+        addClass(obj, newName);
+        return this;
+    },
+    /**
+     * @description 获取兄弟节点
+     * @param obj
+     * @param opt
+     * @return {Array}
+     */
+    siblings(obj, opt) {
+        let a = []; //定义一个数组，用来存obj的兄弟元素
+        let p = obj.previousSibling;
+        while (p) { //先取obj的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling
+            if (p.nodeType === 1) {
+                a.push(p);
+            }
+            p = p.previousSibling //最后把上一个节点赋给p
+        }
+        a.reverse(); //把顺序反转一下 这样元素的顺序就是按先后的了
+        let n = obj.nextSibling; //再取obj的弟弟
+        while (n) { //判断有没有下一个弟弟结点 n是nextSibling的意思
+            if (n.nodeType === 1) {
+                a.push(n);
+            }
+            n = n.nextSibling;
+        }
+        if (opt) {
+            let _opt = opt.substr(1);
+            let b = [];//定义一个数组，用于储存过滤a的数组
+            if (opt[0] === '.') {
+                b = a.filter(item => item.className === _opt);
+            }
+            else if (opt[0] === '#') {
+                b = a.filter(item => item.id === _opt);
+            }
+            else {
+                b = a.filter(item => item.tagName.toLowerCase() === opt);
+            }
+            return b;
+        }
+        return a;
+    },
+    /**
+     * @description 设置样式
+     * @param dom
+     * @param json
+     * @return {ecDo}
+     */
+    css(dom, json) {
+        if (dom.length) {
+            for (let i = 0; i < dom.length; i++) {
+                for (let attr in json) {
+                    dom[i].style[attr] = json[attr];
+                }
+            }
+        }
+        else {
+            for (let attr in json) {
+                dom.style[attr] = json[attr];
+            }
+        }
+        return this;
+    },
+    /**
+     * @description 设置或获取innerHTML
+     * @param obj
+     * @return {*}
+     */
+    html(obj) {
+        if (arguments.length === 1) {
+            return obj.innerHTML;
+        } else if (arguments.length === 2) {
+            obj.innerHTML = arguments[1];
+        }
+        return this;
+    },
+    /**
+     * @description 设置或获取文本内容
+     * @param obj
+     * @return {*}
+     */
+    text(obj) {
+        if (arguments.length === 1) {
+            return obj.innerHTML;
+        } else if (arguments.length === 2) {
+            obj.innerHTML = filterStr.handle('html', arguments[1]);
+        }
+        return this;
+    },
+    /**
+     * @description 显示元素
+     * @param obj
+     * @return {ecDo}
+     */
+    show(obj){
+        let blockArr = ['div', 'li', 'ul', 'ol', 'dl', 'table', 'article', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'hr', 'header', 'footer', 'details', 'summary', 'section', 'aside']
+        if (blockArr.indexOf(obj.tagName.toLocaleLowerCase()) === -1) {
+            obj.style.display = 'inline';
+        }
+        else {
+            obj.style.display = 'block';
+        }
+        return this;
+    },
+    /**
+     * @description 隐藏元素
+     * @param obj
+     * @return {ecDo}
+     */
+    hide(obj){
+        obj.style.display = "none";
+        return this;
+    }
 }
 //***************字符串模块**************************/
 /**
@@ -113,7 +293,7 @@ function encryptStr(str, regIndex, ARepText = '*') {
     regText = '(\\w{' + _regIndex[0] + '})\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '}';
     Reg = new RegExp(regText);
     //let replaceCount = repeatStr(replaceText, (1 + _regIndex[1] - _regIndex[0]));
-    let replaceCount =replaceText.repeat((1 + _regIndex[1] - _regIndex[0]));
+    let replaceCount = replaceText.repeat((1 + _regIndex[1] - _regIndex[0]));
     return str.replace(Reg, '$1' + replaceCount);
 }
 /**
@@ -128,9 +308,9 @@ function encryptUnStr(str, regIndex, ARepText = '*') {
     regText = '(\\w{' + _regIndex[0] + '})(\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '})(\\w{' + (str.length - _regIndex[1] - 1) + '})';
     Reg = new RegExp(regText);
     //let replaceCount1 = repeatStr(replaceText, _regIndex[0]);
-    let replaceCount1 =replaceText.repeat( _regIndex[0]);
+    let replaceCount1 = replaceText.repeat(_regIndex[0]);
     //let replaceCount2 = repeatStr(replaceText, str.length - _regIndex[1] - 1);
-    let replaceCount2 =replaceText.repeat( str.length - _regIndex[1] - 1);
+    let replaceCount2 = replaceText.repeat(str.length - _regIndex[1] - 1);
     return str.replace(Reg, replaceCount1 + '$2' + replaceCount2);
 }
 /**
@@ -140,7 +320,7 @@ function encryptStartStr(str, length, replaceText = '*') {
     let regText = '(\\w{' + length + '})';
     let Reg = new RegExp(regText);
     //let replaceCount = repeatStr(replaceText, length);
-    let replaceCount =replaceText.repeat(length);
+    let replaceCount = replaceText.repeat(length);
     return str.replace(Reg, replaceCount);
 }
 /**
@@ -193,25 +373,25 @@ function filterStr(str, type, replaceStr = '') {
     return filterObj[fnName] ? filterObj[fnName].apply(null, arr) : false;
 }
 
-let filterObj={
+let filterObj = {
     /**
      * @description 过滤字符串的特殊符号
      */
     filterSpecialStr(str, replaceStr = '', spStr){
-        let regText = '$()[]{}?\|^*+./\"\'+', pattern,_regText= "[^0-9A-Za-z\\s",nowStr;
+        let regText = '$()[]{}?\|^*+./\"\'+', pattern, _regText = "[^0-9A-Za-z\\s", nowStr;
         //是否有哪些特殊符号需要保留
         if (spStr) {
             for (let j = 0, len = spStr.length; j < len; j++) {
-                nowStr='';
+                nowStr = '';
                 if (regText.indexOf(spStr[j]) === -1) {
-                    nowStr ='\\';
+                    nowStr = '\\';
                 }
-                _regText +=nowStr+spStr[j];
+                _regText += nowStr + spStr[j];
             }
             _regText += ']';
         }
         else {
-            _regText="[^0-9A-Za-z\\s]";
+            _regText = "[^0-9A-Za-z\\s]";
         }
         pattern = new RegExp(_regText, 'g');
         return str = str.replace(pattern, replaceStr);
@@ -257,49 +437,49 @@ let filterObj={
  * @description 过滤字符串的特殊符号
  */
 function filterSpecialStr(str, replaceStr = '', spStr) {
-    return filterObj.filterSpecialStr.apply(null,arguments);
+    return filterObj.filterSpecialStr.apply(null, arguments);
 }
 /**
  * @description 过滤字符串的html标签
  */
 function filterHtml(str, replaceStr = '') {
     //return str.replace(/<\/?[^>]*>/g, replaceStr);
-    return filterObj.filterHtml.apply(null,arguments);
+    return filterObj.filterHtml.apply(null, arguments);
 }
 /**
  * @description 过滤字符串的表情
  */
 function filterEmjoy(str, replaceStr = '') {
     //return str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/ig, replaceStr);
-    return filterObj.filterEmjoy.apply(null,arguments);
+    return filterObj.filterEmjoy.apply(null, arguments);
 }
 /**
  * @description 过滤字符串的大写字母
  */
 function filterWordUpper(str, replaceStr = '') {
     //return str.replace(/[A-Z]/g, replaceStr);
-    return filterObj.filterWordUpper.apply(null,arguments);
+    return filterObj.filterWordUpper.apply(null, arguments);
 }
 /**
  * @description 过滤字符串的小写字母
  */
 function filterWordLower(str, replaceStr = '') {
     //return str.replace(/[a-z]/g, replaceStr);
-    return filterObj.filterWordLower.apply(null,arguments);
+    return filterObj.filterWordLower.apply(null, arguments);
 }
 /**
  * @description 过滤字符串的数字
  */
 function filterNumber(str, replaceStr = '') {
     //return str.replace(/[1-9]/g, replaceStr);
-    return filterObj.filterNumber.apply(null,arguments);
+    return filterObj.filterNumber.apply(null, arguments);
 }
 /**
  * @description 过滤字符串的中文
  */
 function filterChinese(str, replaceStr = '') {
     //return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
-    return filterObj.filterChinese.apply(null,arguments);
+    return filterObj.filterChinese.apply(null, arguments);
 }
 /**
  * @description 格式化处理字符串
@@ -877,184 +1057,6 @@ function cookie(name, value, iDay) {
     }
 }
 //***************cookie模块END*******************************/
-//***************DOM模块*******************************/
-//测试用例参考example/dom.html
-/**
- * @description 检测对象是否有哪个类名
- * @param obj
- * @param classStr
- * @return {boolean}
- */
-function hasClass(obj, classStr) {
-    return obj.className.split(/\s+/).indexOf(classStr) === -1 ? false : true;
-}
-/**
- * @description 添加类名
- * @param obj
- * @param classStr
- * @return {ecDo}
- */
-function addClass(obj, classStr) {
-    if ((isType(obj, 'array') || isType(obj, 'elements')) && obj.length >= 1) {
-        for (let i = 0, len = obj.length; i < len; i++) {
-            if (!hasClass(obj[i], classStr)) {
-                obj[i].className += " " + classStr;
-            }
-        }
-    }
-    else {
-        if (!hasClass(obj, classStr)) {
-            obj.className += " " + classStr;
-        }
-    }
-    return this;
-}
-/**
- * @description 删除类名
- * @param obj
- * @param classStr
- * @return {ecDo}
- */
-function removeClass(obj, classStr) {
-    let reg;
-    if ((isType(obj, 'array') || isType(obj, 'elements')) && obj.length > 1) {
-        for (let i = 0, len = obj.length; i < len; i++) {
-            if (hasClass(obj[i], classStr)) {
-                reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
-                obj[i].className = obj[i].className.replace(reg, '');
-            }
-        }
-    }
-    else {
-        if (hasClass(obj, classStr)) {
-            reg = new RegExp('(\\s|^)' + classStr + '(\\s|$)');
-            obj.className = obj.className.replace(reg, '');
-        }
-    }
-    return this;
-}
-/**
- * @description 替换类名
- * @param obj
- * @param newName
- * @param oldName
- * @return {ecDo}
- */
-function replaceClass(obj, newName, oldName) {
-    removeClass(obj, oldName);
-    addClass(obj, newName);
-    return this;
-}
-/**
- * @description 获取兄弟节点
- * @param obj
- * @param opt
- * @return {Array}
- */
-function siblings(obj, opt) {
-    let a = []; //定义一个数组，用来存obj的兄弟元素
-    let p = obj.previousSibling;
-    while (p) { //先取obj的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling
-        if (p.nodeType === 1) {
-            a.push(p);
-        }
-        p = p.previousSibling //最后把上一个节点赋给p
-    }
-    a.reverse(); //把顺序反转一下 这样元素的顺序就是按先后的了
-    let n = obj.nextSibling; //再取obj的弟弟
-    while (n) { //判断有没有下一个弟弟结点 n是nextSibling的意思
-        if (n.nodeType === 1) {
-            a.push(n);
-        }
-        n = n.nextSibling;
-    }
-    if (opt) {
-        let _opt = opt.substr(1);
-        let b = [];//定义一个数组，用于储存过滤a的数组
-        if (opt[0] === '.') {
-            b = a.filter(item => item.className === _opt);
-        }
-        else if (opt[0] === '#') {
-            b = a.filter(item => item.id === _opt);
-        }
-        else {
-            b = a.filter(item => item.tagName.toLowerCase() === opt);
-        }
-        return b;
-    }
-    return a;
-}
-/**
- * @description 设置样式
- * @param dom
- * @param json
- * @return {ecDo}
- */
-function css(dom, json) {
-    if (dom.length) {
-        for (let i = 0; i < dom.length; i++) {
-            for (let attr in json) {
-                dom[i].style[attr] = json[attr];
-            }
-        }
-    }
-    else {
-        for (let attr in json) {
-            dom.style[attr] = json[attr];
-        }
-    }
-    return this;
-}
-/**
- * @description 设置或获取innerHTML
- * @param obj
- * @return {*}
- */
-function html(obj) {
-    if (arguments.length === 1) {
-        return obj.innerHTML;
-    } else if (arguments.length === 2) {
-        obj.innerHTML = arguments[1];
-    }
-    return this;
-}
-/**
- * @description 设置或获取文本内容
- * @param obj
- * @return {*}
- */
-function text(obj) {
-    if (arguments.length === 1) {
-        return obj.innerHTML;
-    } else if (arguments.length === 2) {
-        obj.innerHTML = filterStr.handle('html', arguments[1]);
-    }
-    return this;
-}
-/**
- * @description 显示元素
- * @param obj
- * @return {ecDo}
- */
-function show(obj) {
-    let blockArr = ['div', 'li', 'ul', 'ol', 'dl', 'table', 'article', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'hr', 'header', 'footer', 'details', 'summary', 'section', 'aside']
-    if (blockArr.indexOf(obj.tagName.toLocaleLowerCase()) === -1) {
-        obj.style.display = 'inline';
-    }
-    else {
-        obj.style.display = 'block';
-    }
-    return this;
-}
-/**
- * @description 隐藏元素
- * @param obj
- * @return {ecDo}
- */
-function hide(obj) {
-    obj.style.display = "none";
-    return this;
-}
 /** @description  封装ajax函数
  *  @param {string}obj.type http连接的方式，包括POST和GET两种方式
  *  @param {string}obj.url 发送请求的url
@@ -1200,6 +1202,7 @@ function loadImg(className, cb) {
             }
         }
     }
+
     handleLoad(_dom.shift());
 }
 /**
@@ -1283,16 +1286,7 @@ export {
     getCookie,
     removeCookie,
     cookie,
-    hasClass,
-    addClass,
-    removeClass,
-    replaceClass,
-    siblings,
-    css,
-    html,
-    text,
-    show,
-    hide,
+    ecDoDom,
     ajax,
     aftLoadImg,
     lazyLoadImg,
