@@ -793,7 +793,6 @@ param **{Array}** arr-待处理数组
 
 param **{Number}** num-分割区间
 
-param **{Boolean}** deep-是否深拷贝
 ##### demo
 
     ecDo.cut([0,.....,100])
