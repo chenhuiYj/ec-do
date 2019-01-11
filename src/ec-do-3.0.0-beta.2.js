@@ -486,17 +486,22 @@ let ecDo = (function () {
          * @description 分割数组
          * @param arr
          * @param num
+         * @param deep
          * @return {Array}
          */
-        cut(arr, num){
+        cut(arr, num, deep=false){
             let result = [], start = 0;
+            let _arr=arr;
+            if(deep){
+                _arr=this.clone(arr);
+            }
             do {
-                result.push(arr.slice(start, num + start));
+                result.push(_arr.slice(start, num + start));
                 start += num;
             }
-            while ((arr.length - start) > num)
+            while ((_arr.length - start) > num)
             {
-                result.push(arr.slice(start))
+                result.push(_arr.slice(start))
             }
             return result;
         },
