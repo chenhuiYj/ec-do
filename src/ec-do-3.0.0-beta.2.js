@@ -489,16 +489,6 @@ let ecDo = (function () {
          * @return {Array}
          */
         cut(arr, num){
-            // let result = [], start = 0;
-            // do {
-            //     result.push(arr.slice(start, num + start));
-            //     start += num;
-            // }
-            // while ((arr.length - start) > num)
-            // {
-            //     result.push(arr.slice(start))
-            // }
-            //return result;
             let result = [];
             for(let i=0;i<arr.length;i+=num){
                 result.push(arr.slice(i,i+num))
