@@ -26,7 +26,10 @@
             ecDo.aftLoadImg({
                 dom:oImg[i],
                 url:oImg[i].dataset.src,
-                errorUrl:oImg[i].src
+                errorUrl:oImg[i].src,
+                fn:function (dom,msg) {
+                    console.log(`第${i+1}张图${msg?'加载成功':'加载失败'}`)
+                }
             })
         }
     }

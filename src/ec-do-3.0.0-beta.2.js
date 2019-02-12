@@ -1091,14 +1091,14 @@ let ecDo = (function () {
             oImg.onload = function () {
                 obj.dom.src = oImg.src;
                 if (obj.fn && _this.isType(obj.fn, 'function')) {
-                    obj.fn(obj.dom);
+                    obj.fn(obj.dom,true);
                 }
             };
             if (obj.errorUrl) {
                 oImg.onerror = function () {
                     obj.src = obj.errorUrl;
                     if (obj.fn && _this.isType(obj.fn, 'function')) {
-                        obj.fn(obj.dom);
+                        obj.fn(obj.dom,false);
                     }
                 }
             }
