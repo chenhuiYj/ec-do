@@ -350,14 +350,12 @@ let ecDo = (function () {
             }
             let newObj = obj.constructor === Array ? [] : {};
             for (let key in obj) {
-                if (obj[key]) {
-                    if (obj[key] && typeof obj[key] === 'object') {
-                        newObj[key] = obj[key].constructor === Array ? [] : {};
-                        //递归
-                        newObj[key] = this.clone(obj[key]);
-                    } else {
-                        newObj[key] = obj[key];
-                    }
+                if (obj[key] && typeof obj[key] === 'object') {
+                    newObj[key] = obj[key].constructor === Array ? [] : {};
+                    //递归
+                    newObj[key] = this.clone(obj[key]);
+                } else {
+                    newObj[key] = obj[key];
                 }
             }
             return newObj;
