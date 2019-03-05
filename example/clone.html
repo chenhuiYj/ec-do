@@ -8,12 +8,14 @@
 <script src="../src/ec-do-3.0.0-beta.2.js"></script>
 <script>
     let arr=[{a:null,b:undefined,c:9},{a:2,b:function () {
-        
-    },c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+
+    },c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7},[1,2,3,{a:4,b:2,c:5}]]
+
+    //let arr=[1,2,[3,{a:4,b:2,c:5}]]
     let arrNew=ecDo.clone(arr);
     arrNew[0].a=2;
-    console.log(arrNew[0]);
-    console.log(arr[0]);
+    console.log(arrNew);
+    console.log(arr);
 </script>
 </body>
 </html>
