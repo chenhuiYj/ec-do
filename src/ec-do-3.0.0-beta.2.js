@@ -41,6 +41,9 @@ let ecDo = (function () {
     }
 
     return {
+        /**
+         * @description 扩展函数
+         */
         extend: {
             checkType(type, fn){
                 ruleData.checkType[type] = fn;
