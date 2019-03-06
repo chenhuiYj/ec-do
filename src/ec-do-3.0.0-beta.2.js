@@ -563,6 +563,15 @@ let ecDo = (function () {
             return _fmt;
         },
         /**
+         * @description 返回某一个月份的最后一天的日期
+         * @param month 默认是当前月份
+         * @param year 默认是当前年份
+         * @return string yyyy/mm/dd
+         */
+        getDayByMonth(month=new Date().getMonth()+1,year=new Date().getFullYear()){
+            return new Date(year,month,0).toLocaleDateString();
+        },
+        /**
          * @description 随机产生颜色
          * @return {string}
          */

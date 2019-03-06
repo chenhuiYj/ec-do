@@ -848,7 +848,25 @@ param **{String}** fmt-时间格式
     console.log(ecDo.formatDate(1526071153233));
 result：2018-05-12 04:39:13
 
-### 46.randomColor
+### 46.getDayByMonth
+
+##### description
+
+    ecDo.getDayByMonth(month,year)
+
+description-时间格式化
+
+param **{String}** month-月份（默认当前月份）
+param **{String}** year-年份（默认当前年份）
+##### demo
+
+    console.log(ecDo.getDayByMonth(1));
+result："2019/1/31"
+    console.log(ecDo.getDayByMonth(12,2018));
+result："2018/12/31"
+
+
+### 47.randomColor
 
 ##### description
 
@@ -863,7 +881,7 @@ result:#0d4814
     console.log(ecDo.randomColor());
 result:rgb(118,235,151)
 
-### 47.randomNumber
+### 48.randomNumber
 
 ##### description
 
@@ -885,7 +903,7 @@ result：7
     //返回0-100000000的随机整数，包括0，10
  ecDo.randomNumber()
 
-### 48.setUrlPrmt
+### 49.setUrlPrmt
 
 ##### description
 
@@ -902,7 +920,7 @@ param **{Object}** obj-需要设置的参数
     console.log(ecDo.setUrlParam('http://sss.com',{'a':1,'b':2}));
 result：http://sss.com?a=1&b=2
 
-### 49.getUrlParam
+### 50.getUrlParam
 
 ##### description
 
@@ -917,7 +935,7 @@ param **{String}** url-超链接
     ecDo.getUrlParam('github.com?draftId=122000011938')
 result：{draftId: "122000011938"}
 
-### 50.upDigit
+### 51.upDigit
 
 ##### description
 
@@ -941,7 +959,7 @@ result："人民币壹仟陆佰捌拾贰元整"
     ecDo.upDigit(-1693)
 result："欠人民币壹仟陆佰玖拾叁元整"
 
-### 51.clearKeys
+### 52.clearKeys
 
 ##### description
 
@@ -956,7 +974,7 @@ param **{Object}** obj-待处理对象
     ecDo.clearKeys({a:"",b:null,c:"010",d:123})
     result：{c: "010", d: 123}
 
-### 52.fillKeys
+### 53.fillKeys
 
 ##### description
 
@@ -971,7 +989,7 @@ param **{Object}** obj-待处理对象
     ecDo.fillKeys({a:"",b:null,c:"010",d:123})
     result：{a:"--",b:'--',c:"010",d:123}
 
-### 53.isType
+### 54.isType
 
 ##### description
 
@@ -998,7 +1016,7 @@ param **{String}** type-类型字符串
 
 
 
-### 54.getBrowserInfo
+### 55.getBrowserInfo
 
 ##### description
 
@@ -1015,7 +1033,7 @@ result：是安卓就返回true，否则就false
     ecDo.getBrowserInfo()
 result：返回手机浏览器的信息
 
-### 55.throttle
+### 56.throttle
 
 ##### description
 
@@ -1043,7 +1061,7 @@ param **{Object}** option-配置项  default:{first:true,last:true}
 
 参考：example/throttle.html
 
-### 56.debounce
+### 57.debounce
 
 ##### description
 
@@ -1068,7 +1086,7 @@ param **{Bool}** delay-首次执行
 
 参考：example/delayFn.html
 
-### 57.setCookie
+### 58.setCookie
 
 ##### description
 
@@ -1084,7 +1102,7 @@ param **{Int}** iDay-时间（天数）
 
     ecDo.setCookie('test', 'testcookie', 2)
 
-### 58.getCookie
+### 59.getCookie
 
 ##### description
 
@@ -1098,7 +1116,7 @@ param **{String}** name-cookie名
 
     ecDo.getCookie('test')
 
-### 59.removeCookie
+### 60.removeCookie
 
 ##### description
 
@@ -1112,7 +1130,7 @@ param **{String}** name-cookie名
 
     ecDo.removeCookie('test')
 
-### 60.cookie
+### 61.cookie
 
 ##### description
 
@@ -1131,7 +1149,7 @@ param **{Int}** iDay-时间（天数）
     ecDo.cookie('test', 'testcookie', -1)//删除，中间的值已经没有意义，只要天数设置-1，cookie就会无效
 
 
-### 61.hasClass
+### 62.hasClass
 
 ##### description
 
@@ -1147,7 +1165,7 @@ param **{String}** classStr-class名
     ecDo.hasClass(obj,'test')
 result:true|false
 
-### 62.addClass
+### 63.addClass
 
 ##### description
 
@@ -1162,7 +1180,7 @@ param **{String}** classStr-class名
 
     ecDo.addClass(obj,'test')
 
-### 63.removeClass
+### 64.removeClass
 
 ##### description
 
@@ -1177,7 +1195,7 @@ param **{String}** classStr-class名
 
     ecDo.removeClass(obj,'test')
 
-### 64.replaceClass
+### 65.replaceClass
 
 ##### description
 
@@ -1193,7 +1211,7 @@ param **{String}** oldName-替换的类名
 
     ecDo.replaceClass(obj,'test','afterClass')
 
-### 65.siblings
+### 66.siblings
 
 ##### description
 
@@ -1210,7 +1228,7 @@ param **{String}** opt-过滤条件
     result：符合条件的Dom对象
 
 
-### 66.css
+### 67.css
 
 ##### description
 
@@ -1225,7 +1243,7 @@ param **{Object}** json-样式名
 
     ecDo.css(obj,{'width':'300px','height':'300px'})
 
-### 67.html
+### 68.html
 
 ##### description
 
@@ -1244,7 +1262,7 @@ param **{String}** str-html内容
 
     ecDo.html(obj,'<div>1111</div>')
 
-### 68.text
+### 69.text
 
 ##### description
 
@@ -1263,7 +1281,7 @@ param **{String}** str-内容(html标签将会被过滤)
 
     ecDo.text(obj,'1230.312asd')
 
-### 69.show
+### 70.show
 
 ##### description
 
@@ -1277,7 +1295,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.show(obj)
 
-### 70.hide
+### 71.hide
 
 ##### description
 
@@ -1291,7 +1309,7 @@ param **{Object}** obj-Dom对象
 
     ecDo.hide(obj)
 
-### 71.ajax
+### 72.ajax
 
 ##### description
 
@@ -1321,7 +1339,7 @@ param **{Object}** 对象参数
       	}
     })
 
-### 72.aftLoadImg
+### 73.aftLoadImg
 
 ##### description
 
@@ -1338,7 +1356,7 @@ param **{Function}** obj.fn-回调函数,参数为obj.dom
 
 参考example/aftLoadImg.html
 
-### 73.lazyLoadImg
+### 74.lazyLoadImg
 
 ##### description
 
@@ -1371,7 +1389,7 @@ param **{String}** errorUrl-出错的图片的url
 
 参考example/lazyLoadImg.html
 
-### 74.loadImg
+### 75.loadImg
 
 ##### description
 
@@ -1386,7 +1404,7 @@ param **{function}** cb-加载完毕的回调函数
 
 参考example/loadImg.html,example/loadImg1.html
 
-### 75.findKeyword
+### 76.findKeyword
 
 ##### description
 
