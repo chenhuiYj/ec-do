@@ -407,9 +407,7 @@ let ecDo = (function () {
                 arr1.push({el: o, count: obj[o]});
             }
             //排序（降序）
-            arr1.sort(function (n1, n2) {
-                return n2.count - n1.count
-            });
+            arr1.sort((n1, n2)=> n2.count - n1.count);
             return arr1;
         },
         /**
