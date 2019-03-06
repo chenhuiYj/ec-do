@@ -31,6 +31,16 @@ ecDo.trim(' asdXaaaXHwwHwwad  ')
 
 > 下面方法，如果在 **demo** 看到 **'result：'** 证明此函数是拥有返回值的函数，否则函数就没有返回值
 
+### extend 扩展
+
+支持扩展函数列表
+
+函数名称 | demo
+--------| -----
+checkType|[example/checkType.html](https://github.com/chenhuiYj/ec-do/blob/master/example/checkType.html)
+filterStr|[example/filterStr.html](https://github.com/chenhuiYj/ec-do/blob/master/example/filterStr.html)
+
+
 ### 1.trim
 
 ##### description
