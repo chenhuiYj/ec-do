@@ -1158,6 +1158,7 @@ param **{Int}** iDay-时间（天数）
     ecDo.cookie('test')//获取
     ecDo.cookie('test', 'testcookie', -1)//删除，中间的值已经没有意义，只要天数设置-1，cookie就会无效
 
+## ec-dom
 
 ### 62.hasClass
 
