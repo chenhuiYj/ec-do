@@ -163,7 +163,8 @@ let ecValidate = (function () {
          * @return {*}
          */
         isCount(val, msg){
-            if (!/^[1-9]{1}\d*(.\d{1,2})?$|^[0]{1}$|^0.\d{1,2}$/.test(val)) {
+            debugger;
+            if (!/^[1-9]{1}\d*(.\d{1,})?$|^[0]{1}$|^0.\d{1,}$/.test(val)) {
                 return msg
             }
         },

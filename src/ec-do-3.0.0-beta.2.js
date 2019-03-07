@@ -6,7 +6,7 @@ let ecDo = (function () {
                 return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
             },
             mobile(str){
-                return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
+                return /^1[3|4|5|7|8|9][0-9]{9}$/.test(str);
             },
             tel(str){
                 return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
@@ -436,23 +436,18 @@ let ecDo = (function () {
          * @description 排除对象某些项
          * @param obj
          * @param keys
-         * @return {Array}
+         * @return {*}
          */
         filterKeys(obj, keys) {
-            let newArr = [];
-            let _keys = keys.split(','), newArrOne = {};
-            let _arr = [].concat(obj);
-            for (let i = 0, len = _arr.length; i < len; i++) {
-                newArrOne = {};
-                for (let key in _arr[i]) {
-                    //如果key不存在排除keys里面,添加数据
-                    if (_keys.indexOf(key) === -1) {
-                        newArrOne[key] = _arr[i][key];
-                    }
+            let _obj = {};
+            let _keys = keys.split(',');
+            for (let key in obj) {
+                //如果key不存在排除keys里面,添加数据
+                if (_keys.indexOf(key) === -1) {
+                    _obj[key] = obj[key];
                 }
-                newArr.push(newArrOne);
             }
-            return newArr;
+            return _obj;
         },
         /**
          * @description 对象数组排序
@@ -815,10 +810,10 @@ let ecDo = (function () {
         /**
          * @description 设置cookie
          */
-        setCookie(name, value, iDay){
+        setCookie(name, val, iDay){
             let oDate = new Date();
             oDate.setDate(oDate.getDate() + iDay);
-            document.cookie = name + '=' + value + ';expires=' + oDate;
+            document.cookie = name + '=' + val + ';expires=' + oDate;
         },
         /**
          * @description 获取cookie
@@ -842,12 +837,12 @@ let ecDo = (function () {
         /**
          * @description 操作cookie
          */
-        cookie(name, value, iDay){
+        cookie(name, val, iDay){
             if (arguments.length === 1) {
                 return this.getCookie(name);
             }
             else {
-                this.setCookie(name, value, iDay);
+                this.setCookie(name, val, iDay);
             }
         },
 //***************cookie模块END*******************************/
