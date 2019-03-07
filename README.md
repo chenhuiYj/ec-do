@@ -975,14 +975,21 @@ result："欠人民币壹仟陆佰玖拾叁元整"
 
     ecDo.clearKeys(obj)
 
-description-过滤对象里面值为null或者underfind的的属性underfind的属性
+description-情动对象里面值为null或者underfind的的属性underfind的属性
 
 param **{Object}** obj-待处理对象
+
+param **{Array}** keepValues-保留的值  默认[0, false]
 
 ##### demo
 
     ecDo.clearKeys({a:"",b:null,c:"010",d:123})
     result：{c: "010", d: 123}
+
+    ecDo.clearKeys({a:'',b:0,c:11,d:false},[0,''])
+    result：{a: "", b: 0, c: 11}
+
+参考：example/clearKeys.html
 
 ### 53.fillKeys
 
@@ -990,14 +997,24 @@ param **{Object}** obj-待处理对象
 
     ecDo.fillKeys(obj)
 
-description-设置对象里面值为null或者underfind的的属性underfind的属性
+description-设置对象里面值为null或者underfind的属性的默认值
 
 param **{Object}** obj-待处理对象
+
+param **{Array}** fillValues-设置的值  默认[null, undefined, '']
+
+param **{String}** val-默认值  默认'-'
+
 
 ##### demo
 
     ecDo.fillKeys({a:"",b:null,c:"010",d:123})
     result：{a:"--",b:'--',c:"010",d:123}
+
+    ecDo.fillKeys({a:'',b:0,c:11,d:NaN},['',NaN],'*')
+    result：{a: "*", b: 0, c: 11, d: "*"}
+
+参考：example/fillKeys.html
 
 ### 54.isType
 
