@@ -736,11 +736,11 @@ result：[{a: 1, c: 9},{a: 2, c: 5},{a: 5, c: undefined},{a: 4, c: 5},{a: 4, c: 
 
 ##### description
 
-    ecDo.filterKeys(arr, keys)
+    ecDo.filterKeys(obj, keys)
 
-description-过滤对象数组某些项
+description-过滤对象某些属性
 
-param **{Array}** arr-待处理数组
+param **{Array}** obj-待处理对象
 param **{Sting}** keys-要过滤的值的属性，多个属性用','分割
 
 ##### demo
