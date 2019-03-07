@@ -55,6 +55,7 @@ let ecDo = (function () {
                 }
             },
         },
+
 //***************字符串模块**************************/
         /**
          * @description 清除左右空格
@@ -410,7 +411,7 @@ let ecDo = (function () {
                 arr1.push({el: o, count: obj[o]});
             }
             //排序（降序）
-            arr1.sort((n1, n2)=> n2.count - n1.count);
+            arr1.sort((n1, n2) => n2.count - n1.count);
             return arr1;
         },
         /**
@@ -488,8 +489,8 @@ let ecDo = (function () {
          */
         cut(arr, num){
             let result = [];
-            for(let i=0;i<arr.length;i+=num){
-                result.push(arr.slice(i,i+num))
+            for (let i = 0; i < arr.length; i += num) {
+                result.push(arr.slice(i, i + num))
             }
             return result;
         },
@@ -571,8 +572,8 @@ let ecDo = (function () {
          * @param year 默认是当前年份
          * @return string yyyy/mm/dd
          */
-        getDayByMonth(month=new Date().getMonth()+1,year=new Date().getFullYear()){
-            return new Date(year,month,0).toLocaleDateString();
+        getDayByMonth(month = new Date().getMonth() + 1, year = new Date().getFullYear()){
+            return new Date(year, month, 0).toLocaleDateString();
         },
         /**
          * @description 随机产生颜色
@@ -796,13 +797,13 @@ let ecDo = (function () {
          * @param delay 间隔时间
          * @param first 间隔时间
          */
-        debounce(fn, delay ,first=false){
-            let _first=first;
+        debounce(fn, delay, first = false){
+            let _first = first;
             return function () {
                 clearTimeout(fn.id);
-                if(_first){
+                if (_first) {
                     fn.call(this, arguments);
-                    _first=!_first;
+                    _first = !_first;
                 }
                 fn.id = setTimeout(() => {
                     fn.call(this, arguments)
