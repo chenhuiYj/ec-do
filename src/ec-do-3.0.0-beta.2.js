@@ -686,17 +686,17 @@ let ecDo = (function () {
         /**
          * @description 设置对象中值为空的属性的默认值
          * @param obj
-         * @param keepValues
+         * @param fillValues
          * @param val
          * @return {{}}
          */
-        fillKeys(obj, keepValues = [null, undefined, ''], val = '--') {
-            keepValues.forEach((item, index) => {
-                keepValues[index] = Number.isNaN(item) ? 'NaN' : item
+        fillKeys(obj, fillValues = [null, undefined, ''], val = '--') {
+            fillValues.forEach((item, index) => {
+                fillValues[index] = Number.isNaN(item) ? 'NaN' : item
             });
             let _newPar = {};
             for (let key in obj) {
-                _newPar[key] = checkValue(obj[key], keepValues) ? val : obj[key];
+                _newPar[key] = checkValue(obj[key], fillValues) ? val : obj[key];
             }
             return _newPar;
         },
