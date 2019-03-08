@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+
+</body>
 <script src="../src/ec-do-3.0.0-beta.2.js"></script>
 <script>
     let obj={a:1,b:2,c:9}
@@ -15,6 +17,8 @@
     let arr=[{a:1,b:2,c:9},{a:1,b:2,c:9},{a:1,b:2,c:9},{a:1,b:2,c:9},{a:1,b:2,c:9}];
     console.log(ecDo.handle('filterKeys',arr,'a'))
     console.log(ecDo.handle('filterKeys',arr,'a,c'))
+
+    let arr1=[{a:'',b:0,c:11},{a:null,b:2,c:11},{a:1,b:9,c:12}];
+    console.log(ecDo.handle('fillKeys',arr1,[0,'',11],'**'));
 </script>
-</body>
 </html>

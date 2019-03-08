@@ -42,7 +42,7 @@ let ecDo = (function () {
 
     return {
         /**
-         * @description 扩展函数
+         * @description 扩展函数配置数据
          */
         extend: {
             checkType(type, fn){
@@ -54,6 +54,20 @@ let ecDo = (function () {
                     ecDo[fnName] = fn;
                 }
             },
+        },
+        /**
+         * @description 批量处理函数
+         */
+        handle(){
+            let result=[],_arguments=[...arguments];
+            let fnName=_arguments.shift();
+            let arr=_arguments.shift();
+            for(let i=0;i<arr.length;i++){
+                _arguments.unshift(arr[i]);
+                result.push(this[fnName].apply(this,_arguments))
+                _arguments.shift();
+            }
+            return result;
         },
 
 //***************字符串模块**************************/
