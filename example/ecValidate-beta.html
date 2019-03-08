@@ -124,10 +124,19 @@
 <script src="../src/ec-validate-beta.js"></script>
 <script>
     //检测数据类型
+//    let tips=ecValidate.check([
+//        {
+//            el:'0.123',
+//            rules:[{rule:'isCount',msg:'传进去的不是有效数值类型'}]
+//        }
+//    ]);
     let tips=ecValidate.check([
         {
-            el:'0.123',
-            rules:[{rule:'isCount',msg:'传进去的不是有效数值类型'}]
+            el:'188966329662',
+            rules:[
+                {rule:'isNoNull',msg:'邮箱不能为空'},
+                {rule:'isEmail',msg:'请输入有效的邮箱格式'}
+            ]
         }
     ]);
     console.log(tips);
@@ -247,7 +256,7 @@
                         alias: 'contact',
                         //校验的规则
                         rules: [
-                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确格式的电话号码或邮箱'}
                         ]
                     }
                 ])
@@ -316,6 +325,22 @@
 //            ecValidate.extend('isChinese',function (val, msg) {
 //                return !/^[\u4E00-\u9FA5]+$/.test(val) ? msg : '';
 //            })
+
+            ecValidate.extend('isPwd',function (val, msg) {
+                if (!/^[a-zA-Z0-9.]+$/.test(val)) {
+                    return msg
+                }
+            })
+
+            let tips=ecValidate.check([
+                {
+                    el:'@5626a',
+                    rules:[
+                        {rule:'isPwd',msg:'请输入正确的密码格式'},
+                    ]
+                }
+            ]);
+            console.log(tips);
         }
     })
 </script>

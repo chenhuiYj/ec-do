@@ -26,7 +26,7 @@ let ecValidate = (function () {
             return typeFn[_type]();
         }
     }
-    let ruleData = {
+    let ruleFn = {
         /**
          * @description 数据类型
          * @param val
@@ -162,8 +162,7 @@ let ecValidate = (function () {
          * @param msg
          * @return {*}
          */
-        isCount(val, msg){
-            debugger;
+        isCount(val,msg){
             if (!/^[1-9]{1}\d*(.\d{1,})?$|^[0]{1}$|^0.\d{1,}$/.test(val)) {
                 return msg
             }
@@ -335,7 +334,7 @@ let ecValidate = (function () {
                         checkRule.unshift(arr[i].el);
                         checkRule.push(arr[i].rules[j].msg);
                         //记录规则错误
-                        ruleMsg = ruleData[_rule].apply(null, checkRule);
+                        ruleMsg = ruleFn[_rule].apply(null, checkRule);
                         //如果有一项符合，跳出本次循环
                         if (!ruleMsg) {
                             ruleMsg = '';
@@ -382,7 +381,7 @@ let ecValidate = (function () {
                         checkRule.unshift(arr[i].el);
                         checkRule.push(arr[i].rules[j].msg);
                         //如果规则错误
-                        ruleMsg = ruleData[_rule].apply(null, checkRule);
+                        ruleMsg = ruleFn[_rule].apply(null, checkRule);
                         if (!ruleMsg) {
                             ruleMsg = '';
                             break;
@@ -402,7 +401,7 @@ let ecValidate = (function () {
          * @param fn
          */
         extend: function (type, fn) {
-            ruleData[type] = fn;
+            ruleFn[type] = fn;
         }
     }
 })()
