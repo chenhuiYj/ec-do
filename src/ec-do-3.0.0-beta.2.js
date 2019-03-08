@@ -176,9 +176,8 @@ let ecDo = (function () {
         /**
          * @description 检测密码强度
          */
-        checkPwdLevel(str) {
+        checkPwdLevel(str,rules = [/[0-9]/, /[a-z]/, /[A-Z]/, /[\.|-|_]/]) {
             let nowLv = 0;
-            let rules = [/[0-9]/, /[a-z]/, /[A-Z]/, /[\.|-|_]/];
             for (let i = 0; i < rules.length; i++) {
                 if (rules[i].test(str)) {
                     nowLv++;
