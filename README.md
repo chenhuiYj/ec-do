@@ -40,6 +40,9 @@ ecDo.trim(' asdXaaaXHwwHwwad  ')
 checkType|[example/checkType.html](https://github.com/chenhuiYj/ec-do/blob/master/example/checkType.html)
 filterStr|[example/filterStr.html](https://github.com/chenhuiYj/ec-do/blob/master/example/filterStr.html)
 
+### handle 批量处理
+参考demo：[example/handle.html](https://github.com/chenhuiYj/ec-do/blob/master/example/handle.html)
+
 
 ### 1.trim
 
