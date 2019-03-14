@@ -275,37 +275,6 @@ let ecValidate = (function () {
         isLowerEnglish(val, msg){
             return /[a-z]+/.test(val) ? msg : '';
         },
-        /**
-         * @description 是否是密码
-         * @param val
-         * @param msg
-         * @return {*}
-         */
-        isPassWord(val, msg){
-            if (!/^[a-zA-Z0-9._-]+$/.test(val)) {
-                return msg
-            }
-        },
-        /**
-         * @description 密码强度
-         * @param val
-         * @param msg
-         * @return {*}
-         */
-        pwdLv(val, msg){
-            let nowLv = 0;
-            if (val.length < 6) {
-                return nowLv
-            }
-            //nowLv=str.replace(/[0-9]/,' ').replace(/[A-Z]/,' ').replace(/[a-z]/,' ').replace(/[_.\-]/,' ').replace(/[^\s]/g,'').length;
-            let rules = [/[0-9]/, /[a-z]/, /[A-Z]/, /[\.|-|_]/];
-            for (let i = 0; i < rules.length; i++) {
-                if (rules[i].test(val)) {
-                    nowLv++;
-                }
-            }
-            return nowLv;
-        },
     }
     return {
         /**
@@ -360,7 +329,7 @@ let ecValidate = (function () {
          * @return {*}
          */
         checkAll: function (arr) {
-            let ruleMsg, checkRule, _rule, msgObj = {}, valObj = {}, _rules;
+            let ruleMsg, checkRule, _rule, msgObj = {}, _rules;
             for (let i = 0, len = arr.length; i < len; i++) {
                 //如果字段找不到
                 if (arr[i].el === undefined) {
@@ -404,4 +373,10 @@ let ecValidate = (function () {
             ruleFn[type] = fn;
         }
     }
-})()
+})();
+
+// ecValidate.extend('isPwd',function (val, msg) {
+//     if (!/^[a-zA-Z0-9.]+$/.test(val)) {
+//         return msg
+//     }
+// })
