@@ -423,8 +423,6 @@ let ecDo = (function () {
             for (let o in obj) {
                 arr1.push({el: o, count: obj[o]});
             }
-            //排序（降序）
-            arr1.sort((n1, n2) => n2.count - n1.count);
             return arr1;
         },
         /**
