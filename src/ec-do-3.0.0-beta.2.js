@@ -431,7 +431,7 @@ let ecDo = (function () {
          * @param val
          * @return {Array}
          */
-        removeArrayForValue(arr, val) {
+        removeArrayByValue(arr, val) {
             return arr.filter(item => item !== val)
         },
         /**
@@ -440,7 +440,7 @@ let ecDo = (function () {
          * @param val
          * @return {Array}
          */
-        removeArrayForLike(arr, val) {
+        removeArrayByLike(arr, val) {
             return arr.filter(item => item.indexOf(val) === -1);
         },
         /**
