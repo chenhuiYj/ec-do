@@ -153,6 +153,7 @@ param **{String}** str-待处理的字符串
 
 ##### description
 
+
     ecDo.encryptStr(str, regIndex, ARepText = '*')
 
 description-加密字符串*
