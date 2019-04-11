@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="div1"></div>
+</body>
+<script src="../src/ec`-do-3.0.0-beta.2.dom.js"></script>
+<script>
+    let oDiv=document.querySelector('.div1');
+    ecDom.html(oDiv,'我是守候').addClass(oDiv,'div2').replaceClass(oDiv,'div1','div3').css(oDiv,{'color':'#f00','background':'#ccc'})
+    console.log(ecDom.hasClass(oDiv,'div6'))
+    ecDom.text(oDiv,'<div class="div6">9998</div>')
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+<p><img src="lawyerOtherImg.jpg"/></p>
+<p>这是预加载的图片</p>
+<div>
+    <img data-src="https://materialdb.zhaoyl.com/201809/106796.jpg" class="load-img" width="100" height="100"/><img
+        data-src="https://materialdb.zhaoyl.com/201809/105567.jpg" class="load-img" width="100" height="100"/><img
+        data-src="https://materialdb.zhaoyl.com/201809/103097.jpg" class="load-img" width="100" height="100"/><img
+        data-src="https://materialdb.zhaoyl.com/201809/10205.jpg" class="load-img" width="100" height="100"/><img
+        data-src="https://materialdb.zhaoyl.com/201809/001.jpg" class="load-img" width="100" height="100"/>
+</div>
+</body>
+<script src="../src/ec-do-3.0.0-beta.2.js"></script>
+<script>
+    //测试请先清空缓存
+    window.onload = function () {
+        ecDo.loadImg('load-img', function () {
+            console.log('加载完毕')
+        });
+    }
+</script>
+
+</html>
+
+</body>
+</html>

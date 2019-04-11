@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../src/ec-validate.js"></script>
+<script>
+    let testData = {
+        name: 'aaa',
+        phone: 18819622663,
+        pw: 'asd9962213a',
+        money:'36.33'
+    }
+    //扩展-添加日期范围校验
+    ecValidate.addRule('isDateRank', function (val, msg) {
+        if (new Date(val[0]).getTime() >= new Date(val[1]).getTime()) {
+            return msg;
+        }
+    });
+    //校验函数调用
+    ecValidate.checkAll([
+        {
+            //校验的数据
+            el: testData.phone,
+            alias: 'mobile',
+            //校验的规则
+            rules: [
+                {rule: 'isNoNull', msg: '电话不能为空'}, {rule: 'isMobile,isEmail', msg: '手机号码格式不正确'}
+            ]
+        },
+        {
+            //校验的数据
+            el: testData.money,
+            alias: 'money',
+            //校验的规则
+            rules: [
+                {rule: 'isNoNull', msg: '金额不能为空'},{rule: 'isType:number', msg: '金额必须是数字'},
+            ]
+        },
+        {
+            el: testData.pw,
+            alias: 'pwd',
+            rules: [
+                {rule: 'isNoNull', msg: '密码不能为空'},
+                {rule: 'minLength:6', msg: '密码长度不能小于6'}
+            ]
+        },
+        {
+            el: ['2017-8-3 22:00:00', '2017-8-8 24:00:00'],
+            alias: 'date',
+            rules: [{
+                rule: 'isDateRank', msg: '日期范围不正确'
+            }]
+        }
+    ]).then(info => {
+        console.log(info)
+    }).catch(err => {
+        console.log(err)
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--beta1版本-->
+<!--<script src="../src/ec-do-3.0.0-beta.2.js"></script>-->
+<!--<script>-->
+    <!--console.log(ecDo.checkType.check('185226236', 'mobile'))-->
+    <!--ecDo.checkType.addRule('password', function (str) {-->
+        <!--return /^[-a-zA-Z0-9._]+$/.test(str);-->
+    <!--})-->
+    <!--console.log(ecDo.checkType.check('asdasd654zxc', 'password'))-->
+<!--</script>-->
+<!--beta2版本-->
+<script src="../src/ec-do-3.0.0-beta.2.js"></script>
+<script>
+    console.log(ecDo.checkType('185226236', 'mobile'))
+    ecDo.extend.checkType('password', function (str) {
+        return /^[-a-zA-Z0-9._]+$/.test(str);
+    })
+    console.log(ecDo.checkType('asdasd654zxc', 'password'))
+</script>
+</body>
+</html>

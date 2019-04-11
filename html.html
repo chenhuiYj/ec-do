@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#div1{
+				color: #f00;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="div1"></div>
+		<div class="div1"></div>
+		<div id="div2"></div>
+		<div id="div1"></div>
+		<div class="div1"></div>
+		<div class="div1"></div>
+	</body>
+<script src="src/ec-do-3.0.0-beta.1.js"></script>
+<script type="text/javascript">
+	window.onload=function () {
+//        let oDiv1 =document.querySelectorAll(".div1");
+//        let oDiv3=document.querySelector("#div1");
+//        ecDo.css(oDiv3,{'height':'100px','width':'100px','background':'#333'});
+//        ecDo.css(oDiv1,{'height':'100px','width':'100px','background':'#09f'});
+//        //let ecDo =require('./dist/ec-do-2.0.0.js');
+//		let oDiv=document.getElementById("div1");
+//		ecDo.show(oDiv);
+//        ecDo.text(oDiv,'<div id="div1">45132134656</div>');
+//        let oDiv2=ecDo.siblings(oDiv,'#div2')
+//        ecDo.css(oDiv2[0],{'height':'300px','width':'300px','background':'#ccc'})
+//
+//        console.log(ecDo.encryptStr('18819322663','3,7','-'));
+//
+//        console.log(ecDo.unEncryptStr('18819322663','3,7','-'));
+//
+//        console.log(ecDo.encryptStartStr('18819322663','3','+'));
+//        console.log(ecDo.encryptEndStr('18819322663','3','+'));
+
+        ecDo.filterStr.addType('chinese',function (str,replaceStr='') {
+            return str.replace(/[\u4E00-\u9FA5]/g, replaceStr);
+        });
+        console.log(ecDo.filterStr.handle('chinese','asdasd46撒打算的','.',''));
+//        console.log(ecDo.filterStr.handle('specialStr','asdasd46465--+*//6','...','//+'));
+
+
+        console.log(ecDo.formatDate(1526972830319,'yy-M-d h:m:s'));
+//        console.log(ecDo.checkType.check('188170239','phone'));
+//        ecDo.checkType.addRule('money',function (str) {
+//            return /^[0-9]+(.[0-9]{2})?$/.test(str)
+//        });
+//        console.log(ecDo.checkType.check('18.36','money'));
+
+
+
+
+    }
+</script>
+</html>

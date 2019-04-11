@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../src/ec-do-3.0.0-beta.2.js"></script>
+<script>
+    let obj={a:1,b:2,c:9}
+    console.log(ecDo.filterKeys(obj,'a'));
+    console.log(ecDo.filterKeys(obj,'a,c'));
+    console.log(ecDo.filterKeys({a:1,b:2,c:9},'a'));
+
+    let arr=[{a:1,b:2,c:9},{a:1,b:2,c:9},{a:1,b:2,c:9},{a:1,b:2,c:9},{a:1,b:2,c:9}];
+    console.log(ecDo.handle('filterKeys',arr,'a'))
+    console.log(ecDo.handle('filterKeys',arr,'a,c'))
+</script>
+</body>
+</html>

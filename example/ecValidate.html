@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .m-from-box {
+            margin: 100px auto;
+            border: 1px solid #ccc;
+            width: 400px;
+            height: 200px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .u-input-text {
+            border: 1px solid #ccc;
+            height: 30px;
+            width: 300px;
+            outline: none;
+            padding-left: 10px;
+        }
+
+        .u-input-text.err {
+            border: 1px solid #f00;
+        }
+
+        .u-btn-submit {
+            width: 100px;
+            height: 30px;
+            border: none;
+            background: #09f;
+            color: #fff;
+        }
+
+        .u-tips {
+            margin: 10px 0;
+            font-size: 14px;
+            padding-left: 50px;
+            color: #f00;
+            text-align: left;
+        }
+
+        .u-tips.lv1{
+            color: #f00;
+        }
+        .u-tips.lv2{
+            color: #333;
+        }
+        .u-tips.lv3{
+            color: #f90;
+        }
+        .u-tips.lv4{
+            color: #40b943;
+        }
+
+        .u-tips.success {
+            color: #4cb94c;
+        }
+    </style>
+</head>
+<body>
+<div id="form-box">
+    <!--校验单个字段-->
+    <div class="m-from-box">
+        <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo1.userName"></p>
+        <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo1.userContact"></p>
+        <p class="u-tips">{{demo1.tips}}</p>
+        <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit1"></p>
+    </div>
+    <!--校验单个字段，带别名定位-->
+    <div class="m-from-box">
+        <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo2.userName"
+                  :class="{'err':demo2.tips.userName}"></p>
+        <p class="u-tips">{{demo2.tips.userName}}</p>
+        <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo2.userContact"
+                  :class="{'err':demo2.tips.contact}"></p>
+        <p class="u-tips">{{demo2.tips.contact}}</p>
+        <p class="u-tips success" v-if="demo2.tips==='success'">提交成功</p>
+        <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit2"></p>
+    </div>
+
+    <!--校验全部-->
+    <div class="m-from-box">
+        <p><input type="text" class="u-input-text" placeholder="请输入姓名" v-model="demo3.userName"
+                  :class="{'err':demo3.tips.userName}"></p>
+        <p class="u-tips">{{demo3.tips.userName}}</p>
+        <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo3.userContact"
+                  :class="{'err':demo3.tips.contact}"></p>
+        <p class="u-tips">{{demo3.tips.contact}}</p>
+        <p class="u-tips success" v-if="demo3.tips==='success'">提交成功</p>
+        <p><input type="button" class="u-btn-submit" value="提交" @click="handleSubmit3"></p>
+    </div>
+    <!--单个输入，实时校验-->
+    <div class="m-from-box">
+        <p><input type="text" class="u-input-text" placeholder="请输入电话或者邮箱" v-model="demo4.userContact"
+                  :class="{'err':demo4.tips&&demo4.tips!=='success'}"  @input="handleInput4"></p>
+        <p class="u-tips" v-if="demo4.tips!=='success'">{{demo4.tips}}</p>
+        <p class="u-tips success" v-else>输入成功</p>
+    </div>
+    <!--单个输入，实时校验-密码强度-->
+    <div class="m-from-box">
+        <p><input type="text" class="u-input-text" placeholder="请输入密码" v-model="demo5.pwd"  @input="handleInput5"></p>
+        <p class="u-tips" :class="'lv'+demo5.tips" v-show="demo5.tips">密码强度：{{demo5.tips}}</p>
+    </div>
+</div>
+
+</body>
+<script src="../src/vue.min.js"></script>
+<script src="../src/ec-validate.js"></script>
+<script>
+    new Vue({
+        el: '#form-box',
+        data: {
+            demo1: {
+                userName: '',
+                userContact: '',
+                tips: ''
+            },
+            demo2: {
+                userName: '',
+                userContact: '',
+                tips: {}
+            },
+            demo3: {
+                userName: '',
+                userContact: '',
+                tips: {}
+            },
+            demo4: {
+                userContact: '',
+                tips:'',
+            },
+            demo5: {
+                pwd:'',
+                tips: '',
+            }
+
+        },
+        methods: {
+            handleSubmit1(){
+                let _this = this;
+                ecValidate.check([
+                    {
+                        //校验的数据
+                        el: _this.demo1.userName,
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '姓名不能为空'}
+                        ],
+                    },
+                    {
+                        //校验的数据
+                        el: _this.demo1.userContact,
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                        ]
+                    }
+                ]).then(info => {
+                    this.demo1.tips = info
+                }).catch(err => {
+                    this.demo1.tips = err
+                });
+            },
+            handleSubmit2(){
+                let _this = this;
+                //在校验数组里面加上alias字段，保存错误信息。该字段要保证值唯一性，并且要么全部加上，要么全部不加，不然可能会造成页面错误
+                ecValidate.check([
+                    {
+                        //校验的数据
+                        el: _this.demo2.userName,
+                        alias: 'userName',
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '姓名不能为空'}
+                        ],
+                    },
+                    {
+                        //校验的数据
+                        el: _this.demo2.userContact,
+                        alias: 'contact',
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                        ]
+                    }
+                ]).then(info => {
+                    this.demo2.tips = info
+                }).catch(err => {
+                    this.demo2.tips = err
+                });
+            },
+
+
+            handleSubmit3(){
+                let _this = this;
+                //checkAll校验全部的函数，必须要加上alias字段。
+                ecValidate.checkAll([
+                    {
+                        //校验的数据
+                        el: _this.demo3.userName,
+                        alias: 'userName',
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '姓名不能为空'}
+                        ],
+                    },
+                    {
+                        //校验的数据
+                        el: _this.demo3.userContact,
+                        alias: 'contact',
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                        ]
+                    }
+                ]).then(info => {
+                    this.demo3.tips = info
+                }).catch(err => {
+                    this.demo3.tips = err
+                });
+            },
+            handleInput4(){
+                let _this = this;
+                ecValidate.check([
+                    {
+                        //校验的数据
+                        el: _this.demo4.userContact,
+                        //校验的规则
+                        rules: [
+                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
+                        ]
+                    },
+                ]).then(info => {
+                    this.demo4.tips = info;
+                }).catch(err => {
+                    this.demo4.tips = err;
+                });
+            },
+            handleInput5(){
+                let _this = this;
+                ecValidate.check([
+                    {
+                        //校验的数据
+                        el: _this.demo5.pwd,
+                        //校验的规则
+                        rules: [
+                            {rule: 'pwdLv'}
+                        ]
+                    },
+                ]).then(info => {
+                    //this.demo5.tips = ''
+                }).catch(lv => {
+                    this.demo5.tips = lv;
+                });
+            }
+        }
+    })
+</script>
+</html>
