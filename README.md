@@ -149,10 +149,31 @@ param **{String}** str-待处理的字符串
     ecDo.firstWordLower('ASDsAD')
  result：'aSDsAD'
 
-### 8.encryptStr
+### 8.encrypt
 
 ##### description
 
+    ecDo.encrypt(str, regIndex, ARepText = '*')
+
+description-加密字符串*
+
+param **{String}** str-待处理的字符串
+
+param **{Array}** regIndex-要加密的字符串的位置
+
+param **{String}** ARepText-加密显示的字符，默认是‘*’
+
+##### demo
+
+    console.log(`加密字符|${ecDo.encrypt('18819233362','3,7','+')}|`)
+    console.log(`加密至结束|${ecDo.encrypt('18819233362','4')}|`)
+    console.log(`加密至开始|${ecDo.encrypt('18819233362','-4')}|`)
+    console.log(`不加密字符|${ecDo.encrypt(ecDo.encrypt('18819233362','0,2','+'),'0,-2','+')}|`)
+
+
+### 8.encryptStr
+
+##### description
 
     ecDo.encryptStr(str, regIndex, ARepText = '*')
 
