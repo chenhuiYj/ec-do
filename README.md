@@ -12,7 +12,6 @@ ecDo.trim(' xx x x',1);
 
 //xxxx
 
-
 //大小写转换
 
 ecDo.trim(' asdXaaaXHwwHwwad  ')

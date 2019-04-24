@@ -177,10 +177,7 @@ let ecDo = (function () {
          * @description 字符串开始位置加密
          */
         encryptStartStr(str, length, replaceText = '*'){
-            let regText = '(\\w{' + length + '})';
-            let Reg = new RegExp(regText);
-            let replaceCount = replaceText.repeat(length);
-            return str.replace(Reg, replaceCount);
+            return this.encryptStr(str,'0,'+length,replaceText)
         },
         /**
          * @description 字符串结束位置加密
