@@ -227,7 +227,7 @@ param **{String}** ARepText-加密显示的字符，默认是‘*’
 ##### demo
 
     ecDo.encryptStartStr('18819233362','4')//从开始位置计算，前4位加密
-result：****9233362
+result：*****233362
 
 ### 11.encryptEndStr
 
@@ -246,7 +246,7 @@ param **{String}** ARepText-加密显示的字符，默认是‘*’
 ##### demo
 
     ecDo.encryptEndStr('18819233362','4')//从结尾位置计算，后4位加密
-result：1881923****
+result：188192*****
 
 ### 12.checkType
 
