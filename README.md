@@ -170,6 +170,7 @@ param **{String}** ARepText-加密显示的字符，默认是‘*’
     console.log(`加密至开始|${ecDo.encrypt('18819233362','-4')}|`)
     console.log(`不加密字符|${ecDo.encrypt(ecDo.encrypt('18819233362','0,2','+'),'0,-2','+')}|`)
 
+参考[example/encrypt.html](https://github.com/chenhuiYj/ec-do/blob/master/example/encrypt.html)
 
 ### 8.encryptStr
 
