@@ -127,7 +127,8 @@ let ecDo = (function () {
          * @description 加密字符串
          */
         encrypt(str,regIndex,ARepText = '*'){
-            let regText = '',Reg = null,_regIndex = regIndex.split(','),replaceText = ARepText;
+            let regText = '',Reg = null,_regIndex = regIndex.indexOf(',')===-1?'0,'+regIndex:regIndex,replaceText = ARepText;
+            _regIndex = _regIndex.split(',');
             _regIndex[1]=_regIndex[1]||str.length-1;
             let result='';
             str=regIndex.indexOf('-')===-1?str:str.split('').reverse().join('');
