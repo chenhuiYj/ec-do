@@ -574,11 +574,11 @@ let ecDo = (function () {
         formatDate(date, fmt = 'yyyy-MM-dd hh:mm:ss') {
             let _date = new Date(date), _fmt = fmt;
             let o = {
-                "M+": _date.getMonth() + 1,                 //月份
-                "d+": _date.getDate(),                    //日
-                "h+": _date.getHours(),                   //小时
-                "m+": _date.getMinutes(),                 //分
-                "s+": _date.getSeconds()                 //秒
+                "M+": _date.getMonth() + 1,
+                "d+": _date.getDate(),
+                "h+": _date.getHours(),
+                "m+": _date.getMinutes(),
+                "s+": _date.getSeconds()                 
             };
             if (/(y+)/.test(_fmt)) {
                 _fmt = _fmt.replace(RegExp.$1, (_date.getFullYear() + "").substr(4 - RegExp.$1.length));
