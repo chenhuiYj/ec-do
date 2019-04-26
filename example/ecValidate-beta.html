@@ -117,7 +117,6 @@
         <p class="u-tips" :class="{'success':demo6.tips==='success'}">{{demo6.tips}}</p>
     </div>
 </div>
-
 </body>
 <script src="../src/vue.min.js"></script>
 <script src="../src/ec-validate-beta.js"></script>
@@ -125,17 +124,17 @@
     //检测数据类型
 //    let tips=ecValidate.check([
 //        {
-//            el:'0.123',
+//            data:'0.123',
 //            rules:[{rule:'isCount',msg:'传进去的不是有效数值类型'}]
 //        }
 //    ]);
     let tips=ecValidate.check([
         {
-            el:'188966329662',
-            rules:[
-                {rule:'isNoNull',msg:'邮箱不能为空'},
-                {rule:'isEmail',msg:'请输入有效的邮箱格式'}
-            ]
+            data:'188966329662',
+            rules:{
+                'isNoNull':'邮箱不能为空',
+                'isEmail':'请输入有效的邮箱格式'
+            }
         }
     ]);
     console.log(tips);
@@ -177,33 +176,35 @@
                 let _tips=ecValidate.check([
                     {
                         //校验的数据
-                        el: _this.demo1.userName,
+                        data: _this.demo1.userName,
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '姓名不能为空'}
-                        ],
+                        rules: {
+                            'isNoNull':'姓名不能为空'
+                        }
                     },
                     {
                         //校验的数据
-                        el: _this.demo1.userContact,
+                        data: _this.demo1.userContact,
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile', msg: '请输入正确的联系方式'}
-                        ]
+                        rules: {
+                            'isNoNull':'联系方式不能为空'
+                        }
                     }
                 ])
                 this.demo1.tips = _tips;
             },
             handleSubmit2(){
+                debugger;
                 let _this = this;
                 let _tips=ecValidate.check([
                     {
                         //校验的数据
-                        el: _this.demo2.userContact,
+                        data: _this.demo2.userContact,
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
-                        ]
+                        rules: {
+                            'isNoNull':'联系方式不能为空',
+                            'isEmail,isMobile':'请输入正确的联系方式'
+                        }
                     }
                 ])
                 this.demo2.tips = _tips;
@@ -213,12 +214,12 @@
                 let _tips=ecValidate.check([
                     {
                         //校验的数据
-                        el: _this.demo3.pwd,
+                        data: _this.demo3.pwd,
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '密码不能为空'},
-                            {rule: 'isPwd', msg: '请输入正确的密码格式'}
-                        ],
+                        rules: {
+                            'isNoNull':'密码不能为空',
+                            'isPwd':'请输入正确的密码格式'
+                        }
                     }
                 ])
                 this.demo3.tips = _tips;
@@ -229,21 +230,21 @@
                 let _tips=ecValidate.check([
                     {
                         //校验的数据
-                        el: _this.demo4.userName,
+                        data: _this.demo4.userName,
                         alias: 'user',
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '姓名不能为空'}
-                        ],
+                        rules: {
+                            'isNoNull':'姓名不能为空'
+                        }
                     },
                     {
                         //校验的数据
-                        el: _this.demo4.userContact,
+                        data: _this.demo4.userContact,
                         alias: 'contact',
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确格式的电话号码或邮箱'}
-                        ]
+                        rules: {
+                            'isNoNull':'联系方式不能为空'
+                        }
                     }
                 ])
                 this.demo4.tips = _tips;
@@ -254,21 +255,21 @@
                 let _tips=ecValidate.checkAll([
                     {
                         //校验的数据
-                        el: _this.demo5.userName,
+                        data: _this.demo5.userName,
                         alias: 'userName',
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '姓名不能为空'}
-                        ],
+                        rules: {
+                            'isNoNull':'姓名不能为空'
+                        }
                     },
                     {
                         //校验的数据
-                        el: _this.demo5.userContact,
+                        data: _this.demo5.userContact,
                         alias: 'contact',
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
-                        ]
+                        rules: {
+                            'isNoNull':'联系方式不能为空'
+                        }
                     }
                 ])
                 this.demo5.tips = _tips;
@@ -278,11 +279,11 @@
                 let _tips=ecValidate.check([
                     {
                         //校验的数据
-                        el: _this.demo6.userContact,
+                        data: _this.demo6.userContact,
                         //校验的规则
-                        rules: [
-                            {rule: 'isNoNull', msg: '联系方式不能为空'}, {rule: 'isMobile,isEmail', msg: '请输入正确的联系方式'}
-                        ]
+                        rules: {
+                            'isNoNull':'联系方式不能为空'
+                        }
                     },
                 ])
                 this.demo6.tips = _tips;
@@ -302,10 +303,10 @@
 
             let tips=ecValidate.check([
                 {
-                    el:'@5626a',
-                    rules:[
-                        {rule:'isPwd',msg:'请输入正确的密码格式'},
-                    ]
+                    data:'@5626a',
+                    rules:{
+                        'isPwd':'请输入正确的密码格式'
+                    }
                 }
             ]);
             console.log(tips);
