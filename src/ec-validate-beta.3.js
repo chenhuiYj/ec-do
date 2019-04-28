@@ -48,68 +48,58 @@ let ecValidate = (function () {
       noLowerEnglish:/^[^a-z]+$/,
     }
     let ruleFn = {
-      /**
-           * @description 数据类型
-           * @param val
-           * @param type
-           * @param msg
-           * @return {*}
-           */
-      isType (val, type, msg) {
-        if (!isType(val, type)) {
-          return msg
+        /**
+         * @description 数据类型
+         * @param val
+         * @param type
+         * @param msg
+         * @return {*}
+         */
+        isType (val, type, msg) {
+            return !isType(val, type)?msg : undefined
+        },
+        /**
+         * @description 数据类型
+         * @param val
+         * @param type
+         * @param msg
+         */
+        noType (val, type, msg) {
+            return isType(val, type)?msg : undefined
+        },
+        /**
+         * @description 不能为空
+         * @param val
+         * @param msg
+         * @return {*}
+         */
+        isNoNull (val, msg) {
+            return !val?msg : undefined
+        },
+        /**
+         * @description 最小长度
+         * @param val
+         * @param length
+         * @param msg
+         * @return {*}
+         */
+        minLength (val, length, msg) {
+            return val.toString().length < length?msg : undefined
+        },
+        /**
+         * @description 最大长度
+         * @param val
+         * @param length
+         * @param msg
+         * @return {*}
+         */
+        maxLength (val, length, msg) {
+            return val.toString().length > length?msg : undefined
         }
-      },
-      /**
-           * @description 数据类型
-           * @param val
-           * @param type
-           * @param msg
-           */
-      noType (val, type, msg) {
-        if (isType(val, type)) {
-          return msg
-        }
-      },
-      /**
-           * @description 不能为空
-           * @param val
-           * @param msg
-           * @return {*}
-           */
-      isNoNull (val, msg) {
-        if (!val) {
-          return msg
-        }
-      },
-      /**
-           * @description 最小长度
-           * @param val
-           * @param length
-           * @param msg
-           * @return {*}
-           */
-      minLength (val, length, msg) {
-        if (val.toString().length < length) {
-          return msg
-        }
-      },
-      /**
-           * @description 最大长度
-           * @param val
-           * @param length
-           * @param msg
-           * @return {*}
-           */
-      maxLength (val, length, msg) {
-        if (val.toString().length > length) {
-          return msg
-        }
-      }
     }
     Object.keys(ruleData).forEach(key=>{
       ruleFn[key]=function(val,msg){
-        return ruleData[key].test(val)?'':msg
+        return !ruleData[key].test(val)?msg:undefined
       }
     });
     console.log(ruleFn)

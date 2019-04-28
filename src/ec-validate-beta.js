@@ -34,9 +34,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isType (val, type, msg) {
-      if (!isType(val, type)) {
-        return msg
-      }
+      return !isType(val, type)?msg : undefined
     },
     /**
          * @description 数据类型
@@ -45,9 +43,7 @@ let ecValidate = (function () {
          * @param msg
          */
     noType (val, type, msg) {
-      if (isType(val, type)) {
-        return msg
-      }
+      return isType(val, type)?msg : undefined
     },
     /**
          * @description 不能为空
@@ -56,9 +52,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isNoNull (val, msg) {
-      if (!val) {
-        return msg
-      }
+      return !val?msg : undefined
     },
     /**
          * @description 最小长度
@@ -68,9 +62,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     minLength (val, length, msg) {
-      if (val.toString().length < length) {
-        return msg
-      }
+      return val.toString().length < length?msg : undefined
     },
     /**
          * @description 最大长度
@@ -80,9 +72,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     maxLength (val, length, msg) {
-      if (val.toString().length > length) {
-        return msg
-      }
+      return val.toString().length > length?msg : undefined
     },
     /**
          * @description 是否是手机号码格式
@@ -91,9 +81,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isMobile (val, msg) {
-      if (!/^1[3-9]\d{9}$/.test(val)) {
-        return msg
-      }
+      return !/^1[3-9]\d{9}$/.test(val)?msg : undefined
     },
     /**
          * @description 是否是固定电话
@@ -102,9 +90,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isTel (val, msg) {
-      if (!/^([0-9]+-)*(\d{3}-\d{8}|\d{4}-\d{7}|\d{11})(-[0-9]+)*$/.test(val)) {
-        return msg
-      }
+      return !/^([0-9]+-)*(\d{3}-\d{8}|\d{4}-\d{7}|\d{11})(-[0-9]+)*$/.test(val)?msg : undefined
     },
     /**
          * @description 是否是邮箱
@@ -113,9 +99,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isEmail (val, msg) {
-      if (!/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-zd]{2,5}$/.test(val)) {
-        return msg
-      }
+      return !/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,5}$/.test(val)?msg : undefined
     },
     /**
          * @description 是否是号码格式（身份证）
@@ -124,9 +108,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isCard (val, msg) {
-      if (!/^\d{15}$|^\d{18}$/.test(val)) {
-        return msg
-      }
+      return !/^\d{15}$|^\d{18}$/.test(val)?msg : undefined
     },
     /**
          * @description 是否是数字格式
@@ -135,7 +117,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isNumber (val, msg) {
-      return !/^[0-9]+$/.test(val) ? msg : ''
+      return !/^[0-9]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否包含数字格式
@@ -144,7 +126,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     hasNumber (val, msg) {
-      return !/[0-9]/.test(val) ? msg : ''
+      return !/[0-9]/.test(val) ? msg : undefined
     },
     /**
          * @description 是否不包含数字格式
@@ -153,7 +135,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     noNumber (val, msg) {
-      return /^[^0-9]+$/.test(val) ? msg : ''
+      return /^[^0-9]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否是有效数值格式（多个小数点）
@@ -173,7 +155,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isChinese (val, msg) {
-      return !/^[\u4E00-\u9FA5]+$/.test(val) ? msg : ''
+      return !/^[\u4E00-\u9FA5]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否包含中文
@@ -182,7 +164,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     hasChinese (val, msg) {
-      return !/[\u4E00-\u9FA5]/.test(val) ? msg : ''
+      return !/[\u4E00-\u9FA5]/.test(val) ? msg : undefined
     },
     /**
          * @description 是否不包含
@@ -191,7 +173,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     noChinese (val, msg) {
-      return /^[^\u4E00-\u9FA5]+$/.test(val) ? msg : ''
+      return /^[^\u4E00-\u9FA5]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否是英文字母格式
@@ -200,7 +182,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isEnglish (val, msg) {
-      return !/^[a-zA-Z]+$/.test(val) ? msg : ''
+      return !/^[a-zA-Z]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否包含英文字母格式
@@ -209,7 +191,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     hasEnglish (val, msg) {
-      return !/[a-zA-Z]+/.test(val) ? msg : ''
+      return !/[a-zA-Z]+/.test(val) ? msg : undefined
     },
     /**
          * @description 是否不包含英文字母格式
@@ -218,7 +200,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     noEnglish (val, msg) {
-      return /^[^a-zA-Z]+$/.test(val) ? msg : ''
+      return /^[^a-zA-Z]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否是大写英文字母格式
@@ -227,7 +209,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isUpperEnglish (val, msg) {
-      return !/^[A-Z]+$/.test(val) ? msg : ''
+      return !/^[A-Z]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否包含大写英文字母格式
@@ -236,7 +218,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     hasUpperEnglish (val, msg) {
-      return !/[A-Z]/.test(val) ? msg : ''
+      return !/[A-Z]/.test(val) ? msg : undefined
     },
     /**
          * @description 是否不包含大写英文字母格式
@@ -245,7 +227,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     noUpperEnglish (val, msg) {
-      return /^[^A-Z]+$/.test(val) ? msg : ''
+      return /^[^A-Z]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否是小写英文字母格式
@@ -254,7 +236,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     isLowerEnglish (val, msg) {
-      return !/^[a-z]+$/.test(val) ? msg : ''
+      return !/^[a-z]+$/.test(val) ? msg : undefined
     },
     /**
          * @description 是否包含小写英文字母格式
@@ -263,7 +245,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     hasLowerEnglish (val, msg) {
-      return !/[a-z]/.test(val) ? msg : ''
+      return !/[a-z]/.test(val) ? msg : undefined
     },
     /**
          * @description 是否不包含小写英文字母格式
@@ -272,7 +254,7 @@ let ecValidate = (function () {
          * @return {*}
          */
     noLowerEnglish (val, msg) {
-      return /^[^a-z]+$/.test(val) ? msg : ''
+      return /^[^a-z]+$/.test(val) ? msg : undefined
     }
   }
   let filterFn={
