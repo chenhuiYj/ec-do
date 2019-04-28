@@ -156,7 +156,7 @@ let ecValidate = (function () {
         return /[0-9]+/.test(val) ? msg : ''
       },
       /**
-           * @description 是否是有效数值格式（两个小数点）
+           * @description 是否是有效数值格式（多个小数点）
            * @param val
            * @param msg
            * @return {*}
@@ -275,6 +275,14 @@ let ecValidate = (function () {
         return /[a-z]+/.test(val) ? msg : ''
       }
     }
+    let filterFn={
+      trim(val){
+        return val.replace(/(^\s*)|(\s*$)/g, "")
+      },
+      html(){
+        return val.replace(/<\/?[^>]*>/g, "")
+      }
+    }
     return {
       /**
            * @description 查询接口
@@ -282,25 +290,28 @@ let ecValidate = (function () {
            * @return {*}
            */
       check: function (arr) {
-        let ruleMsg; let checkRule; let _ruleSingle; let _ruleRow; let _rules; let _errorObj = {}
+        let ruleMsg; let checkRule; let _ruleSingle; let _ruleRow; let _rules; let _errorObj = {};let _data
         for (let i = 0, len = arr.length; i < len; i++) {
+          _data=arr[i].data;
           // 如果字段找不到
-          if (arr[i].data === undefined) {
+          if (_data === undefined) {
             return '字段找不到！'
+          }
+          if(arr[i].filter){
+            _data=filterFn[arr[i].filter](_data);
           }
           _rules = Object.keys(arr[i].rules)
           for (let item of _rules) {
             // 提取规则
             _ruleRow = item.split(',')
-            debugger;
             for (let n = 0; n < _ruleRow.length; n++) {
               checkRule = _ruleRow[n].split(':')
               // 如果字段为空且规则不是校验空值，执行下次循环
-              if ((arr[i].data === '' || arr[i].data === null) && checkRule[0] !== 'isNoNull') {
+              if ((_data === '' || _data === null) && checkRule[0] !== 'isNoNull') {
                 continue
               }
               _ruleSingle = checkRule.shift()
-              checkRule.unshift(arr[i].data)
+              checkRule.unshift(_data)
               checkRule.push(arr[i].rules[item])
               // 记录规则错误
               ruleMsg = ruleFn[_ruleSingle].apply(null, checkRule)
@@ -328,25 +339,29 @@ let ecValidate = (function () {
            * @return {*}
            */
       checkAll: function (arr) {
-        let ruleMsg; let checkRule; let _ruleSingle; let msgObj = {}; let _ruleRow; let _rules
+        let ruleMsg; let checkRule; let _ruleSingle; let msgObj = {}; let _ruleRow; let _rules;let _data;
         for (let i = 0, len = arr.length; i < len; i++) {
+          _data=arr[i].data;
           // 如果字段找不到
-          if (arr[i].data === undefined) {
+          if (_data === undefined) {
             return '字段找不到！'
+          }
+          if(arr[i].filter){
+            _data=filterFn[arr[i].filter](_data);
           }
           _rules = Object.keys(arr[i].rules)
           // 遍历规则
           for (let item of _rules) {
             // 提取规则
-            // 如果字段为空且规则不是校验空值，执行下次循环
             _ruleRow = item.split(',')
             for (let n = 0; n < _ruleRow.length; n++) {
               checkRule = _ruleRow[n].split(':')
-              if ((arr[i].data === '' || arr[i].data === null) && checkRule[0] !== 'isNoNull') {
+              // 如果字段为空且规则不是校验空值，执行下次循环
+              if ((_data === '' || _data === null) && checkRule[0] !== 'isNoNull') {
                 continue
               }
               _ruleSingle = checkRule.shift()
-              checkRule.unshift(arr[i].data)
+              checkRule.unshift(_data)
               checkRule.push(arr[i].rules[item])
               // 如果规则错误
               ruleMsg = ruleFn[_ruleSingle].apply(null, checkRule)

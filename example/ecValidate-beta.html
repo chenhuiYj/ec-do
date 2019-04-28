@@ -130,14 +130,23 @@
 //    ]);
     let tips=ecValidate.check([
         {
-            data:'188966329662',
+            data:'  ',
             rules:{
                 'isNoNull':'邮箱不能为空',
-                'isEmail':'请输入有效的邮箱格式'
             }
         }
     ]);
     console.log(tips);
+    let tips1=ecValidate.check([
+        {
+            data:'  ',
+            filter:'trim',
+            rules:{
+                'isNoNull':'邮箱不能为空',
+            }
+        }
+    ]);
+    console.log(tips1);
 
     new Vue({
         el: '#form-box',
@@ -295,21 +304,21 @@
 //                return !/^[\u4E00-\u9FA5]+$/.test(val) ? msg : '';
 //            })
 
-            ecValidate.extend('isPwd',function (val, msg) {
-                if (!/^[a-zA-Z0-9.]+$/.test(val)) {
-                    return msg
-                }
-            })
+            // ecValidate.extend('isPwd',function (val, msg) {
+            //     if (!/^[a-zA-Z0-9.]+$/.test(val)) {
+            //         return msg
+            //     }
+            // })
 
-            let tips=ecValidate.check([
-                {
-                    data:'@5626a',
-                    rules:{
-                        'isPwd':'请输入正确的密码格式'
-                    }
-                }
-            ]);
-            console.log(tips);
+            // let tips=ecValidate.check([
+            //     {
+            //         data:'@5626a',
+            //         rules:{
+            //             'isPwd':'请输入正确的密码格式'
+            //         }
+            //     }
+            // ]);
+            // console.log(tips);
         }
     })
 </script>
