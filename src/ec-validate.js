@@ -362,7 +362,6 @@ let ecValidate=(function () {
                 if (arr[i].el === undefined) {
                     return '字段找不到！'
                 }
-
                 //遍历规则
                 for (let j = 0; j < arr[i].rules.length; j++) {
                     //提取规则

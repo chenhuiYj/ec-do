@@ -102,7 +102,6 @@ let ecValidate = (function () {
         return !ruleData[key].test(val)?msg:undefined
       }
     });
-    console.log(ruleFn)
     let filterFn={
       trim(val){
         return val.replace(/(^\s*)|(\s*$)/g, "")
