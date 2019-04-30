@@ -126,8 +126,8 @@ let ecDo = (function () {
         /**
          * @description 加密字符串
          */
-        encrypt(str,regIndex,ARepText = '*'){
-            let regText = '',Reg = null,_regIndex = regIndex.indexOf(',')===-1?'0,'+regIndex:regIndex,replaceText = ARepText;
+        encrypt(str,regIndex,repText = '*'){
+            let regText = '',Reg = null,_regIndex = regIndex.indexOf(',')===-1?'0,'+regIndex:regIndex,replaceText = repText;
             _regIndex = _regIndex.split(',');
             _regIndex[1]=_regIndex[1]||str.length-1;
             let result='';
@@ -135,7 +135,7 @@ let ecDo = (function () {
             _regIndex = _regIndex.map(item => Math.abs(+item));
             for(let i=0;i<str.length;i++){
                 if(i>=_regIndex[0]&&i<=_regIndex[1]){
-                    result+=ARepText;
+                    result+=repText;
                 }
                 else{
                     result+=str[i];
@@ -147,11 +147,11 @@ let ecDo = (function () {
         /**
          * @description 加密字符串
          */
-        encryptStr(str, regIndex, ARepText = '*') {
+        encryptStr(str, regIndex, repText = '*') {
             let regText = '',
                 Reg = null,
                 _regIndex = regIndex.split(','),
-                replaceText = ARepText;
+                replaceText = repText;
             _regIndex = _regIndex.map(item => +item);
             regText = '(\\w{' + _regIndex[0] + '})\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '}';
             Reg = new RegExp(regText);
@@ -161,11 +161,11 @@ let ecDo = (function () {
         /**
          * @description 不加密字符串
          */
-        encryptUnStr(str, regIndex, ARepText = '*') {
+        encryptUnStr(str, regIndex, repText = '*') {
             let regText = '',
                 Reg = null,
                 _regIndex = regIndex.split(','),
-                replaceText = ARepText;
+                replaceText = repText;
             _regIndex = _regIndex.map(item => +item);
             regText = '(\\w{' + _regIndex[0] + '})(\\w{' + (1 + _regIndex[1] - _regIndex[0]) + '})(\\w{' + (str.length - _regIndex[1] - 1) + '})';
             Reg = new RegExp(regText);
@@ -411,22 +411,12 @@ let ecDo = (function () {
 
         },
         /**
-         * @description 降序返回数组（字符串）每个元素的出现次数
+         * @description 返回数组（字符串）每个元素的出现次数
          * @param arr
          * @param item
          * @return {Array|Number}
          */
         count(arr, item) {
-            //是否只返回一个元素的次数
-            if (item) {
-                let num = 0;
-                for (let i = 0, len = obj.length; i < len; i++) {
-                    if (item === obj[i]) {
-                        num++;
-                    }
-                }
-                return num;
-            }
             let obj = {}, k, arr1 = []
             //记录每一元素出现的次数
             for (let i = 0, len = arr.length; i < len; i++) {
@@ -441,7 +431,7 @@ let ecDo = (function () {
             for (let o in obj) {
                 arr1.push({el: o, count: obj[o]});
             }
-            return arr1;
+            return item?obj[item]:arr1;
         },
         /**
          * @description 删除值为'val'的数组元素
@@ -692,16 +682,16 @@ let ecDo = (function () {
         /**
          * @description 清除对象中值为空的属性
          * @param obj
-         * @param keepValues
+         * @param clearValues
          * @return {{}}
          */
-        clearKeys(obj, keepValues = [0, false]) {
-            keepValues.forEach((item, index) => {
-                keepValues[index] = Number.isNaN(item) ? 'NaN' : item
+        clearKeys(obj, clearValues = [null, undefined, '']) {
+            clearValues.forEach((item, index) => {
+                clearValues[index] = Number.isNaN(item) ? 'NaN' : item
             });
             let _newPar = {};
             for (let key in obj) {
-                if (checkValue(obj[key], keepValues) || (obj[key] && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '')) {
+                if (!checkValue(obj[key], clearValues)) {
                     _newPar[key] = obj[key];
                 }
             }
