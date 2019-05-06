@@ -999,13 +999,13 @@ result："欠人民币壹仟陆佰玖拾叁元整"
 
 ##### description
 
-    ecDo.clearKeys(obj)
+    ecDo.clearKeys(obj,clearValues)
 
 description-情动对象里面值为null或者underfind的的属性underfind的属性
 
 param **{Object}** obj-待处理对象
 
-param **{Array}** keepValues-保留的值  默认[0, false]
+param **{Array}** clearValues-待清空的值  默认null, undefined, ''
 
 ##### demo
 
@@ -1013,7 +1013,7 @@ param **{Array}** keepValues-保留的值  默认[0, false]
     result：{c: "010", d: 123}
 
     ecDo.clearKeys({a:'',b:0,c:11,d:false},[0,''])
-    result：{a: "", b: 0, c: 11}
+    result：{c:11,d:false}
 
 参考：example/clearKeys.html
 
@@ -1027,7 +1027,7 @@ description-设置对象里面值为null或者underfind的属性的默认值
 
 param **{Object}** obj-待处理对象
 
-param **{Array}** fillValues-设置的值  默认[null, undefined, '']
+param **{Array}** fillValues-待设置的值  默认[null, undefined, '']
 
 param **{String}** val-默认值  默认'-'
 
