@@ -651,7 +651,7 @@ let ecDo = (function () {
         /**
          * @description 现金额大写转换函数
          * @param n
-         * @return {string}
+         * @return {String}
          */
         upDigit(n) {
             let fraction = ['角', '分', '厘'];
