@@ -423,7 +423,7 @@ result:Title
 
      ecDo.filterEmjoy(str, type)
 
-description-过滤字符串的大写字母
+description-过滤字符串的表情符号
 
 param **{String}** str-待处理的字符串
 
