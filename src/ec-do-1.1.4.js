@@ -134,7 +134,7 @@ var ecDo = {
             case 'tel':
                 return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
             case 'number':
-                return /^[0-9]$/.test(str);
+                return /^[0-9]+$/.test(str);  //puddlejumper26
             case 'english':
                 return /^[a-zA-Z]+$/.test(str);
             case 'text':
@@ -154,10 +154,10 @@ var ecDo = {
     //result：3(强度等级为3)
     checkPwd: function (str) {
         var nowLv = 0;
-        if (/[0-9]/.test(str)) {
+        if (/[0-9]+/.test(str)) {  //puddlejumper26
             nowLv++
-        }
-        if (/[a-z]/.test(str)) {
+        } 
+        if (/[a-z]+/.test(str)) {  //puddlejumper26
             nowLv++
         }
         if (/[A-Z]/.test(str)) {
