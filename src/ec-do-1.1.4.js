@@ -293,6 +293,75 @@ var ecDo = {
         })
         return this.trim(result, 4)
     },
+ 
+    //字符串变成数组数字
+    //stringToArray('123')
+    // result: [1,2,3]
+    stringToArray: function (str) {
+        var arr = str.split('');
+        return JSON.parse('[' + String(arr) + ']');
+    },
+
+//  **************** 20190825 puddlejumper26  ********
+    
+//数字千位分隔符
+    //‘1234567’ -> '1,234,567'
+    //
+    //注意这里仍旧是字符串
+    //
+    // 弄出最后一个逗号 (?=\d{3}$)
+    // 弄出所有逗号  (?=(\d{3})+$)
+    //var result = "12345678".replace(/(?=(\d{3})+$)/g, ',')
+    // => "12,345,678" 但是这时候会出现问题，如果数字位数为3的倍数，那么所有的数字前会有一个逗号
+    // 如: ",123,165,546"
+
+    stringThousand:function(str){
+        var regex = /(?!^)(?=(\d{3})+$)/g;
+        return str.replace(regex,',');
+    },
+
+    //(?=l)，表示 "l" 字符前面的位置
+    // var result = "hello".replace(/(?=l)/g, '#');
+    // console.log(result); "he#l#lo"
+    //(?!p) 就是 (?=p) 的反面意思
+    //var result = "hello".replace(/(?!l)/g, '#');
+    // console.log(result); "#h#ell#o#"
+
+
+//多个数字千位分隔
+    //"12345678 123456789"
+    //"12,345,678 123,456,789"
+
+    multiStringThousand:function(str){
+        var regex = /(?!\b)(?=(\d{3})+\b)/g;
+        return str.replace(regex,',');
+    },
+
+    //(?!\b) 要求当前是一个位置，但不是 \b 前面的位置,其实就是 \B
+
+
+
+
+
+
+//**************************** Number 操作****************************/
+
+//货币格式化
+    //currencyFormat(1888,'$') -> '$ 1,888.00'
+    //currencyFormat(18880,'￥') -> '￥ 1,8880.00'
+    currencyFormat:function(num,cur){
+        if (cur === '$' || cur === '€'){
+            return num.toFixed(2).replace(/\B(?=(\d{3})+\b)/g, ",").replace(/^/,cur+' ');
+        } else if(cur === '￥'){
+            return num.toFixed(2).replace(/\B(?=(\d{4})+\b)/g, ",").replace(/^/, cur + ' ');
+        } else {return 'Please input the correct currency unit!'}
+    },
+
+
+
+//  **************** END *** 20190825 puddlejumper26  ***  END *****    
+    
+ 
 
 //****************************数组*****************************/
 
