@@ -845,7 +845,6 @@ let ecDo = (function () {
                     return arr2[1];
                 }
             }
-            return '';
         },
         /**
          * @description 删除cookie
