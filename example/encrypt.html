@@ -15,7 +15,7 @@
     console.log(`---------------------------`)
 
     console.log(`加密字符|${ecDo.encrypt('18819233362','3,7','+')}|`)
-    console.log(`不加密字符|${ecDo.encrypt(ecDo.encrypt('18819233362','0,2','+'),'0,-2','+')}|`)
+    console.log(`不加密字符|${ecDo.encrypt('18819233362',['0,2','0,-2'],'+')}|`)
     console.log(`加密开始|${ecDo.encrypt('18819233362','4')}|`)
     console.log(`加密结束|${ecDo.encrypt('18819233362','-4')}|`)
 </script>

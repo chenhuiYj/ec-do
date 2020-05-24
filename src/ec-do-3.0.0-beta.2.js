@@ -126,23 +126,24 @@ let ecDo = (function () {
         /**
          * @description 加密字符串
          */
-        encrypt(str,regIndex,repText = '*'){
-            let _regIndex = regIndex.indexOf(',')===-1?'0,'+regIndex:regIndex;
-            _regIndex = _regIndex.split(',');
-            _regIndex[1]=_regIndex[1]||str.length-1;
-            let result='';
-            str=regIndex.indexOf('-')===-1?str:str.split('').reverse().join('');
-            _regIndex = _regIndex.map(item => Math.abs(+item));
-            for(let i=0;i<str.length;i++){
-                if(i>=_regIndex[0]&&i<=_regIndex[1]){
-                    result+=repText;
+        encrypt(str,reg,repText = '*'){
+            let result=[...str];
+            let _regIndex='';
+            let regIndex=reg.constructor===Array?reg:[reg];
+            for(let item of  regIndex){
+                _regIndex = item.indexOf(',')===-1?'0,'+item:item;
+                _regIndex = _regIndex.split(',');
+                _regIndex[1]=_regIndex[1]||result.length-1;
+                result=item.indexOf('-')===-1?result:result.reverse();
+                _regIndex = _regIndex.map(item => Math.abs(+item));
+                for(let i=0;i<result.length;i++){
+                    if(i>=_regIndex[0]&&i<=_regIndex[1]){
+                        result[i]=repText;
+                    }
                 }
-                else{
-                    result+=str[i];
-                }
+                result=item.indexOf('-')===-1?result:result.reverse();
             }
-            result=regIndex.indexOf('-')===-1?result:result.split('').reverse().join('');
-            return result;
+            return result.join('');
         },
         /**
          * @description 加密字符串
